@@ -16,7 +16,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from arches.settings import *
+from arches_references.settings import *
 import arches
 import os
 
@@ -28,8 +28,7 @@ except ImportError:  # unable to import prior to installing requirements
 PACKAGE_NAME = "arches_references"
 APP_NAME = "arches_references"
 
-APP_ROOT = os.path.dirname(__file__)
-TEST_ROOT = os.path.normpath(os.path.join(ROOT_DIR, "..", "tests"))
+TEST_ROOT = os.path.dirname(__file__)
 
 ROOT_URLCONF = "arches_references.urls"
 
@@ -53,24 +52,6 @@ BUSINESS_DATA_FILES = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
-
-DATABASES = {
-    "default": {
-        "ATOMIC_REQUESTS": False,
-        "AUTOCOMMIT": True,
-        "CONN_MAX_AGE": 0,
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "HOST": "localhost",
-        "NAME": "arches_references",
-        "OPTIONS": {},
-        "PASSWORD": "postgis",
-        "PORT": "5432",
-        "POSTGIS_TEMPLATE": "template_postgis",
-        "TEST": {"CHARSET": None, "COLLATION": None, "MIRROR": None, "NAME": None},
-        "TIME_ZONE": None,
-        "USER": "postgres",
-    }
-}
 
 CACHES = {
     "default": {

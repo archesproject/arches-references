@@ -24,7 +24,7 @@ from arches_references.models import (
 )
 
 # these tests can be run from the command line via
-# python manage.py test arches_references.tests.view_tests --settings="tests.test_settings"
+# python manage.py test tests.test_views --settings="tests.test_settings"
 
 
 SYNCED_PK = uuid.uuid4()
@@ -148,7 +148,11 @@ class ListTests(TestCase):
             ).save()
 
         cls.graph = Graph.new(name="My Graph")
-        cls.future_graph = cls.graph.create_editable_future_graph()
+        if hasattr(cls.graph, "create_editable_future_graph"):
+            cls.future_graph = cls.graph.create_editable_future_graph()
+        else:
+            # TODO: remove when dropping support for 7.x
+            cls.future_graph = cls.graph
         admin = User.objects.get(username="admin")
         cls.graph.publish(user=admin)
 

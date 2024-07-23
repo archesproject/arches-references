@@ -8,26 +8,24 @@ from django.test.utils import captured_stdout
 
 from arches_references.models import List
 
-# Change TEST_ROOT context for just Controlled Lists
-from arches.settings import ROOT_DIR
-
-TEST_ROOT = os.path.normpath(os.path.join(ROOT_DIR, "controlledlists/tests"))
+from .test_settings import TEST_ROOT
 
 
 # these tests can be run from the command line via
-# python manage.py test arches_references.arches_references.tests.cli_tests --settings="tests.test_settings"
+# python manage.py test tests.cli_tests --settings="tests.test_settings"
 
 
 class ListExportPackageTests(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        from arches_references.tests.view_tests import ListTests
+        from tests.test_views import ListTests
 
         return ListTests.setUpTestData()
 
     def test_export_controlled_list(self):
-        file_path = os.path.join(TEST_ROOT, "controlled_lists.xlsx")
+        export_file_name = "export_controlled_lists.xlsx"
+        file_path = os.path.join(TEST_ROOT, export_file_name)
         self.addCleanup(os.remove, file_path)
         output = io.StringIO()
         # packages command does not yet fully avoid print()
@@ -36,6 +34,7 @@ class ListExportPackageTests(TestCase):
                 "packages",
                 operation="export_controlled_lists",
                 dest_dir=TEST_ROOT,
+                file_name=export_file_name,
                 stdout=output,
             )
         self.assertTrue(os.path.exists(file_path))
