@@ -25,11 +25,13 @@ try:
 except ImportError:  # unable to import prior to installing requirements
     pass
 
-PACKAGE_NAME = "arches"
-TEST_ROOT = os.path.normpath(os.path.join(ROOT_DIR, "..", "tests"))
-APP_ROOT = ""
+PACKAGE_NAME = "arches_references"
+APP_NAME = "arches_references"
 
-ARCHES_APPLICATIONS = ()
+APP_ROOT = os.path.dirname(__file__)
+TEST_ROOT = os.path.normpath(os.path.join(ROOT_DIR, "..", "tests"))
+
+ROOT_URLCONF = "arches_references.urls"
 
 MIN_ARCHES_VERSION = arches.__version__
 MAX_ARCHES_VERSION = arches.__version__
@@ -52,6 +54,24 @@ BUSINESS_DATA_FILES = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+DATABASES = {
+    "default": {
+        "ATOMIC_REQUESTS": False,
+        "AUTOCOMMIT": True,
+        "CONN_MAX_AGE": 0,
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "HOST": "localhost",
+        "NAME": "arches_references",
+        "OPTIONS": {},
+        "PASSWORD": "postgis",
+        "PORT": "5432",
+        "POSTGIS_TEMPLATE": "template_postgis",
+        "TEST": {"CHARSET": None, "COLLATION": None, "MIRROR": None, "NAME": None},
+        "TIME_ZONE": None,
+        "USER": "postgres",
+    }
+}
+
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.dummy.DummyCache",
@@ -70,8 +90,6 @@ TEST_RUNNER = "tests.base_test.ArchesTestRunner"
 SILENCED_SYSTEM_CHECKS.append(
     "arches.W001"
 )  # Cache backend does not support rate-limiting
-
-FILE_TYPE_CHECKING = "lenient"
 
 # could add Chrome, PhantomJS etc... here
 LOCAL_BROWSERS = []  # ['Firefox']
