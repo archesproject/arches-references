@@ -1,11 +1,11 @@
 from arches.app.datatypes.datatypes import DataTypeFactory
 from arches.app.models.tile import Tile
-from tests.base_test import ArchesTestCase
+from django.test import TestCase
 
 # these tests can be run from the command line via
-# python manage.py test arches_references.tests.reference_datatype_tests --settings="tests.test_settings"
+# python manage.py test tests.reference_datatype_tests --settings="tests.test_settings"
 
-class ReferenceDataTypeTests(ArchesTestCase):
+class ReferenceDataTypeTests(TestCase):
     def test_validate(self):
         reference = DataTypeFactory().get_instance("reference")
 
