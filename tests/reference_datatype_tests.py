@@ -5,6 +5,7 @@ from django.test import TestCase
 # these tests can be run from the command line via
 # python manage.py test tests.reference_datatype_tests --settings="tests.test_settings"
 
+
 class ReferenceDataTypeTests(TestCase):
     def test_validate(self):
         reference = DataTypeFactory().get_instance("reference")
