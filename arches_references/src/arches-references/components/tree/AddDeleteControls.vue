@@ -24,7 +24,7 @@ import {
 import { dataIsItem, listAsNode } from "@/arches-references/utils.ts";
 
 import type { Ref } from "vue";
-import type { TreeSelectionKeys } from "primevue/tree/Tree";
+import type { TreeSelectionKeys } from "primevue/tree";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
     ControlledList,

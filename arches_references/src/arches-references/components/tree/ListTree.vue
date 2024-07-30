@@ -14,8 +14,11 @@ import ListTreeControls from "@/arches-references/components/tree/ListTreeContro
 import TreeRow from "@/arches-references/components/tree/TreeRow.vue";
 
 import type { ComponentPublicInstance, Ref } from "vue";
-import type { TreePassThroughMethodOptions } from "primevue/tree";
-import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree/Tree";
+import type {
+    TreeExpandedKeys,
+    TreePassThroughMethodOptions,
+    TreeSelectionKeys,
+} from "primevue/tree";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
     DisplayedRowRefAndSetter,

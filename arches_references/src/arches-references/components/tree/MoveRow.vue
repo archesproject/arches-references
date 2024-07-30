@@ -23,7 +23,7 @@ import {
 } from "@/arches-references/utils.ts";
 
 import type { Ref } from "vue";
-import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree/Tree";
+import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
     ControlledList,

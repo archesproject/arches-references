@@ -3,7 +3,7 @@ import ActionBanner from "@/arches-references/components/tree/ActionBanner.vue";
 import AddDeleteControls from "@/arches-references/components/tree/AddDeleteControls.vue";
 import PresentationControls from "@/arches-references/components/tree/PresentationControls.vue";
 
-import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree/Tree";
+import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree";
 import type {
     NewControlledList,
     TreeNodeWithRequiredKey as TreeNode,
