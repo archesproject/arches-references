@@ -8,9 +8,12 @@ import Button from "primevue/button";
 import {
     itemKey,
     ALT_LABEL,
+    CONTRAST,
     NOTE_CHOICES,
     PREF_LABEL,
+    PRIMARY,
 } from "@/arches-references/constants.ts";
+import { shouldUseContrast } from "@/arches-references/utils.ts";
 
 import type { Ref } from "vue";
 import type { Language } from "arches/arches/app/src/arches/types";
@@ -98,6 +101,7 @@ const addValue = () => {
         class="add-value"
         raised
         icon="fa fa-plus-circle"
+        :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
         :label="buttonLabel"
         @click="addValue"
     />

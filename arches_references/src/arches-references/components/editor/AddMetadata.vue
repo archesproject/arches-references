@@ -5,7 +5,8 @@ import { useGettext } from "vue3-gettext";
 
 import Button from "primevue/button";
 
-import { itemKey } from "@/arches-references/constants.ts";
+import { itemKey, CONTRAST, PRIMARY } from "@/arches-references/constants.ts";
+import { shouldUseContrast } from "@/arches-references/utils.ts";
 
 import type { Ref } from "vue";
 import type {
@@ -66,6 +67,7 @@ const addMetadata = () => {
         class="add-metadata"
         raised
         icon="fa fa-plus-circle"
+        :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
         :label="$gettext('Add metadata')"
         @click="addMetadata"
     />

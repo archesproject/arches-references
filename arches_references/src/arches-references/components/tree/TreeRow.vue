@@ -14,8 +14,10 @@ import {
     upsertValue,
 } from "@/arches-references/api.ts";
 import {
+    CONTRAST,
     DEFAULT_ERROR_TOAST_LIFE,
     ERROR,
+    SECONDARY,
     displayedRowKey,
     selectedLanguageKey,
 } from "@/arches-references/constants.ts";
@@ -26,6 +28,7 @@ import {
     listAsNode,
     nodeIsList,
     reorderItems,
+    shouldUseContrast,
 } from "@/arches-references/utils.ts";
 import MoveRow from "@/arches-references/components/tree/MoveRow.vue";
 
@@ -299,6 +302,7 @@ const acceptNewListShortcutEntry = async () => {
                 class="move-target"
                 type="button"
                 raised
+                :severity="shouldUseContrast() ? CONTRAST : SECONDARY"
                 :label="
                     $gettext(
                         'Move %{item} here',

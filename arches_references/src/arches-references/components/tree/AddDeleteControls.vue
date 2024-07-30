@@ -14,14 +14,20 @@ import {
     fetchLists,
 } from "@/arches-references/api.ts";
 import {
+    CONTRAST,
     DANGER,
     DEFAULT_ERROR_TOAST_LIFE,
     ERROR,
+    PRIMARY,
     SECONDARY,
     displayedRowKey,
     selectedLanguageKey,
 } from "@/arches-references/constants.ts";
-import { dataIsItem, listAsNode } from "@/arches-references/utils.ts";
+import {
+    dataIsItem,
+    listAsNode,
+    shouldUseContrast,
+} from "@/arches-references/utils.ts";
 
 import type { Ref } from "vue";
 import type { TreeSelectionKeys } from "primevue/tree";
@@ -196,12 +202,12 @@ const confirmDelete = () => {
         icon: "fa fa-exclamation-triangle",
         acceptProps: {
             label: $gettext("Delete"),
-            severity: DANGER,
+            severity: shouldUseContrast() ? CONTRAST : DANGER,
             outlined: true,
         },
         rejectProps: {
             label: $gettext("Cancel"),
-            severity: SECONDARY,
+            severity: shouldUseContrast() ? CONTRAST : SECONDARY,
             outlined: true,
         },
         accept: async () => {
@@ -250,6 +256,7 @@ await fetchListsAndPopulateTree();
         class="list-button"
         :label="$gettext('Add New List')"
         raised
+        :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
         @click="createList"
     />
     <ConfirmDialog
@@ -281,7 +288,7 @@ await fetchListsAndPopulateTree();
         :menu-button-props="{ 'aria-label': $gettext('Delete multiple') }"
         raised
         :disabled="!toDelete.length"
-        :severity="DANGER"
+        :severity="shouldUseContrast() ? CONTRAST : DANGER"
         :model="deleteSelectOptions"
         :pt="{
             pcButton: {
