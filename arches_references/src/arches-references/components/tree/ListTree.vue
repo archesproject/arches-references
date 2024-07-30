@@ -16,13 +16,13 @@ import TreeRow from "@/arches-references/components/tree/TreeRow.vue";
 import type { ComponentPublicInstance, Ref } from "vue";
 import type { TreePassThroughMethodOptions } from "primevue/tree";
 import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree/Tree";
-import type { TreeNode } from "primevue/treenode";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
     DisplayedRowRefAndSetter,
     NewControlledList,
     NewControlledListItem,
-} from "@/controlled-lists/types";
+    TreeNodeWithRequiredKey as TreeNode,
+} from "@/arches-references/types";
 
 const { $gettext } = useGettext();
 
@@ -76,7 +76,7 @@ const expandNode = (node: TreeNode, newExpandedKeys: TreeExpandedKeys) => {
         newExpandedKeys[node.key as string] = true;
 
         for (const child of node.children) {
-            expandNode(child, newExpandedKeys);
+            expandNode(child as TreeNode, newExpandedKeys);
         }
     }
 };

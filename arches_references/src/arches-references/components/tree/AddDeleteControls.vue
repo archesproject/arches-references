@@ -25,13 +25,13 @@ import { dataIsItem, listAsNode } from "@/arches-references/utils.ts";
 
 import type { Ref } from "vue";
 import type { TreeSelectionKeys } from "primevue/tree/Tree";
-import type { TreeNode } from "primevue/treenode";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
     ControlledList,
     ControlledListItem,
     DisplayedRowRefAndSetter,
     NewControlledList,
+    TreeNodeWithRequiredKey as TreeNode,
 } from "@/arches-references/types";
 
 const { displayedRow, setDisplayedRow } = inject(

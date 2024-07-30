@@ -1,4 +1,5 @@
 import type { Ref } from "vue";
+import type { TreeNode } from "primevue/treenode";
 
 export interface Value {
     id: string;
@@ -142,4 +143,10 @@ export interface FileContentProps {
     badgeValue: string;
     previewWidth: number;
     templates: null;
+}
+
+// PrimeVue 4 extensions
+// https://github.com/primefaces/primevue/pull/6011
+export interface TreeNodeWithRequiredKey extends TreeNode {
+    key: string;
 }

@@ -1,11 +1,11 @@
 import arches from "arches";
 
-import type { TreeNode } from "primevue/treenode";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
     ControlledList,
     ControlledListItem,
     Selectable,
+    TreeNodeWithRequiredKey as TreeNode,
 } from "@/arches-references/types";
 
 // Duck-typing helpers
