@@ -296,6 +296,7 @@ const acceptNewListShortcutEntry = async () => {
             <!-- turn off escaping: vue template sanitizes -->
             <Button
                 v-else-if="showMoveHereButton(node.key)"
+                class="move-target"
                 type="button"
                 raised
                 :label="
@@ -310,7 +311,6 @@ const acceptNewListShortcutEntry = async () => {
                         true,
                     )
                 "
-                :style="{ height: '2.5rem' }"
                 @click="setParent(node)"
             />
         </div>
@@ -340,5 +340,15 @@ const acceptNewListShortcutEntry = async () => {
     margin-left: 1rem;
     width: 100%;
     justify-content: space-between;
+}
+
+.move-target {
+    height: 2.5rem;
+    font-size: unset;
+}
+
+:deep(input) {
+    height: 3rem;
+    font-size: inherit;
 }
 </style>

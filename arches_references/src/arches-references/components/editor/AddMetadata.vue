@@ -5,7 +5,6 @@ import { useGettext } from "vue3-gettext";
 
 import Button from "primevue/button";
 
-import { ARCHES_CHROME_BLUE } from "@/arches-references/theme.ts";
 import { itemKey } from "@/arches-references/constants.ts";
 
 import type { Ref } from "vue";
@@ -82,13 +81,9 @@ const addMetadata = () => {
 .add-metadata {
     display: flex;
     height: 3rem;
-    color: v-bind(ARCHES_CHROME_BLUE);
-    background-color: #f3fbfd;
     margin-top: 1rem;
 }
-.add-metadata > i,
-.add-metadata > span {
-    align-self: center;
+.add-metadata > i {
     font-size: small;
 }
 .add-metadata-text {

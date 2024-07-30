@@ -263,7 +263,6 @@ const focusInput = () => {
             edit-mode="row"
             striped-rows
             scrollable
-            :style="{ fontSize: 'small' }"
             @row-edit-init="setRowFocus"
             @row-edit-save="saveValue"
         >
@@ -282,13 +281,7 @@ const focusInput = () => {
                         option-value="type"
                         :pt="{
                             root: { style: { width: '90%' } },
-                            input: {
-                                style: {
-                                    fontFamily: 'inherit',
-                                    fontSize: 'small',
-                                },
-                            },
-                            panel: { style: { fontSize: 'small' } },
+                            optionLabel: { style: { fontSize: 'small' } },
                         }"
                     />
                 </template>
@@ -352,15 +345,7 @@ const focusInput = () => {
                             (lang: Language) => `${lang.name} (${lang.code})`
                         "
                         option-value="code"
-                        :pt="{
-                            input: {
-                                style: {
-                                    fontFamily: 'inherit',
-                                    fontSize: 'small',
-                                },
-                            },
-                            panel: { style: { fontSize: 'small' } },
-                        }"
+                        :pt="{ optionLabel: { style: { fontSize: 'small' } } }"
                     />
                 </template>
                 <template #body="slotProps">
@@ -452,6 +437,11 @@ p {
 
 :deep(td) {
     padding: 0.75rem;
+}
+
+:deep(td > input) {
+    height: 3rem;
+    font-size: inherit;
 }
 
 :deep(td > input, textarea) {
