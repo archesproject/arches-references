@@ -4,7 +4,10 @@ import { useGettext } from "vue3-gettext";
 
 import Button from "primevue/button";
 
-import { selectedLanguageKey, WARN } from "@/arches-references/constants.ts";
+import {
+    selectedLanguageKey,
+    SECONDARY,
+} from "@/arches-references/constants.ts";
 import { bestLabel } from "@/arches-references/utils.ts";
 
 import type { Ref } from "vue";
@@ -54,7 +57,7 @@ const abandonMove = () => {
             ref="abandonMoveRef"
             type="button"
             class="banner-button"
-            :severity="WARN"
+            :severity="SECONDARY"
             :label="$gettext('Abandon')"
             @click="abandonMove"
         />
@@ -67,7 +70,7 @@ const abandonMove = () => {
         <Button
             type="button"
             class="banner-button"
-            :severity="WARN"
+            :severity="SECONDARY"
             :label="$gettext('Abandon')"
             @click="
                 isMultiSelecting = false;
@@ -79,7 +82,7 @@ const abandonMove = () => {
 
 <style scoped>
 .action-banner {
-    background: yellow;
+    background: var(--p-amber-300);
     font-weight: 800;
     height: 5rem;
     font-size: small;
