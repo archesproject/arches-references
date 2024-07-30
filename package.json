@@ -29,7 +29,6 @@
         "moment-timezone": "^0.5.45",
         "nomnom": "npm:@gerhobbelt/nomnom",
         "rimraf": "^5.0.7", 
-        "underscore": "^1.13.6",
-        "primevue": "3.53.0"
+        "underscore": "^1.13.6"
     }
 }
