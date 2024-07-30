@@ -1,7 +1,7 @@
 *.pyc
 *.log
 node_modules
-*.coverage
+coverage/
 arches_references/logs
 arches_references/export_deliverables
 arches_references/cantaloupe/*
