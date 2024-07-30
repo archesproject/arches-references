@@ -2,7 +2,6 @@
 import { computed, inject } from "vue";
 import { useGettext } from "vue3-gettext";
 
-import { ARCHES_CHROME_BLUE } from "@/arches-references/theme.ts";
 import {
     displayedRowKey,
     selectedLanguageKey,
@@ -59,7 +58,7 @@ const heading = computed(() => {
 .header {
     display: flex;
     align-items: center;
-    background: v-bind(ARCHES_CHROME_BLUE);
+    background: var(--p-sky-950);
 }
 
 i {
