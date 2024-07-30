@@ -14,6 +14,7 @@ import ListTreeControls from "@/arches-references/components/tree/ListTreeContro
 import TreeRow from "@/arches-references/components/tree/TreeRow.vue";
 
 import type { ComponentPublicInstance, Ref } from "vue";
+import type { TreePassThroughMethodOptions } from "primevue/tree";
 import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree/Tree";
 import type { TreeNode } from "primevue/treenode";
 import type { Language } from "arches/arches/app/src/arches/types";
@@ -21,7 +22,7 @@ import type {
     DisplayedRowRefAndSetter,
     NewControlledList,
     NewControlledListItem,
-} from "@/arches-references/types";
+} from "@/controlled-lists/types";
 
 const { $gettext } = useGettext();
 
@@ -104,7 +105,7 @@ const expandPathsToFilterResults = (newFilterValue: string) => {
 const getInputElement = () => {
     if (treeDOMRef.value !== null) {
         return treeDOMRef.value.$el.ownerDocument.getElementsByClassName(
-            "p-tree-filter",
+            "p-tree-filter-input",
         )[0] as HTMLInputElement;
     }
 };
@@ -153,6 +154,14 @@ const filterCallbackWrapped = computed(() => {
         },
     };
 });
+
+// Factored out because of vue-tsc problems inside the pt object
+const ptNodeContent = ({ instance }: TreePassThroughMethodOptions) => {
+    if (instance.$el && instance.node.key === movingItem.value?.key) {
+        instance.$el.classList.add("is-adjusting-parent");
+    }
+    return { style: { height: "4rem" } };
+};
 </script>
 
 <template>
@@ -200,12 +209,7 @@ const filterCallbackWrapped = computed(() => {
                 },
             },
             container: { style: { fontSize: '1.4rem' } },
-            content: ({ instance }) => {
-                if (instance.$el && instance.node.key === movingItem?.key) {
-                    instance.$el.classList.add('is-adjusting-parent');
-                }
-                return { style: { height: '4rem' } };
-            },
+            nodeContent: ptNodeContent,
             label: {
                 style: {
                     textWrap: 'nowrap',
