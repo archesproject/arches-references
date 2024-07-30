@@ -5,6 +5,7 @@ from http import HTTPStatus
 
 from django.contrib.auth.models import Group, User
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.urls import reverse
 from guardian.shortcuts import assign_perm
 
@@ -391,7 +392,8 @@ class ListTests(TestCase):
             )
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST, response.content)
 
-    def test_update_uri_blank(self):
+    @override_settings(PUBLIC_SERVER_ADDRESS="public/", FORCE_SCRIPT_NAME="script")
+    def test_generate_uri(self):
         self.client.force_login(self.admin)
         item = self.list1.list_items.first()
 
@@ -402,7 +404,9 @@ class ListTests(TestCase):
         )
         self.assertEqual(response.status_code, HTTPStatus.NO_CONTENT, response.content)
         item.refresh_from_db()
-        self.assertIsNone(item.uri)
+        self.assertEqual(
+            item.uri, f"public/script/plugins/controlled-list-manager/item/{item.pk}"
+        )
 
     def test_delete_list_item(self):
         self.client.force_login(self.admin)
