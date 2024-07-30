@@ -19,12 +19,12 @@ import type {
     TreePassThroughMethodOptions,
     TreeSelectionKeys,
 } from "primevue/tree";
+import type { TreeNode } from "primevue/treenode";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
     DisplayedRowRefAndSetter,
     NewControlledList,
     NewControlledListItem,
-    TreeNodeWithRequiredKey as TreeNode,
 } from "@/arches-references/types";
 
 const { $gettext } = useGettext();

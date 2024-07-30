@@ -27,6 +27,7 @@ import {
 
 import type { Ref } from "vue";
 import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree";
+import type { TreeNode } from "primevue/treenode";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
     ControlledList,
@@ -34,7 +35,6 @@ import type {
     DisplayedListItemRefAndSetter,
     MoveLabels,
     NewControlledListItem,
-    TreeNodeWithRequiredKey as TreeNode,
 } from "@/arches-references/types";
 
 const toast = useToast();

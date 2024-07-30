@@ -13,8 +13,8 @@ import { bestLabel, shouldUseContrast } from "@/arches-references/utils.ts";
 
 import type { Ref } from "vue";
 import type { TreeSelectionKeys } from "primevue/tree";
+import type { TreeNode } from "primevue/treenode";
 import type { Language } from "arches/arches/app/src/arches/types";
-import type { TreeNodeWithRequiredKey as TreeNode } from "@/arches-references/types";
 
 const isMultiSelecting = defineModel<boolean>("isMultiSelecting", {
     required: true,

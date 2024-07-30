@@ -31,13 +31,13 @@ import {
 
 import type { Ref } from "vue";
 import type { TreeSelectionKeys } from "primevue/tree";
+import type { TreeNode } from "primevue/treenode";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
     ControlledList,
     ControlledListItem,
     DisplayedRowRefAndSetter,
     NewControlledList,
-    TreeNodeWithRequiredKey as TreeNode,
 } from "@/arches-references/types";
 
 const { displayedRow, setDisplayedRow } = inject(

@@ -4,10 +4,8 @@ import AddDeleteControls from "@/arches-references/components/tree/AddDeleteCont
 import PresentationControls from "@/arches-references/components/tree/PresentationControls.vue";
 
 import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree";
-import type {
-    NewControlledList,
-    TreeNodeWithRequiredKey as TreeNode,
-} from "@/arches-references/types";
+import type { TreeNode } from "primevue/treenode";
+import type { NewControlledList } from "@/arches-references/types";
 
 const controlledListItemsTree = defineModel<TreeNode[]>({ required: true });
 const rerenderTree = defineModel<number>("rerenderTree", { required: true });

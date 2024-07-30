@@ -1,5 +1,4 @@
 import type { Ref } from "vue";
-import type { TreeNode } from "primevue/treenode";
 
 export interface Value {
     id: string;
@@ -134,10 +133,4 @@ export interface DisplayedListRefAndSetter {
 export interface DisplayedListItemRefAndSetter {
     displayedRow: Ref<ControlledListItem | null>;
     setDisplayedRow: (val: Selectable | null) => void;
-}
-
-// PrimeVue 4 extensions
-// https://github.com/primefaces/primevue/pull/6011
-export interface TreeNodeWithRequiredKey extends TreeNode {
-    key: string;
 }
