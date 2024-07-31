@@ -1,13 +1,24 @@
 <script setup lang="ts">
+import { inject, watch } from "vue";
+import { useRoute } from "vue-router";
+
+import { displayedRowKey, routes } from "@/arches-references/constants.ts";
+import { findNodeInTree } from "@/arches-references/utils.ts";
 import ActionBanner from "@/arches-references/components/tree/ActionBanner.vue";
 import AddDeleteControls from "@/arches-references/components/tree/AddDeleteControls.vue";
 import PresentationControls from "@/arches-references/components/tree/PresentationControls.vue";
 
+import type { RouteLocationNormalizedLoadedGeneric } from "vue-router";
 import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree";
 import type { TreeNode } from "primevue/treenode";
-import type { NewControlledList } from "@/arches-references/types";
+import type {
+    DisplayedListItemRefAndSetter,
+    NewControlledList,
+} from "@/arches-references/types";
 
-const controlledListItemsTree = defineModel<TreeNode[]>({ required: true });
+const controlledListItemsTree = defineModel<TreeNode[]>("tree", {
+    required: true,
+});
 const rerenderTree = defineModel<number>("rerenderTree", { required: true });
 const expandedKeys = defineModel<TreeExpandedKeys>("expandedKeys", {
     required: true,
@@ -20,9 +31,75 @@ const isMultiSelecting = defineModel<boolean>("isMultiSelecting", {
     required: true,
 });
 const nextNewList = defineModel<NewControlledList>("nextNewList");
-const newListFormValue = defineModel<string>("newListFormValue", {
-    required: true,
-});
+const { newListName } = defineProps<{ newListName: string }>();
+const { setDisplayedRow } = inject(
+    displayedRowKey,
+) as DisplayedListItemRefAndSetter;
+const route = useRoute();
+watch(
+    [
+        () => {
+            return { ...route };
+        },
+    ],
+    ([newRoute]) => {
+        navigate(newRoute);
+    },
+);
+const navigate = (newRoute: RouteLocationNormalizedLoadedGeneric) => {
+    switch (newRoute.name) {
+        case routes.splash:
+            setDisplayedRow(null);
+            expandedKeys.value = {};
+            selectedKeys.value = {};
+            break;
+        case routes.list: {
+            if (!controlledListItemsTree.value.length) {
+                return;
+            }
+            const list = controlledListItemsTree.value.find(
+                (node) => node.data.id === newRoute.params.id,
+            );
+            if (list) {
+                setDisplayedRow(list.data);
+                expandedKeys.value = {
+                    ...expandedKeys.value,
+                    [list.data.id]: true,
+                };
+                selectedKeys.value = { [list.data.id]: true };
+            } else {
+                setDisplayedRow(null);
+            }
+            break;
+        }
+        case routes.item: {
+            if (!controlledListItemsTree.value.length) {
+                return;
+            }
+            const { found, path } = findNodeInTree(
+                controlledListItemsTree.value,
+                newRoute.params.id,
+            );
+            if (found) {
+                setDisplayedRow(found.data);
+                const itemsToExpandIds = path.map(
+                    (itemInPath: TreeNode) => itemInPath.key,
+                );
+                expandedKeys.value = {
+                    ...expandedKeys.value,
+                    ...Object.fromEntries(
+                        [
+                            found.data.controlled_list_id,
+                            ...itemsToExpandIds,
+                        ].map((x) => [x, true]),
+                    ),
+                };
+                selectedKeys.value = { [found.data.id]: true };
+            }
+            break;
+        }
+    }
+};
 
 const expandAll = () => {
     for (const node of controlledListItemsTree.value) {
@@ -43,6 +120,15 @@ const expandNode = (node: TreeNode) => {
         }
     }
 };
+
+// Navigate on initial load of the tree.
+watch(
+    controlledListItemsTree,
+    () => {
+        navigate(route);
+    },
+    { once: true },
+);
 </script>
 
 <template>
@@ -52,7 +138,7 @@ const expandNode = (node: TreeNode) => {
             v-model:is-multi-selecting="isMultiSelecting"
             v-model:selected-keys="selectedKeys"
             v-model:next-new-list="nextNewList"
-            v-model:new-list-form-value="newListFormValue"
+            :new-list-name
         />
     </div>
     <ActionBanner

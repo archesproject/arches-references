@@ -1,14 +1,15 @@
-import logging
 from http import HTTPStatus
 from uuid import UUID
 
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Max
-from django.views.generic import View
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
+from django.views.generic import View
 
+from arches.app.models.models import Plugin
 from arches.app.models.utils import field_names
 from arches.app.utils.betterJSONSerializer import JSONDeserializer
 from arches.app.utils.decorators import group_required
@@ -16,6 +17,7 @@ from arches.app.utils.permission_backend import get_nodegroups_by_perm
 from arches.app.utils.response import JSONErrorResponse, JSONResponse
 from arches.app.utils.string_utils import str_to_bool
 from arches.app.views.api import APIBase
+from arches.app.views.plugin import PluginView
 from arches_references.models import (
     List,
     ListItem,
@@ -24,8 +26,6 @@ from arches_references.models import (
     ListItemValue,
     NodeProxy,
 )
-
-logger = logging.getLogger(__name__)
 
 
 def _prefetch_terms(request):
@@ -369,3 +369,16 @@ class ListItemImageMetadataView(View):
         if not count:
             return JSONErrorResponse(status=HTTPStatus.NOT_FOUND)
         return JSONResponse(status=HTTPStatus.NO_CONTENT)
+
+
+class PluginWithFullRedirectView(PluginView):
+    def get(self, request, pluginid=None, slug=None, path=None):
+        if slug:
+            plugin = Plugin.objects.get(slug=slug)
+        else:
+            plugin = Plugin.objects.get(pk=pluginid)
+
+        if not request.user.has_perm("view_plugin", plugin):
+            return redirect("/auth?next=" + request.path)
+
+        return super().get(request, pluginid=pluginid, slug=slug)

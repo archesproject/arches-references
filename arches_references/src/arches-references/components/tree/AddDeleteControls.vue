@@ -5,7 +5,6 @@ import { useGettext } from "vue3-gettext";
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
 import Button from "primevue/button";
-import ConfirmDialog from "primevue/confirmdialog";
 import SplitButton from "primevue/splitbutton";
 
 import {
@@ -53,9 +52,8 @@ const isMultiSelecting = defineModel<boolean>("isMultiSelecting", {
     required: true,
 });
 const nextNewList = defineModel<NewControlledList>("nextNewList");
-const newListFormValue = defineModel<string>("newListFormValue", {
-    required: true,
-});
+
+const { newListName } = defineProps<{ newListName: string }>();
 
 // For new list entry (input textbox)
 const newListCounter = ref(1);
@@ -102,7 +100,7 @@ const deleteSelectOptions = [
 const createList = () => {
     const newList: NewControlledList = {
         id: newListCounter.value,
-        name: newListFormValue.value,
+        name: newListName,
         dynamic: false,
         search_only: false,
         items: [],
@@ -110,7 +108,6 @@ const createList = () => {
     };
 
     nextNewList.value = newList;
-    newListFormValue.value = "";
     newListCounter.value += 1;
 
     tree.value.push(listAsNode(newList, selectedLanguage.value));
@@ -258,29 +255,6 @@ await fetchListsAndPopulateTree();
         raised
         :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
         @click="createList"
-    />
-    <ConfirmDialog
-        :draggable="false"
-        :pt="{
-            root: {
-                style: {
-                    fontSize: 'small',
-                },
-            },
-            header: {
-                style: {
-                    background: 'var(--p-primary-950)',
-                    color: 'white',
-                    borderRadius: '1rem',
-                    marginBottom: '1rem',
-                },
-            },
-            title: {
-                style: {
-                    fontWeight: 800,
-                },
-            },
-        }"
     />
     <SplitButton
         class="list-button"

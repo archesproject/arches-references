@@ -57,11 +57,8 @@ const expandedKeys = defineModel<TreeExpandedKeys>("expandedKeys", {
 const selectedKeys = defineModel<TreeSelectionKeys>("selectedKeys", {
     required: true,
 });
-const movingItem = defineModel<TreeNode>("movingItem", { required: true });
+const movingItem = defineModel<TreeNode>("movingItem");
 const nextNewItem = defineModel<NewControlledListItem>("nextNewItem");
-const newLabelFormValue = defineModel<string>("newLabelFormValue", {
-    required: true,
-});
 const newLabelCounter = ref(1);
 const shouldRefocusUpArrow = ref(false);
 const shouldRefocusDownArrow = ref(false);
@@ -73,8 +70,8 @@ watch(displayedRow, () => {
 
 const isFirstItem = (item: ControlledListItem) => {
     const siblings: TreeNode[] = item.parent_id
-        ? findNodeInTree(tree.value, item.parent_id).data.children
-        : findNodeInTree(tree.value, item.list_id).data.items;
+        ? findNodeInTree(tree.value, item.parent_id).found.data.children
+        : findNodeInTree(tree.value, item.list_id).found.data.items;
     if (!siblings) {
         throw new Error();
     }
@@ -83,8 +80,8 @@ const isFirstItem = (item: ControlledListItem) => {
 
 const isLastItem = (item: ControlledListItem) => {
     const siblings: TreeNode[] = item.parent_id
-        ? findNodeInTree(tree.value, item.parent_id).data.children
-        : findNodeInTree(tree.value, item.list_id).data.items;
+        ? findNodeInTree(tree.value, item.parent_id).found.data.children
+        : findNodeInTree(tree.value, item.list_id).found.data.items;
     if (!siblings) {
         throw new Error();
     }
@@ -95,7 +92,7 @@ const setMovingItem = (node: TreeNode) => {
     movingItem.value = findNodeInTree(
         [itemAsNode(displayedRow.value, selectedLanguage.value)],
         node.key,
-    );
+    ).found;
 };
 
 const addItem = (parent: TreeNode) => {
@@ -121,7 +118,6 @@ const addItem = (parent: TreeNode) => {
     };
 
     nextNewItem.value = newItem;
-    newLabelFormValue.value = "";
     newLabelCounter.value += 1;
 
     parent.children!.push(itemAsNode(newItem, selectedLanguage.value));
@@ -135,13 +131,15 @@ const addItem = (parent: TreeNode) => {
 };
 
 const reorder = async (item: ControlledListItem, up: boolean) => {
-    const list: ControlledList = findNodeInTree(tree.value, item.list_id).data;
+    const list: ControlledList = findNodeInTree(tree.value, item.list_id).found
+        .data;
 
     let siblings: ControlledListItem[];
     if (item.parent_id) {
-        siblings = findNodeInTree(tree.value, item.parent_id).children.map(
-            (child: TreeNode) => child.data,
-        );
+        siblings = findNodeInTree(
+            tree.value,
+            item.parent_id,
+        ).found.children.map((child: TreeNode) => child.data);
     } else {
         siblings = list.items;
     }
