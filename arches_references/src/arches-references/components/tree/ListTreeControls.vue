@@ -36,10 +36,10 @@ const collapseAll = () => {
 
 const expandNode = (node: TreeNode) => {
     if (node.children && node.children.length) {
-        expandedKeys.value[node.key as string] = true;
+        expandedKeys.value[node.key] = true;
 
         for (const child of node.children) {
-            expandNode(child as TreeNode);
+            expandNode(child);
         }
     }
 };

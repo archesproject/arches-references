@@ -62,7 +62,7 @@ const updateSelectedAndExpanded = (node: TreeNode) => {
     setDisplayedRow(node.data);
     expandedKeys.value = {
         ...expandedKeys.value,
-        [node.key as string]: true,
+        [node.key]: true,
     };
 };
 
@@ -76,10 +76,10 @@ const expandAll = () => {
 
 const expandNode = (node: TreeNode, newExpandedKeys: TreeExpandedKeys) => {
     if (node.children && node.children.length) {
-        newExpandedKeys[node.key as string] = true;
+        newExpandedKeys[node.key] = true;
 
         for (const child of node.children) {
-            expandNode(child as TreeNode, newExpandedKeys);
+            expandNode(child, newExpandedKeys);
         }
     }
 };
