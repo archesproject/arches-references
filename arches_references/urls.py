@@ -10,9 +10,21 @@ from arches_references.views import (
     ListItemImageView,
     ListItemImageMetadataView,
     ListItemValueView,
+    PluginWithFullRedirectView,
 )
 
 urlpatterns = [
+    # Override plugins routes from core to preserve full path on auth redirect.
+    path(
+        "plugins/<uuid:pluginid>/<path:path>",
+        PluginWithFullRedirectView.as_view(),
+        name="plugins",
+    ),
+    path(
+        "plugins/<slug:slug>/<path:path>",
+        PluginWithFullRedirectView.as_view(),
+        name="plugins",
+    ),
     path("api/controlled_lists", ListsView.as_view(), name="controlled_lists"),
     path(
         "api/controlled_list/<uuid:list_id>",
