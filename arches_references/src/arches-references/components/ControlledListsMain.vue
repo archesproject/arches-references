@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import arches from "arches";
 import { computed, provide, ref } from "vue";
+import { useRouter } from "vue-router";
 
+import ConfirmDialog from "primevue/confirmdialog";
 import ProgressSpinner from "primevue/progressspinner";
 import Splitter from "primevue/splitter";
 import SplitterPanel from "primevue/splitterpanel";
+import Toast from "primevue/toast";
 
 import {
     displayedRowKey,
+    routes,
     selectedLanguageKey,
 } from "@/arches-references/constants.ts";
 import { dataIsList } from "@/arches-references/utils.ts";
@@ -21,11 +25,23 @@ import type { Ref } from "vue";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type { Selectable } from "@/arches-references/types";
 
-const splash = "splash";
+const router = useRouter();
 
 const displayedRow: Ref<Selectable | null> = ref(null);
-function setDisplayedRow(val: Selectable | null) {
-    displayedRow.value = val;
+function setDisplayedRow(row: Selectable | null) {
+    displayedRow.value = row;
+    if (row === null) {
+        router.push({ name: routes.splash });
+        return;
+    }
+    if (typeof row.id === "number") {
+        return;
+    }
+    if (dataIsList(row)) {
+        router.push({ name: routes.list, params: { id: row.id } });
+    } else {
+        router.push({ name: routes.item, params: { id: row.id } });
+    }
 }
 provide(displayedRowKey, { displayedRow, setDisplayedRow });
 
@@ -48,37 +64,64 @@ const panel = computed(() => {
 </script>
 
 <template>
-    <div class="list-editor-container">
-        <ListHeader />
-        <Splitter style="height: 100%">
-            <SplitterPanel
-                :size="34"
-                :min-size="25"
-                style="display: flex; flex-direction: column"
-            >
-                <Suspense>
-                    <ListTree />
-                    <template #fallback>
-                        <ProgressSpinner />
-                    </template>
-                </Suspense>
-            </SplitterPanel>
-            <SplitterPanel
-                :size="66"
-                :min-size="25"
-                :style="{
-                    margin: '1rem 0rem 4rem 1rem',
-                    overflowY: 'auto',
-                    paddingRight: '4rem',
-                }"
-            >
-                <component
-                    :is="panel"
-                    :key="displayedRow?.id ?? splash"
-                />
-            </SplitterPanel>
-        </Splitter>
+    <!-- Subtract size of arches toolbars -->
+    <div style="width: calc(100vw - 50px); height: calc(100vh - 50px)">
+        <div class="list-editor-container">
+            <ListHeader />
+            <Splitter style="height: 100%">
+                <SplitterPanel
+                    :size="34"
+                    :min-size="25"
+                    style="display: flex; flex-direction: column"
+                >
+                    <Suspense>
+                        <ListTree />
+                        <template #fallback>
+                            <ProgressSpinner />
+                        </template>
+                    </Suspense>
+                </SplitterPanel>
+                <SplitterPanel
+                    :size="66"
+                    :min-size="25"
+                    :style="{
+                        margin: '1rem 0rem 4rem 1rem',
+                        overflowY: 'auto',
+                        paddingRight: '4rem',
+                    }"
+                >
+                    <component
+                        :is="panel"
+                        :key="displayedRow?.id ?? routes.splash"
+                    />
+                </SplitterPanel>
+            </Splitter>
+        </div>
     </div>
+    <Toast />
+    <ConfirmDialog
+        :draggable="false"
+        :pt="{
+            root: {
+                style: {
+                    fontSize: 'small',
+                },
+            },
+            header: {
+                style: {
+                    background: 'var(--p-primary-950)',
+                    color: 'white',
+                    borderRadius: '1rem',
+                    marginBottom: '1rem',
+                },
+            },
+            title: {
+                style: {
+                    fontWeight: 800,
+                },
+            },
+        }"
+    />
 </template>
 
 <style scoped>
