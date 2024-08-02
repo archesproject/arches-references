@@ -24,7 +24,7 @@ classifiers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "arches @ git+https://github.com/archesproject/arches.git@95bbe4a",
+    "arches @ git+https://github.com/archesproject/arches.git@dev/7.6.x",
 ]
 version = "0.0.1"
 
