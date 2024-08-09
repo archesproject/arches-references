@@ -14,17 +14,23 @@ import {
     fetchLists,
 } from "@/arches-references/api.ts";
 import {
+    CONTRAST,
     DANGER,
     DEFAULT_ERROR_TOAST_LIFE,
     ERROR,
-    SUCCESS,
+    PRIMARY,
+    SECONDARY,
     displayedRowKey,
     selectedLanguageKey,
 } from "@/arches-references/constants.ts";
-import { dataIsItem, listAsNode } from "@/arches-references/utils.ts";
+import {
+    dataIsItem,
+    listAsNode,
+    shouldUseContrast,
+} from "@/arches-references/utils.ts";
 
 import type { Ref } from "vue";
-import type { TreeSelectionKeys } from "primevue/tree/Tree";
+import type { TreeSelectionKeys } from "primevue/tree";
 import type { TreeNode } from "primevue/treenode";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
@@ -83,7 +89,7 @@ const multiSelectStateFromDisplayedRow = computed(() => {
     return newSelectedKeys;
 });
 
-const deleteDropdownOptions = [
+const deleteSelectOptions = [
     {
         label: $gettext("Delete Multiple"),
         command: () => {
@@ -194,9 +200,16 @@ const confirmDelete = () => {
         ),
         header: $gettext("Confirm deletion"),
         icon: "fa fa-exclamation-triangle",
-        rejectLabel: $gettext("Cancel"),
-        rejectClass: "p-button-secondary p-button-outlined",
-        acceptLabel: $gettext("Delete"),
+        acceptProps: {
+            label: $gettext("Delete"),
+            severity: shouldUseContrast() ? CONTRAST : DANGER,
+            outlined: true,
+        },
+        rejectProps: {
+            label: $gettext("Cancel"),
+            severity: shouldUseContrast() ? CONTRAST : SECONDARY,
+            outlined: true,
+        },
         accept: async () => {
             await deleteSelected().then(fetchListsAndPopulateTree);
         },
@@ -241,68 +254,58 @@ await fetchListsAndPopulateTree();
 <template>
     <Button
         class="list-button"
-        :severity="SUCCESS"
         :label="$gettext('Add New List')"
         raised
-        style="font-size: inherit"
+        :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
         @click="createList"
     />
-    <ConfirmDialog :draggable="false" />
+    <ConfirmDialog
+        :draggable="false"
+        :pt="{
+            root: {
+                style: {
+                    fontSize: 'small',
+                },
+            },
+            header: {
+                style: {
+                    background: 'var(--p-primary-950)',
+                    color: 'white',
+                    borderRadius: '1rem',
+                    marginBottom: '1rem',
+                },
+            },
+            title: {
+                style: {
+                    fontWeight: 800,
+                },
+            },
+        }"
+    />
     <SplitButton
         class="list-button"
         :label="$gettext('Delete')"
         :menu-button-props="{ 'aria-label': $gettext('Delete multiple') }"
         raised
-        style="font-size: inherit"
         :disabled="!toDelete.length"
-        :severity="DANGER"
-        :model="deleteDropdownOptions"
+        :severity="shouldUseContrast() ? CONTRAST : DANGER"
+        :model="deleteSelectOptions"
+        :pt="{
+            pcButton: {
+                root: { style: { width: '100%', fontSize: 'inherit' } },
+            },
+        }"
         @click="confirmDelete"
     />
 </template>
 
 <style scoped>
-.list-button,
-.p-splitbutton {
+.list-button {
     height: 4rem;
     margin: 0.5rem;
     flex: 0.5;
     justify-content: center;
-    font-weight: 600;
-    color: white;
     text-wrap: nowrap;
-}
-</style>
-
-<style>
-.p-tieredmenu.p-tieredmenu-overlay {
     font-size: inherit;
-}
-
-.p-tieredmenu-root-list {
-    margin: 0; /* override arches css */
-}
-
-.p-confirm-dialog {
-    font-size: small;
-}
-
-.p-dialog-header {
-    background: #2d3c4b;
-    color: white;
-}
-
-.p-dialog-title {
-    font-weight: 800;
-}
-
-.p-dialog-content {
-    padding-top: 1.25rem;
-}
-
-.p-confirm-dialog-accept {
-    background: #ed7979;
-    color: white;
-    font-weight: 600;
 }
 </style>

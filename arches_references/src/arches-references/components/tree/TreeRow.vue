@@ -14,8 +14,10 @@ import {
     upsertValue,
 } from "@/arches-references/api.ts";
 import {
+    CONTRAST,
     DEFAULT_ERROR_TOAST_LIFE,
     ERROR,
+    SECONDARY,
     displayedRowKey,
     selectedLanguageKey,
 } from "@/arches-references/constants.ts";
@@ -26,11 +28,12 @@ import {
     listAsNode,
     nodeIsList,
     reorderItems,
+    shouldUseContrast,
 } from "@/arches-references/utils.ts";
 import MoveRow from "@/arches-references/components/tree/MoveRow.vue";
 
 import type { Ref } from "vue";
-import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree/Tree";
+import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree";
 import type { TreeNode } from "primevue/treenode";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
@@ -296,9 +299,10 @@ const acceptNewListShortcutEntry = async () => {
             <!-- turn off escaping: vue template sanitizes -->
             <Button
                 v-else-if="showMoveHereButton(node.key)"
+                class="move-target"
                 type="button"
                 raised
-                class="move-button"
+                :severity="shouldUseContrast() ? CONTRAST : SECONDARY"
                 :label="
                     $gettext(
                         'Move %{item} here',
@@ -342,9 +346,13 @@ const acceptNewListShortcutEntry = async () => {
     justify-content: space-between;
 }
 
-.p-button {
-    background-color: aliceblue;
-    color: black;
+.move-target {
     height: 2.5rem;
+    font-size: unset;
+}
+
+:deep(input) {
+    height: 3rem;
+    font-size: inherit;
 }
 </style>

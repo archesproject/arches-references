@@ -7,8 +7,10 @@ import { useToast } from "primevue/usetoast";
 
 import { patchList } from "@/arches-references/api.ts";
 import {
+    CONTRAST,
     DEFAULT_ERROR_TOAST_LIFE,
     ERROR,
+    PRIMARY,
     PREF_LABEL,
     displayedRowKey,
     selectedLanguageKey,
@@ -20,10 +22,11 @@ import {
     nodeIsItem,
     nodeIsList,
     reorderItems,
+    shouldUseContrast,
 } from "@/arches-references/utils.ts";
 
 import type { Ref } from "vue";
-import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree/Tree";
+import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree";
 import type { TreeNode } from "primevue/treenode";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
@@ -205,7 +208,9 @@ const vRefocusDownArrow = {
         raised
         class="add-child-button"
         icon="fa fa-plus"
+        :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
         :aria-label="moveLabels.addChild"
+        :pt="{ icon: { style: { alignSelf: 'baseline' } } }"
         @click.stop="addItem(node)"
     />
     <span
@@ -220,8 +225,10 @@ const vRefocusDownArrow = {
             raised
             class="reorder-button"
             icon="fa fa-caret-up"
+            :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
             :aria-label="moveLabels.moveUp"
             :disabled="isFirstItem(node.data)"
+            :pt="{ icon: { style: { alignSelf: 'baseline' } } }"
             @click="reorder(node.data, true)"
         />
         <Button
@@ -232,8 +239,10 @@ const vRefocusDownArrow = {
             raised
             class="reorder-button"
             icon="fa fa-caret-down"
+            :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
             :aria-label="moveLabels.moveDown"
             :disabled="isLastItem(node.data)"
+            :pt="{ icon: { style: { alignSelf: 'baseline' } } }"
             @click="reorder(node.data, false)"
         />
         <Button
@@ -242,7 +251,9 @@ const vRefocusDownArrow = {
             type="button"
             raised
             icon="fa fa-arrows-alt"
+            :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
             :aria-label="moveLabels.changeParent"
+            :pt="{ icon: { style: { alignSelf: 'baseline' } } }"
             @click="setMovingItem(node)"
         />
     </span>
@@ -250,8 +261,6 @@ const vRefocusDownArrow = {
 
 <style scoped>
 .p-button {
-    background-color: aliceblue;
-    color: black;
     height: 2rem;
 }
 

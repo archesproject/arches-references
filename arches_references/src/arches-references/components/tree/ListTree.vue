@@ -14,7 +14,11 @@ import ListTreeControls from "@/arches-references/components/tree/ListTreeContro
 import TreeRow from "@/arches-references/components/tree/TreeRow.vue";
 
 import type { ComponentPublicInstance, Ref } from "vue";
-import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree/Tree";
+import type {
+    TreeExpandedKeys,
+    TreePassThroughMethodOptions,
+    TreeSelectionKeys,
+} from "primevue/tree";
 import type { TreeNode } from "primevue/treenode";
 import type { Language } from "arches/arches/app/src/arches/types";
 import type {
@@ -58,7 +62,7 @@ const updateSelectedAndExpanded = (node: TreeNode) => {
     setDisplayedRow(node.data);
     expandedKeys.value = {
         ...expandedKeys.value,
-        [node.key as string]: true,
+        [node.key]: true,
     };
 };
 
@@ -72,7 +76,7 @@ const expandAll = () => {
 
 const expandNode = (node: TreeNode, newExpandedKeys: TreeExpandedKeys) => {
     if (node.children && node.children.length) {
-        newExpandedKeys[node.key as string] = true;
+        newExpandedKeys[node.key] = true;
 
         for (const child of node.children) {
             expandNode(child, newExpandedKeys);
@@ -103,9 +107,9 @@ const expandPathsToFilterResults = (newFilterValue: string) => {
 
 const getInputElement = () => {
     if (treeDOMRef.value !== null) {
-        return treeDOMRef.value.$el.ownerDocument.getElementsByClassName(
-            "p-tree-filter",
-        )[0] as HTMLInputElement;
+        return treeDOMRef.value.$el.ownerDocument.querySelector(
+            'input[data-pc-name="pcfilter"]',
+        ) as HTMLInputElement;
     }
 };
 
@@ -153,6 +157,14 @@ const filterCallbackWrapped = computed(() => {
         },
     };
 });
+
+// Factored out because of vue-tsc problems inside the pt object
+const ptNodeContent = ({ instance }: TreePassThroughMethodOptions) => {
+    if (instance.$el && instance.node.key === movingItem.value?.key) {
+        instance.$el.classList.add("is-adjusting-parent");
+    }
+    return { style: { height: "4rem" } };
+};
 </script>
 
 <template>
@@ -183,15 +195,17 @@ const filterCallbackWrapped = computed(() => {
             root: {
                 style: {
                     flexGrow: 1,
-                    border: 0,
                     overflowY: 'hidden',
                     paddingBottom: '5rem',
                 },
             },
-            input: {
-                style: { height: '3.5rem', fontSize: '1.4rem' },
-                ariaLabel: $gettext('Find'),
+            pcFilter: {
+                root: {
+                    ariaLabel: $gettext('Find'),
+                    style: { width: '100%', fontSize: 'small' },
+                },
             },
+            filterIcon: { style: { display: 'flex' } },
             wrapper: {
                 style: {
                     overflowY: 'auto',
@@ -200,13 +214,8 @@ const filterCallbackWrapped = computed(() => {
                 },
             },
             container: { style: { fontSize: '1.4rem' } },
-            content: ({ instance }) => {
-                if (instance.$el && instance.node.key === movingItem?.key) {
-                    instance.$el.classList.add('is-adjusting-parent');
-                }
-                return { style: { height: '4rem' } };
-            },
-            label: {
+            nodeContent: ptNodeContent,
+            nodeLabel: {
                 style: {
                     textWrap: 'nowrap',
                     marginLeft: '0.5rem',
@@ -247,5 +256,10 @@ const filterCallbackWrapped = computed(() => {
 <style scoped>
 :deep(.is-adjusting-parent) {
     border: dashed;
+}
+
+:deep(.p-tree-filter-input) {
+    height: 3.5rem;
+    font-size: 1.4rem;
 }
 </style>

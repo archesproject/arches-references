@@ -2,7 +2,6 @@
 import { computed, inject } from "vue";
 import { useGettext } from "vue3-gettext";
 
-import { ARCHES_CHROME_BLUE } from "@/arches-references/theme.ts";
 import {
     displayedRowKey,
     selectedLanguageKey,
@@ -46,10 +45,7 @@ const heading = computed(() => {
 </script>
 
 <template>
-    <div
-        class="header"
-        :style="{ background: ARCHES_CHROME_BLUE }"
-    >
+    <div class="header">
         <i
             class="fa fa-inverse fa-list"
             aria-hidden="true"
@@ -62,11 +58,14 @@ const heading = computed(() => {
 .header {
     display: flex;
     align-items: center;
+    background: var(--p-primary-950);
 }
+
 i {
     margin-left: 1rem;
     margin-top: 0.25rem;
 }
+
 h2 {
     font-size: 1.6rem;
     margin: 1rem;

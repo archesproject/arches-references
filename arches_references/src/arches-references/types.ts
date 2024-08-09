@@ -134,12 +134,3 @@ export interface DisplayedListItemRefAndSetter {
     displayedRow: Ref<ControlledListItem | null>;
     setDisplayedRow: (val: Selectable | null) => void;
 }
-
-// From PrimeVue, not importable directly
-export interface FileContentProps {
-    files: [];
-    badgeSeverity: string;
-    badgeValue: string;
-    previewWidth: number;
-    templates: null;
-}

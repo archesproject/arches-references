@@ -16,16 +16,16 @@ const { $gettext } = useGettext();
                 graphName: props.node.graph_name,
                 nodeName: props.node.name,
             })
-        }}
-        <a
+        }}<a
             :href="arches.urls.graph_designer(node.graph_id)"
             target="_blank"
+            style="text-decoration: underline"
         >
             <i
                 class="fa fa-reply"
                 aria-hidden="true"
-            />
-            {{ $gettext("Edit graph") }}
+                style="margin: 0.5rem"
+            />{{ $gettext("Edit graph") }}
         </a>
     </span>
 </template>
@@ -38,9 +38,9 @@ const { $gettext } = useGettext();
     align-items: center;
     font-size: small;
     text-align: center;
-    border-radius: 2px;
+    border-radius: var(--p-content-border-radius);
     height: 3rem;
-    background: var(--gray-200);
+    background: var(--p-gray-200);
     text-wrap: nowrap;
 }
 </style>
