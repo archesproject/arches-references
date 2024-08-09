@@ -23,7 +23,11 @@ import {
     METADATA_CHOICES,
     itemKey,
 } from "@/arches_references/constants.ts";
-import { dataIsNew, languageNameFromCode, shouldUseContrast } from "@/arches_references/utils.ts";
+import {
+    dataIsNew,
+    languageNameFromCode,
+    shouldUseContrast,
+} from "@/arches_references/utils.ts";
 import AddMetadata from "@/arches_references/components/editor/AddMetadata.vue";
 
 import type { Ref } from "vue";
