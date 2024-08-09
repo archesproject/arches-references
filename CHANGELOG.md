@@ -9,10 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 -   Add compatibility with PrimeVue 4 [#9](https://github.com/archesproject/arches-references/issues/9)
--   Add front-end routing [#19](https://github.com/archesproject/arches-references/pull/19)
+-   Add front-end routing [#4](https://github.com/archesproject/arches-references/issues/4)
 
 ### Changed
--   Generate URIs when not supplied [#17](https://github.com/archesproject/arches-references/pull/17)
+-   Generate URIs when not supplied [#8](https://github.com/archesproject/arches-references/issues/8)
 
 ### Fixed
 
