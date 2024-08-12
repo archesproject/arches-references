@@ -99,15 +99,14 @@ class RDMToControlledListsETLTests(TestCase):
 
     def test_no_matching_collection_error(self):
         expected_output = "Failed to find the following collections in the database: Collection That Doesn't Exist"
-        with captured_stdout() as output:
-            management.call_command(
-                "controlled_lists",
-                operation="migrate_collections_to_controlled_lists",
-                collections_to_migrate=["Collection That Doesn't Exist"],
-                host="http://localhost:8000/plugins/controlled-list-manager/item/",
-                preferred_sort_language="en",
-                overwrite=False,
-                stdout=output,
-                stderr=output,
-            )
+        output = io.StringIO()
+        management.call_command(
+            "controlled_lists",
+            operation="migrate_collections_to_controlled_lists",
+            collections_to_migrate=["Collection That Doesn't Exist"],
+            host="http://localhost:8000/plugins/controlled-list-manager/item/",
+            preferred_sort_language="en",
+            overwrite=False,
+            stderr=output,
+        )
         self.assertIn(expected_output, output.getvalue().strip())
