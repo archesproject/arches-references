@@ -96,3 +96,18 @@ class RDMToControlledListsETLTests(TestCase):
         imported_list = List.objects.get(name="Concept Label Import Test")
         imported_items = imported_list.list_items.all()
         self.assertEqual(len(imported_items), 3)
+
+    def test_no_matching_collection_error(self):
+        expected_output = "Failed to find the following collections in the database: Collection That Doesn't Exist"
+        with captured_stdout() as output:
+            management.call_command(
+                "controlled_lists",
+                operation="migrate_collections_to_controlled_lists",
+                collections_to_migrate=["Collection That Doesn't Exist"],
+                host="http://localhost:8000/plugins/controlled-list-manager/item/",
+                preferred_sort_language="en",
+                overwrite=False,
+                stdout=output,
+                stderr=output,
+            )
+        self.assertIn(expected_output, output.getvalue().strip())
