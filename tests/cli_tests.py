@@ -93,7 +93,6 @@ class RDMToControlledListsETLTests(TestCase):
             stdout=output,
         )
 
-        self.assertTrue(List.objects.filter(name="Concept Label Import Test").exists())
-        self.assertTrue(
-            ListItem.objects.filter(id="89ff530a-f350-44f0-ac88-bdd8904eb57e").exists()
-        )
+        imported_list = List.objects.get(name="Concept Label Import Test")
+        imported_items = imported_list.list_items.all()
+        self.assertEqual(len(imported_items), 3)
