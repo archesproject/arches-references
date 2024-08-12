@@ -45,7 +45,7 @@ class ListExportPackageTests(TestCase):
 class ListImportPackageTests(TestCase):
 
     def test_import_controlled_list(self):
-        input_file = os.path.join(PROJECT_TEST_ROOT, "data/controlled_lists.xlsx")
+        input_file = os.path.join(PROJECT_TEST_ROOT, "data", "controlled_lists.xlsx")
         output = io.StringIO()
         # packages command does not yet fully avoid print()
         with captured_stdout():
@@ -68,7 +68,7 @@ class RDMToControlledListsETLTests(TestCase):
 
         skos = SKOSReader()
         rdf = skos.read_file(
-            os.path.join(PROJECT_TEST_ROOT, "data/concept_label_test_collection.xml")
+            os.path.join(PROJECT_TEST_ROOT, "data", "concept_label_test_collection.xml")
         )
         ret = skos.save_concepts_from_skos(rdf)
 
