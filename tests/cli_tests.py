@@ -1,14 +1,13 @@
 import io
 import os
 
-from django.conf import settings
 from django.core import management
 from django.urls import reverse
 from django.test import TestCase
 from django.test.client import Client
 from django.test.utils import captured_stdout
 
-from arches_references.models import List, ListItem, ListItemValue
+from arches_references.models import List, ListItem
 from arches.app.utils.skos import SKOSReader
 
 from .test_settings import PROJECT_TEST_ROOT
