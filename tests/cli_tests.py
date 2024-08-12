@@ -7,7 +7,7 @@ from django.test import TestCase
 from django.test.client import Client
 from django.test.utils import captured_stdout
 
-from arches_references.models import List, ListItem
+from arches_references.models import List
 from arches.app.utils.skos import SKOSReader
 
 from .test_settings import PROJECT_TEST_ROOT
