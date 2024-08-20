@@ -9,6 +9,7 @@ arches_references/staticfiles
 arches_references/media/packages
 arches_references/media/build/
 arches_references/uploadedfiles/*
+arches_references/list_item_images
 arches_references/settings_local.py
 webpack-stats.json
 .vscode/
