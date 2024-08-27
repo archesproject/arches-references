@@ -1,5 +1,6 @@
 import arches from "arches";
 
+import type { Ref } from "vue";
 import type { TreeNode } from "primevue/treenode";
 import type { Language } from "@/arches/types";
 import type {
@@ -239,6 +240,27 @@ export const reorderItems = (
     };
 
     recalculateSortOrderRecursive(list, list.items);
+};
+
+export const initializeTree = async (
+    fetchFunction: () => Promise<{ controlled_lists: ControlledList[] }>,
+    tree: Ref<TreeNode[]>,
+    language: Language,
+) => {
+    // Resort the ordered response from the API to preserve the existing sort.
+    const priorSortedListIds = tree.value.map((node: TreeNode) => node.key);
+
+    await fetchFunction().then(
+        ({ controlled_lists }: { controlled_lists: ControlledList[] }) => {
+            tree.value = controlled_lists
+                .map((list) => listAsNode(list, language))
+                .sort(
+                    (a, b) =>
+                        priorSortedListIds.indexOf(a.key) -
+                        priorSortedListIds.indexOf(b.key),
+                );
+        },
+    );
 };
 
 // Directives

@@ -3,9 +3,13 @@ import { computed, inject, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useGettext } from "vue3-gettext";
 
+import { useToast } from "primevue/usetoast";
 import Tree from "primevue/tree";
 
+import { fetchLists } from "@/arches_references/api.ts";
 import {
+    DEFAULT_ERROR_TOAST_LIFE,
+    ERROR,
     displayedRowKey,
     selectedLanguageKey,
 } from "@/arches_references/constants.ts";
@@ -13,6 +17,7 @@ import { routeNames } from "@/arches_references/routes.ts";
 import {
     bestLabel,
     findNodeInTree,
+    initializeTree,
     nodeIsList,
 } from "@/arches_references/utils.ts";
 import LetterCircle from "@/arches_references/components/misc/LetterCircle.vue";
@@ -32,12 +37,21 @@ import type {
 } from "@/arches_references/types";
 
 const { $gettext } = useGettext();
+const toast = useToast();
 
 const moveLabels = Object.freeze({
     addChild: $gettext("Add child item"),
     moveUp: $gettext("Move item up"),
     moveDown: $gettext("Move item down"),
     changeParent: $gettext("Change item parent"),
+});
+
+// Baby step toward reusability: parameterize the fetch call.
+interface Props {
+    fetchCall?: () => Promise<{ controlled_lists: ControlledList[] }>;
+}
+const { fetchCall } = withDefaults(defineProps<Props>(), {
+    fetchCall: fetchLists,
 });
 
 const tree: Ref<TreeNode[]> = ref([]);
@@ -253,6 +267,19 @@ const ptNodeContent = ({ instance }: TreePassThroughMethodOptions) => {
     }
     return { style: { height: "4rem" } };
 };
+
+const handleFetchFailure = (error: Error) => {
+    toast.add({
+        severity: ERROR,
+        life: DEFAULT_ERROR_TOAST_LIFE,
+        summary: $gettext("Unable to fetch lists"),
+        detail: error.message,
+    });
+};
+
+await initializeTree(fetchCall, tree, selectedLanguage.value).catch(
+    handleFetchFailure,
+);
 </script>
 
 <template>

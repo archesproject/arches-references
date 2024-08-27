@@ -24,6 +24,7 @@ import {
 } from "@/arches_references/constants.ts";
 import {
     dataIsItem,
+    initializeTree,
     listAsNode,
     shouldUseContrast,
 } from "@/arches_references/utils.ts";
@@ -190,6 +191,15 @@ const deleteSelected = async () => {
     isMultiSelecting.value = false;
 };
 
+const handleFetchFailure = (error: Error) => {
+    toast.add({
+        severity: ERROR,
+        life: DEFAULT_ERROR_TOAST_LIFE,
+        summary: $gettext("Unable to fetch lists"),
+        detail: error.message,
+    });
+};
+
 const confirmDelete = () => {
     const numItems = toDelete.value.length;
     confirm.require({
@@ -212,44 +222,17 @@ const confirmDelete = () => {
             outlined: true,
         },
         accept: async () => {
-            await deleteSelected().then(fetchListsAndPopulateTree);
+            // Not currently using the parameterized fetch call
+            // (not currently needed in arches-lingo).
+            await deleteSelected()
+                .then(() =>
+                    initializeTree(fetchLists, tree, selectedLanguage.value),
+                )
+                .catch(handleFetchFailure);
         },
         reject: () => {},
     });
 };
-
-const fetchListsAndPopulateTree = async () => {
-    /*
-    Currently, rather than inspecting the results of the batched
-    delete requests, we just refetch everything. This requires being
-    a little clever about resorting the ordered response from the API
-    to preserve the existing sort (and avoid confusion).
-    */
-    const priorSortedListIds = tree.value.map((node) => node.key);
-
-    await fetchLists()
-        .then(
-            ({ controlled_lists }: { controlled_lists: ControlledList[] }) => {
-                tree.value = controlled_lists
-                    .map((list) => listAsNode(list, selectedLanguage.value))
-                    .sort(
-                        (a, b) =>
-                            priorSortedListIds.indexOf(a.key) -
-                            priorSortedListIds.indexOf(b.key),
-                    );
-            },
-        )
-        .catch((error: Error) => {
-            toast.add({
-                severity: ERROR,
-                life: DEFAULT_ERROR_TOAST_LIFE,
-                summary: $gettext("Unable to fetch lists"),
-                detail: error.message,
-            });
-        });
-};
-
-await fetchListsAndPopulateTree();
 </script>
 
 <template>
