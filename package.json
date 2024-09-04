@@ -30,5 +30,6 @@
         "nomnom": "npm:@gerhobbelt/nomnom",
         "rimraf": "^5.0.7",
         "underscore": "^1.13.6"
-    }
+    },
+    "types": "./arches_references/src/arches_references/declarations.d.ts"
 }
