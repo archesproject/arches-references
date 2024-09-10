@@ -355,7 +355,7 @@ const acceptNewListShortcutEntry = async () => {
 <style scoped>
 .actions {
     display: inline-flex;
-    gap: 1rem;
+    gap: var(--p-content-gap);
     margin-left: 1rem;
     width: 100%;
     justify-content: space-between;

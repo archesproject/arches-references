@@ -335,21 +335,18 @@ const focusInput = () => {
                     <i
                         class="fa fa-pencil"
                         aria-hidden="true"
-                        style="font-size: small"
                     ></i>
                 </template>
                 <template #roweditorsaveicon>
                     <i
                         class="fa fa-check"
                         aria-hidden="true"
-                        style="font-size: small"
                     ></i>
                 </template>
                 <template #roweditorcancelicon>
                     <i
                         class="fa fa-undo"
                         aria-hidden="true"
-                        style="font-size: small"
                     ></i>
                 </template>
             </Column>
@@ -370,7 +367,7 @@ const focusInput = () => {
             </Column>
         </DataTable>
     </div>
-    <div style="display: flex; gap: 1rem">
+    <div style="display: flex; gap: var(--p-content-gap)">
         <AddMetadata
             :image
             :labeled-choices
@@ -407,5 +404,9 @@ const focusInput = () => {
 
 :deep(.p-datatable-column-title) {
     font-size: small;
+}
+
+i {
+    font-size: var(--p-icon-size);
 }
 </style>
