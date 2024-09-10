@@ -61,14 +61,9 @@ provide(selectedLanguageKey, selectedLanguage);
     <ConfirmDialog
         :draggable="false"
         :pt="{
-            root: {
-                style: {
-                    fontSize: 'small',
-                },
-            },
             header: {
                 style: {
-                    background: 'var(--p-navigation)',
+                    background: 'var(--p-navigation-color)',
                     color: 'white',
                     borderRadius: '1rem',
                     marginBottom: '1rem',
@@ -77,6 +72,7 @@ provide(selectedLanguageKey, selectedLanguage);
             title: {
                 style: {
                     fontWeight: 800,
+                    fontSize: 'small',
                 },
             },
         }"

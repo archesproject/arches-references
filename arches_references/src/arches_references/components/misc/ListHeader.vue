@@ -61,7 +61,7 @@ const heading = computed(() => {
 .header {
     display: flex;
     align-items: center;
-    background: var(--p-navigation);
+    background: var(--p-navigation-color);
     color: white;
 }
 

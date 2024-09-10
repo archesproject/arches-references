@@ -36,21 +36,21 @@ const { $gettext } = useGettext();
                 :label="$gettext('Dynamic')"
                 :style="{ width: '4rem' }"
             />
-            <h4 class="nodes-heading">
-                {{ $gettext("List used by these nodes") }}
-            </h4>
-            <div class="nodes">
-                <div
-                    v-for="node in list.nodes"
-                    :key="node.id"
-                >
-                    <ReferenceNodeLink :node />
-                </div>
-                <div
-                    v-if="list.nodes.length === 0"
-                    :style="{ fontSize: 'small' }"
-                >
-                    {{ $gettext("None") }}
+            <div class="nodes-heading">
+                <h4>{{ $gettext("List used by these nodes") }}</h4>
+                <div class="nodes">
+                    <div
+                        v-for="node in list.nodes"
+                        :key="node.id"
+                    >
+                        <ReferenceNodeLink :node />
+                    </div>
+                    <div
+                        v-if="list.nodes.length === 0"
+                        :style="{ fontSize: 'small' }"
+                    >
+                        {{ $gettext("None") }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@ const { $gettext } = useGettext();
 .controlled-list-header {
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--p-content-gap);
     margin: 1rem 1rem 0rem 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid;
@@ -79,7 +79,6 @@ h3 {
 .nodes {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    margin: 1rem;
+    gap: var(--p-content-gap);
 }
 </style>

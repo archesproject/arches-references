@@ -363,21 +363,18 @@ const focusInput = () => {
                     <i
                         class="fa fa-pencil"
                         aria-hidden="true"
-                        style="font-size: small"
                     ></i>
                 </template>
                 <template #roweditorsaveicon>
                     <i
                         class="fa fa-check"
                         aria-hidden="true"
-                        style="font-size: small"
                     ></i>
                 </template>
                 <template #roweditorcancelicon>
                     <i
                         class="fa fa-undo"
                         aria-hidden="true"
-                        style="font-size: small"
                     ></i>
                 </template>
             </Column>
@@ -393,7 +390,7 @@ const focusInput = () => {
                         :aria-label="$gettext('Delete')"
                         @click="issueDeleteValue(slotProps.data)"
                         @keyup.enter="issueDeleteValue(slotProps.data)"
-                    />
+                    ></i>
                 </template>
             </Column>
         </DataTable>
@@ -412,6 +409,10 @@ const focusInput = () => {
 
 h4 {
     margin-top: 0;
+}
+
+i {
+    font-size: var(--p-icon-size);
 }
 
 p {
