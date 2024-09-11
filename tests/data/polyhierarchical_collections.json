@@ -84,7 +84,7 @@
         "pk": "abeaef4a-f57c-40d3-bdb1-9d16bf0811b5",
         "fields": {
             "nodetype": "Collection",
-            "legacyoid": "Polyhiearchy Collection 2"
+            "legacyoid": "Polyhierarchy Collection 2"
         }
     },
     {
@@ -93,7 +93,7 @@
         "fields": {
             "concept": "abeaef4a-f57c-40d3-bdb1-9d16bf0811b5",
             "valuetype": "prefLabel",
-            "value": "Polyhiearchy Collection 2",
+            "value": "Polyhierarchy Collection 2",
             "language": "en"
         }
     },
