@@ -66,19 +66,10 @@ class RDMToControlledListsETLTests(TestCase):
     @classmethod
     def setUpTestData(cls):
 
-        skos = SKOSReader()
-        rdf = skos.read_file(
-            os.path.join(PROJECT_TEST_ROOT, "data", "concept_label_test_collection.xml")
-        )
-        ret = skos.save_concepts_from_skos(rdf)
-
-        client = Client()
-        client.login(username="admin", password="admin")
-        response = client.get(
-            reverse(
-                "make_collection",
-                kwargs={"conceptid": "7c90899a-dbe9-4574-9175-e69481a80b3c"},
-            )
+        management.call_command(
+            "loaddata",
+            "tests/data/polyhierarchical_collections.json",
+            format="json",
         )
 
     def test_migrate_collections_to_controlled_lists(self):
@@ -86,14 +77,14 @@ class RDMToControlledListsETLTests(TestCase):
         management.call_command(
             "controlled_lists",
             operation="migrate_collections_to_controlled_lists",
-            collections_to_migrate=["Concept Label Import Test"],
+            collections_to_migrate=["Polyhierarchical Collection Test"],
             host="http://localhost:8000/plugins/controlled-list-manager/item/",
             preferred_sort_language="en",
             overwrite=False,
             stdout=output,
         )
 
-        imported_list = List.objects.get(name="Concept Label Import Test")
+        imported_list = List.objects.get(name="Polyhierarchical Collection Test")
         imported_items = imported_list.list_items.all()
         self.assertEqual(len(imported_items), 3)
 
