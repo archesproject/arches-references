@@ -5,14 +5,15 @@ import { useGettext } from "vue3-gettext";
 
 import Button from "primevue/button";
 
-import { ARCHES_CHROME_BLUE } from "@/arches_references/theme.ts";
 import {
     itemKey,
     ALT_LABEL,
+    CONTRAST,
     NOTE_CHOICES,
     PREF_LABEL,
+    PRIMARY,
 } from "@/arches_references/constants.ts";
-import { dataIsNew } from "@/arches_references/utils.ts";
+import { dataIsNew, shouldUseContrast } from "@/arches_references/utils.ts";
 
 import type { Ref } from "vue";
 import type { Language } from "@/arches/types";
@@ -98,33 +99,18 @@ const addValue = () => {
     <Button
         class="add-value"
         raised
+        icon="fa fa-plus-circle"
+        :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
+        :label="buttonLabel"
         @click="addValue"
-    >
-        <i
-            class="fa fa-plus-circle"
-            aria-hidden="true"
-        />
-        <span class="add-value-text">
-            {{ buttonLabel }}
-        </span>
-    </Button>
+    />
 </template>
 
 <style scoped>
 .add-value {
     display: flex;
     height: 3rem;
-    color: v-bind(ARCHES_CHROME_BLUE);
-    background-color: #f3fbfd;
     margin-top: 1rem;
-}
-.add-value > i,
-.add-value > span {
-    align-self: center;
-}
-.add-value-text {
-    margin: 1rem;
-    font-size: small;
-    font-weight: 600;
+    font-size: smaller;
 }
 </style>

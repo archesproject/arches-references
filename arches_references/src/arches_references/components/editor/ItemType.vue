@@ -2,10 +2,9 @@
 import { inject } from "vue";
 import { useGettext } from "vue3-gettext";
 
-import InputSwitch from "primevue/inputswitch";
+import ToggleSwitch from "primevue/toggleswitch";
 import { useToast } from "primevue/usetoast";
 
-import { ARCHES_CHROME_BLUE } from "@/arches_references/theme.ts";
 import { patchItem } from "@/arches_references/api.ts";
 import {
     DEFAULT_ERROR_TOAST_LIFE,
@@ -45,7 +44,7 @@ const issuePatchItem = async () => {
         <p>{{ guideItemSubheading }}</p>
         <div class="guide-switch">
             <label for="guideSwitch">{{ $gettext("Guide item?") }}</label>
-            <InputSwitch
+            <ToggleSwitch
                 v-model="item.guide"
                 input-id="guideSwitch"
                 @change="issuePatchItem"
@@ -76,9 +75,7 @@ label {
 }
 
 h4 {
-    color: v-bind(ARCHES_CHROME_BLUE);
     margin-top: 0;
-    font-size: 1.33rem;
 }
 
 p {

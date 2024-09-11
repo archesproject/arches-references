@@ -124,10 +124,6 @@ const cancel = () => {
 </template>
 
 <style scoped>
-h4 {
-    font-size: 1.33rem;
-}
-
 input {
     font-size: 1.2rem;
 }

@@ -14,8 +14,10 @@ import {
     upsertValue,
 } from "@/arches_references/api.ts";
 import {
+    CONTRAST,
     DEFAULT_ERROR_TOAST_LIFE,
     ERROR,
+    SECONDARY,
     displayedRowKey,
     selectedLanguageKey,
 } from "@/arches_references/constants.ts";
@@ -27,11 +29,12 @@ import {
     listAsNode,
     nodeIsList,
     reorderItems,
+    shouldUseContrast,
 } from "@/arches_references/utils.ts";
 import MoveRow from "@/arches_references/components/tree/MoveRow.vue";
 
 import type { Ref } from "vue";
-import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree/Tree";
+import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree";
 import type { TreeNode } from "primevue/treenode";
 import type { Language } from "@/arches/types";
 import type {
@@ -135,7 +138,7 @@ const setParent = async (parentNode: TreeNode) => {
         siblings.push(item);
     } else {
         item.parent_id = parentNode.key;
-        list = findNodeInTree(tree.value, item.list_id).data;
+        list = findNodeInTree(tree.value, item.list_id).found!.data;
         siblings = parentNode.data.children;
         siblings.push(item);
     }
@@ -210,7 +213,11 @@ const acceptNewItemShortcutEntry = async () => {
     const parent = findNodeInTree(
         tree.value,
         newItem.parent_id ?? newItem.list_id,
-    );
+    ).found;
+    if (!parent) {
+        throw new Error();
+    }
+
     parent.children = [
         ...parent.children!.filter((child: TreeNode) => !dataIsNew(child.data)),
         itemAsNode(newItem, selectedLanguage.value),
@@ -223,6 +230,7 @@ const acceptNewItemShortcutEntry = async () => {
 
     selectedKeys.value = { [newItem.id]: true };
     setDisplayedRow(newItem);
+    newLabelFormValue.value = "";
 };
 
 const triggerAcceptNewItemShortcut = () => {
@@ -256,6 +264,7 @@ const acceptNewListShortcutEntry = async () => {
     ];
     selectedKeys.value = { [newList.id]: true };
     setDisplayedRow(newList);
+    newListFormValue.value = "";
 };
 </script>
 
@@ -299,9 +308,10 @@ const acceptNewListShortcutEntry = async () => {
             <!-- turn off escaping: vue template sanitizes -->
             <Button
                 v-else-if="showMoveHereButton(node.key)"
+                class="move-target"
                 type="button"
                 raised
-                class="move-button"
+                :severity="shouldUseContrast() ? CONTRAST : SECONDARY"
                 :label="
                     $gettext(
                         'Move %{item} here',
@@ -328,7 +338,6 @@ const acceptNewListShortcutEntry = async () => {
                 v-model:selected-keys="selectedKeys"
                 v-model:moving-item="movingItem"
                 v-model:next-new-item="nextNewItem"
-                v-model:new-label-form-value="newLabelFormValue"
                 :node
                 :move-labels
             />
@@ -345,9 +354,13 @@ const acceptNewListShortcutEntry = async () => {
     justify-content: space-between;
 }
 
-.p-button {
-    background-color: aliceblue;
-    color: black;
+.move-target {
     height: 2.5rem;
+    font-size: unset;
+}
+
+:deep(input) {
+    height: 3rem;
+    font-size: inherit;
 }
 </style>

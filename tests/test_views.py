@@ -38,8 +38,7 @@ def sync_pk_for_comparison(item):
 
 class ListTests(TestCase):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpTestData(cls):
         cls.admin = User.objects.get(username="admin")
         cls.anonymous = User.objects.get(username="anonymous")
 
@@ -49,8 +48,6 @@ class ListTests(TestCase):
         rdm_admin_group = Group.objects.get(name="RDM Administrator")
         cls.rdm_user.groups.add(rdm_admin_group)
 
-    @classmethod
-    def setUpTestData(cls):
         # Create two lists.
         cls.list1 = List.objects.create(name="list1")
         # Second list has children (nested items).

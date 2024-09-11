@@ -7,8 +7,10 @@ import { useToast } from "primevue/usetoast";
 
 import { patchList } from "@/arches_references/api.ts";
 import {
+    CONTRAST,
     DEFAULT_ERROR_TOAST_LIFE,
     ERROR,
+    PRIMARY,
     PREF_LABEL,
     displayedRowKey,
     selectedLanguageKey,
@@ -21,10 +23,11 @@ import {
     nodeIsItem,
     nodeIsList,
     reorderItems,
+    shouldUseContrast,
 } from "@/arches_references/utils.ts";
 
 import type { Ref } from "vue";
-import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree/Tree";
+import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree";
 import type { TreeNode } from "primevue/treenode";
 import type { Language } from "@/arches/types";
 import type {
@@ -66,9 +69,6 @@ const selectedKeys = defineModel<TreeSelectionKeys>("selectedKeys", {
 });
 const movingItem = defineModel<TreeNode>("movingItem");
 const nextNewItem = defineModel<ControlledListItem>("nextNewItem");
-const newLabelFormValue = defineModel<string>("newLabelFormValue", {
-    required: true,
-});
 const newLabelCounter = ref(1);
 const shouldRefocusUpArrow = ref(false);
 const shouldRefocusDownArrow = ref(false);
@@ -80,8 +80,8 @@ watch(displayedRow, () => {
 
 const isFirstItem = (item: ControlledListItem) => {
     const siblings: TreeNode[] = item.parent_id
-        ? findNodeInTree(tree.value, item.parent_id).data.children
-        : findNodeInTree(tree.value, item.list_id).data.items;
+        ? findNodeInTree(tree.value, item.parent_id).found!.data.children
+        : findNodeInTree(tree.value, item.list_id).found!.data.items;
     if (!siblings.length) {
         throw new Error();
     }
@@ -90,8 +90,8 @@ const isFirstItem = (item: ControlledListItem) => {
 
 const isLastItem = (item: ControlledListItem) => {
     const siblings: TreeNode[] = item.parent_id
-        ? findNodeInTree(tree.value, item.parent_id).data.children
-        : findNodeInTree(tree.value, item.list_id).data.items;
+        ? findNodeInTree(tree.value, item.parent_id).found!.data.children
+        : findNodeInTree(tree.value, item.list_id).found!.data.items;
     if (!siblings.length) {
         throw new Error();
     }
@@ -110,7 +110,7 @@ const setMovingItem = (node: TreeNode) => {
             ),
         ],
         node.key,
-    );
+    ).found;
 };
 
 const addItem = (parent: TreeNode) => {
@@ -136,7 +136,6 @@ const addItem = (parent: TreeNode) => {
     };
 
     nextNewItem.value = newItem;
-    newLabelFormValue.value = "";
     newLabelCounter.value += 1;
 
     parent.children!.push(itemAsNode(newItem, selectedLanguage.value));
@@ -150,13 +149,15 @@ const addItem = (parent: TreeNode) => {
 };
 
 const reorder = async (item: ControlledListItem, up: boolean) => {
-    const list: ControlledList = findNodeInTree(tree.value, item.list_id).data;
+    const list: ControlledList = findNodeInTree(tree.value, item.list_id).found!
+        .data;
 
     let siblings: ControlledListItem[];
     if (item.parent_id) {
-        siblings = findNodeInTree(tree.value, item.parent_id).children!.map(
-            (child: TreeNode) => child.data,
-        );
+        siblings = findNodeInTree(
+            tree.value,
+            item.parent_id,
+        ).found!.children!.map((child: TreeNode) => child.data);
     } else {
         siblings = list.items;
     }
@@ -223,7 +224,9 @@ const vRefocusDownArrow = {
         raised
         class="add-child-button"
         icon="fa fa-plus"
+        :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
         :aria-label="moveLabels.addChild"
+        :pt="{ icon: { style: { alignSelf: 'baseline' } } }"
         @click.stop="addItem(node)"
     />
     <span
@@ -238,8 +241,10 @@ const vRefocusDownArrow = {
             raised
             class="reorder-button"
             icon="fa fa-caret-up"
+            :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
             :aria-label="moveLabels.moveUp"
             :disabled="isFirstItem(node.data)"
+            :pt="{ icon: { style: { alignSelf: 'baseline' } } }"
             @click="reorder(node.data, true)"
         />
         <Button
@@ -250,8 +255,10 @@ const vRefocusDownArrow = {
             raised
             class="reorder-button"
             icon="fa fa-caret-down"
+            :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
             :aria-label="moveLabels.moveDown"
             :disabled="isLastItem(node.data)"
+            :pt="{ icon: { style: { alignSelf: 'baseline' } } }"
             @click="reorder(node.data, false)"
         />
         <Button
@@ -260,7 +267,9 @@ const vRefocusDownArrow = {
             type="button"
             raised
             icon="fa fa-arrows-alt"
+            :severity="shouldUseContrast() ? CONTRAST : PRIMARY"
             :aria-label="moveLabels.changeParent"
+            :pt="{ icon: { style: { alignSelf: 'baseline' } } }"
             @click="setMovingItem(node)"
         />
     </span>
@@ -268,8 +277,6 @@ const vRefocusDownArrow = {
 
 <style scoped>
 .p-button {
-    background-color: aliceblue;
-    color: black;
     height: 2rem;
 }
 

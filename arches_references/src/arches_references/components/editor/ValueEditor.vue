@@ -5,12 +5,11 @@ import { useGettext } from "vue3-gettext";
 
 import Column from "primevue/column";
 import DataTable from "primevue/datatable";
-import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
+import Select from "primevue/select";
 import Textarea from "primevue/textarea";
 import { useToast } from "primevue/usetoast";
 
-import { ARCHES_CHROME_BLUE } from "@/arches_references/theme.ts";
 import { deleteValue, upsertValue } from "@/arches_references/api.ts";
 import {
     ALT_LABEL,
@@ -26,6 +25,7 @@ import AddValue from "@/arches_references/components/editor/AddValue.vue";
 
 import type { Ref } from "vue";
 import type { DataTableRowEditInitEvent } from "primevue/datatable";
+import type { Language } from "arches/arches/app/src/arches/types";
 import type {
     ControlledListItem,
     Value,
@@ -254,7 +254,7 @@ const focusInput = () => {
         <p>{{ headings.subheading }}</p>
         <DataTable
             v-if="values.length"
-            v-model:editingRows="editingRows"
+            v-model:editing-rows="editingRows"
             :value="values"
             data-key="id"
             edit-mode="row"
@@ -264,7 +264,7 @@ const focusInput = () => {
             @row-edit-init="setRowFocus"
             @row-edit-save="saveValue"
         >
-            <!-- Note type dropdown (if this is a note editor) -->
+            <!-- Note type select (if this is a note editor) -->
             <Column
                 v-if="valueCategory"
                 field="valuetype_id"
@@ -272,20 +272,14 @@ const focusInput = () => {
                 style="width: 20%"
             >
                 <template #editor="{ data, field }">
-                    <Dropdown
+                    <Select
                         v-model="data[field]"
                         :options="labeledNoteChoices"
                         option-label="label"
                         option-value="type"
                         :pt="{
                             root: { style: { width: '90%' } },
-                            input: {
-                                style: {
-                                    fontFamily: 'inherit',
-                                    fontSize: 'small',
-                                },
-                            },
-                            panel: { style: { fontSize: 'small' } },
+                            optionLabel: { style: { fontSize: 'small' } },
                         }"
                     />
                 </template>
@@ -339,23 +333,17 @@ const focusInput = () => {
             <Column
                 field="language_id"
                 :header="languageHeader"
-                style="width: 10%; min-width: 8rem; height: 5rem"
+                style="width: 12%; height: 5rem"
             >
                 <template #editor="{ data, field }">
-                    <Dropdown
+                    <Select
                         v-model="data[field]"
                         :options="arches.languages"
-                        :option-label="(lang) => `${lang.name} (${lang.code})`"
+                        :option-label="
+                            (lang: Language) => `${lang.name} (${lang.code})`
+                        "
                         option-value="code"
-                        :pt="{
-                            input: {
-                                style: {
-                                    fontFamily: 'inherit',
-                                    fontSize: 'small',
-                                },
-                            },
-                            panel: { style: { fontSize: 'small' } },
-                        }"
+                        :pt="{ optionLabel: { style: { fontSize: 'small' } } }"
                     />
                 </template>
                 <template #body="slotProps">
@@ -369,25 +357,32 @@ const focusInput = () => {
                 style="width: 5%; min-width: 6rem; text-align: center"
                 :pt="{
                     headerCell: { ariaLabel: $gettext('Row edit controls') },
-                    rowEditorInitButton: {
-                        class: 'fa fa-pencil',
-                        style: { display: 'inline-flex' },
-                    },
-                    rowEditorInitIcon: { style: { display: 'none' } },
-                    rowEditorSaveButton: {
-                        class: 'fa fa-check',
-                        style: { display: 'inline-flex' },
-                    },
-                    rowEditorSaveIcon: { style: { display: 'none' } },
-                    rowEditorCancelButton: {
-                        class: 'fa fa-undo',
-                        style: { display: 'inline-flex' },
-                    },
-                    rowEditorCancelIcon: { style: { display: 'none' } },
                 }"
-            />
+            >
+                <template #roweditoriniticon>
+                    <i
+                        class="fa fa-pencil"
+                        aria-hidden="true"
+                        style="font-size: small"
+                    ></i>
+                </template>
+                <template #roweditorsaveicon>
+                    <i
+                        class="fa fa-check"
+                        aria-hidden="true"
+                        style="font-size: small"
+                    ></i>
+                </template>
+                <template #roweditorcancelicon>
+                    <i
+                        class="fa fa-undo"
+                        aria-hidden="true"
+                        style="font-size: small"
+                    ></i>
+                </template>
+            </Column>
             <Column
-                style="width: 5%; text-align: center"
+                style="width: 3%; text-align: center"
                 :pt="{ headerCell: { ariaLabel: $gettext('Delete controls') } }"
             >
                 <template #body="slotProps">
@@ -416,9 +411,7 @@ const focusInput = () => {
 }
 
 h4 {
-    color: v-bind(ARCHES_CHROME_BLUE);
     margin-top: 0;
-    font-size: 1.33rem;
 }
 
 p {
@@ -433,16 +426,16 @@ p {
     width: 100%;
 }
 
-:deep(th) {
-    font-weight: 600;
+:deep(td > input) {
     height: 3rem;
-}
-
-:deep(td) {
-    padding: 0.75rem;
+    font-size: inherit;
 }
 
 :deep(td > input, textarea) {
     width: 100%;
+}
+
+:deep(.p-datatable-column-title) {
+    font-size: small;
 }
 </style>

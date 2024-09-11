@@ -7,12 +7,14 @@ import { useGettext } from "vue3-gettext";
 import FileUpload from "primevue/fileupload";
 import { useToast } from "primevue/usetoast";
 
-import { ARCHES_CHROME_BLUE } from "@/arches_references/theme.ts";
 import {
     itemKey,
+    CONTRAST,
     DEFAULT_ERROR_TOAST_LIFE,
     ERROR,
+    PRIMARY,
 } from "@/arches_references/constants.ts";
+import { shouldUseContrast } from "@/arches_references/utils.ts";
 import ImageEditor from "@/arches_references/components/editor/ImageEditor.vue";
 
 import type { Ref } from "vue";
@@ -20,8 +22,15 @@ import type { ControlledListItem } from "@/arches_references/types";
 import type {
     FileUploadBeforeSendEvent,
     FileUploadErrorEvent,
+    FileUploadProps,
+    FileUploadState,
     FileUploadUploadEvent,
 } from "primevue/fileupload";
+
+interface FileUploadInternals {
+    props: FileUploadProps;
+    state: FileUploadState;
+}
 
 const item = inject(
     itemKey,
@@ -69,24 +78,20 @@ const showError = (event?: FileUploadErrorEvent | FileUploadUploadEvent) => {
             :with-credentials="true"
             :show-cancel-button="false"
             :show-upload-button="false"
+            :choose-button-props="{
+                severity: shouldUseContrast() ? CONTRAST : PRIMARY,
+            }"
+            choose-icon="fa fa-plus-circle"
+            :choose-label="$gettext('Upload an image')"
             name="item_image"
             :pt="{
-                buttonbar: {
-                    style: {
-                        border: '1px solid lightgray',
-                        borderRadius: '4px',
-                    },
-                },
-                chooseButton: {
-                    style: { backgroundColor: 'aliceblue', color: 'black' },
-                },
-                content: ({ props, state }) => {
+                content: ({ props, state }: FileUploadInternals) => {
                     const done = [0, 100].includes(state.progress);
                     return {
                         style: { display: done ? 'none' : '' },
                     };
                 },
-                input: { ariaLabel: $gettext('Upload an image') },
+                pcChooseButton: { root: { style: { fontSize: 'smaller' } } },
             }"
             @before-send="addHeader($event)"
             @upload="upload($event)"
@@ -113,15 +118,8 @@ const showError = (event?: FileUploadErrorEvent | FileUploadUploadEvent) => {
     width: 100%;
 }
 
-.images {
-    margin-top: 1.5rem;
-    gap: 1.5rem;
-}
-
 h4 {
-    color: v-bind(ARCHES_CHROME_BLUE);
     margin-top: 0;
-    font-size: 1.33rem;
 }
 
 p {
@@ -129,6 +127,7 @@ p {
 }
 
 .images {
+    margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 3rem;

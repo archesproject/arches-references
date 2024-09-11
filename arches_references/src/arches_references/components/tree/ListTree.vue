@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, inject, ref } from "vue";
+import { computed, inject, ref, watch } from "vue";
+import { useRoute } from "vue-router";
 import { useGettext } from "vue3-gettext";
 
 import Tree from "primevue/tree";
@@ -8,13 +9,20 @@ import {
     displayedRowKey,
     selectedLanguageKey,
 } from "@/arches_references/constants.ts";
-import { bestLabel, nodeIsList } from "@/arches_references/utils.ts";
+import { routeNames } from "@/arches_references/routes.ts";
+import {
+    bestLabel,
+    findNodeInTree,
+    nodeIsList,
+} from "@/arches_references/utils.ts";
 import LetterCircle from "@/arches_references/components/misc/LetterCircle.vue";
 import ListTreeControls from "@/arches_references/components/tree/ListTreeControls.vue";
 import TreeRow from "@/arches_references/components/tree/TreeRow.vue";
 
 import type { ComponentPublicInstance, Ref } from "vue";
-import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree/Tree";
+import type { RouteLocationNormalizedLoadedGeneric } from "vue-router";
+import type { TreePassThroughMethodOptions } from "primevue/tree";
+import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree";
 import type { TreeNode } from "primevue/treenode";
 import type { Language } from "@/arches/types";
 import type {
@@ -56,7 +64,83 @@ const { setDisplayedRow } = inject(displayedRowKey) as unknown as {
     setDisplayedRow: RowSetter;
 };
 
+const route = useRoute();
+
+const navigate = (newRoute: RouteLocationNormalizedLoadedGeneric) => {
+    switch (newRoute.name) {
+        case routeNames.splash:
+            setDisplayedRow(null);
+            expandedKeys.value = {};
+            selectedKeys.value = {};
+            break;
+        case routeNames.list: {
+            if (!tree.value.length) {
+                return;
+            }
+            const list = tree.value.find(
+                (node) => node.data.id === newRoute.params.id,
+            );
+            if (list) {
+                setDisplayedRow(list.data);
+                expandedKeys.value = {
+                    ...expandedKeys.value,
+                    [list.data.id]: true,
+                };
+                selectedKeys.value = { [list.data.id]: true };
+            } else {
+                setDisplayedRow(null);
+            }
+            break;
+        }
+        case routeNames.item: {
+            if (!tree.value.length) {
+                return;
+            }
+            const { found, path } = findNodeInTree(
+                tree.value,
+                newRoute.params.id as string,
+            );
+            if (found) {
+                setDisplayedRow(found.data);
+                const itemsToExpandIds = path.map(
+                    (itemInPath: TreeNode) => itemInPath.key,
+                );
+                expandedKeys.value = {
+                    ...expandedKeys.value,
+                    ...Object.fromEntries(
+                        [
+                            found.data.controlled_list_id,
+                            ...itemsToExpandIds,
+                        ].map((x) => [x, true]),
+                    ),
+                };
+                selectedKeys.value = { [found.data.id]: true };
+            }
+            break;
+        }
+    }
+};
+
+// React to route changes.
+watch(
+    [
+        () => {
+            return { ...route };
+        },
+    ],
+    ([newRoute]) => {
+        navigate(newRoute);
+    },
+);
+
+// Navigate on initial load of the tree.
+watch(tree, () => navigate(route), { once: true });
+
 const updateSelectedAndExpanded = (node: TreeNode) => {
+    if (isMultiSelecting.value || movingItem.value?.key) {
+        return;
+    }
+
     setDisplayedRow(node.data);
     expandedKeys.value = {
         ...expandedKeys.value,
@@ -105,9 +189,9 @@ const expandPathsToFilterResults = (newFilterValue: string) => {
 
 const getInputElement = () => {
     if (treeDOMRef.value !== null) {
-        return treeDOMRef.value.$el.ownerDocument.getElementsByClassName(
-            "p-tree-filter",
-        )[0] as HTMLInputElement;
+        return treeDOMRef.value.$el.ownerDocument.querySelector(
+            'input[data-pc-name="pcfilter"]',
+        ) as HTMLInputElement;
     }
 };
 
@@ -155,26 +239,34 @@ const filterCallbackWrapped = computed(() => {
         },
     };
 });
+
+// Factored out because of vue-tsc problems inside the pt object
+const ptNodeContent = ({ instance }: TreePassThroughMethodOptions) => {
+    if (instance.$el && instance.node.key === movingItem.value?.key) {
+        instance.$el.classList.add("is-adjusting-parent");
+    }
+    return { style: { height: "4rem" } };
+};
 </script>
 
 <template>
     <ListTreeControls
         :key="refetcher"
-        v-model="tree"
+        v-model:tree="tree"
         v-model:rerender-tree="rerenderTree"
         v-model:expanded-keys="expandedKeys"
         v-model:selected-keys="selectedKeys"
         v-model:moving-item="movingItem"
         v-model:is-multi-selecting="isMultiSelecting"
-        v-model:nextNewList="nextNewList"
-        v-model:newListFormValue="newListFormValue"
+        v-model:next-new-list="nextNewList"
+        v-model:new-list-form-value="newListFormValue"
     />
     <Tree
         v-if="tree"
         ref="treeDOMRef"
         :key="rerenderTree"
-        v-model:selectionKeys="selectedKeys"
-        v-model:expandedKeys="expandedKeys"
+        v-model:selection-keys="selectedKeys"
+        v-model:expanded-keys="expandedKeys"
         :value="tree"
         :filter="true"
         :filter-by="filterCallbackWrapped as unknown as string"
@@ -185,15 +277,17 @@ const filterCallbackWrapped = computed(() => {
             root: {
                 style: {
                     flexGrow: 1,
-                    border: 0,
                     overflowY: 'hidden',
                     paddingBottom: '5rem',
                 },
             },
-            input: {
-                style: { height: '3.5rem', fontSize: '1.4rem' },
-                ariaLabel: $gettext('Find'),
+            pcFilter: {
+                root: {
+                    ariaLabel: $gettext('Find'),
+                    style: { width: '100%', fontSize: 'small' },
+                },
             },
+            filterIcon: { style: { display: 'flex' } },
             wrapper: {
                 style: {
                     overflowY: 'auto',
@@ -202,13 +296,8 @@ const filterCallbackWrapped = computed(() => {
                 },
             },
             container: { style: { fontSize: '1.4rem' } },
-            content: ({ instance }) => {
-                if (instance.$el && instance.node.key === movingItem?.key) {
-                    instance.$el.classList.add('is-adjusting-parent');
-                }
-                return { style: { height: '4rem' } };
-            },
-            label: {
+            nodeContent: ptNodeContent,
+            nodeLabel: {
                 style: {
                     textWrap: 'nowrap',
                     marginLeft: '0.5rem',
@@ -233,10 +322,10 @@ const filterCallbackWrapped = computed(() => {
                 v-model:selected-keys="selectedKeys"
                 v-model:moving-item="movingItem"
                 v-model:refetcher="refetcher"
-                v-model:rerenderTree="rerenderTree"
-                v-model:nextNewItem="nextNewItem"
-                v-model:newLabelFormValue="newLabelFormValue"
-                v-model:newListFormValue="newListFormValue"
+                v-model:rerender-tree="rerenderTree"
+                v-model:next-new-item="nextNewItem"
+                v-model:new-label-form-value="newLabelFormValue"
+                v-model:new-list-form-value="newListFormValue"
                 v-model:filter-value="filterValue"
                 :move-labels
                 :node="slotProps.node"
@@ -249,5 +338,10 @@ const filterCallbackWrapped = computed(() => {
 <style scoped>
 :deep(.is-adjusting-parent) {
     border: dashed;
+}
+
+:deep(.p-tree-filter-input) {
+    height: 3.5rem;
+    font-size: 1.4rem;
 }
 </style>

@@ -4,11 +4,15 @@ import { useGettext } from "vue3-gettext";
 
 import Button from "primevue/button";
 
-import { selectedLanguageKey } from "@/arches_references/constants.ts";
-import { bestLabel } from "@/arches_references/utils.ts";
+import {
+    selectedLanguageKey,
+    CONTRAST,
+    SECONDARY,
+} from "@/arches_references/constants.ts";
+import { bestLabel, shouldUseContrast } from "@/arches_references/utils.ts";
 
 import type { Ref } from "vue";
-import type { TreeSelectionKeys } from "primevue/tree/Tree";
+import type { TreeSelectionKeys } from "primevue/tree";
 import type { TreeNode } from "primevue/treenode";
 import type { Language } from "@/arches/types";
 
@@ -54,6 +58,7 @@ const abandonMove = () => {
             ref="abandonMoveRef"
             type="button"
             class="banner-button"
+            :severity="shouldUseContrast() ? CONTRAST : SECONDARY"
             :label="$gettext('Abandon')"
             @click="abandonMove"
         />
@@ -66,6 +71,7 @@ const abandonMove = () => {
         <Button
             type="button"
             class="banner-button"
+            :severity="shouldUseContrast() ? CONTRAST : SECONDARY"
             :label="$gettext('Abandon')"
             @click="
                 isMultiSelecting = false;
@@ -77,7 +83,7 @@ const abandonMove = () => {
 
 <style scoped>
 .action-banner {
-    background: yellow;
+    background: var(--p-amber-300);
     font-weight: 800;
     height: 5rem;
     font-size: small;
@@ -89,8 +95,7 @@ const abandonMove = () => {
 
 .banner-button {
     height: 3rem;
-    background: darkslategray;
-    color: white;
     text-wrap: nowrap;
+    font-size: unset;
 }
 </style>
