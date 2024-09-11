@@ -1,32 +1,42 @@
 <script setup lang="ts">
 import arches from "arches";
-import { computed, provide, ref } from "vue";
+import { provide, ref } from "vue";
+import { useRouter } from "vue-router";
 
-import ProgressSpinner from "primevue/progressspinner";
-import Splitter from "primevue/splitter";
-import SplitterPanel from "primevue/splitterpanel";
+import ConfirmDialog from "primevue/confirmdialog";
+import Toast from "primevue/toast";
 
-import { LIGHT_GRAY } from "@/arches_references/theme.ts";
 import {
     displayedRowKey,
     selectedLanguageKey,
 } from "@/arches_references/constants.ts";
+import { routeNames } from "@/arches_references/routes.ts";
 import { dataIsList } from "@/arches_references/utils.ts";
-import ControlledListSplash from "@/arches_references/components/misc/ControlledListSplash.vue";
-import ItemEditor from "@/arches_references/components/editor/ItemEditor.vue";
-import ListCharacteristics from "@/arches_references/components/editor/ListCharacteristics.vue";
+
 import ListHeader from "@/arches_references/components/misc/ListHeader.vue";
-import ListTree from "@/arches_references/components/tree/ListTree.vue";
+import MainSplitter from "@/arches_references/components/MainSplitter.vue";
 
 import type { Ref } from "vue";
 import type { Language } from "@/arches/types";
 import type { Selectable } from "@/arches_references/types";
 
-const splash = "splash";
+const router = useRouter();
 
 const displayedRow: Ref<Selectable | null> = ref(null);
 const setDisplayedRow = (val: Selectable | null) => {
     displayedRow.value = val;
+    if (val === null) {
+        router.push({ name: routeNames.splash });
+        return;
+    }
+    if (typeof val.id === "number") {
+        return;
+    }
+    if (dataIsList(val)) {
+        router.push({ name: routeNames.list, params: { id: val.id } });
+    } else {
+        router.push({ name: routeNames.item, params: { id: val.id } });
+    }
 };
 // @ts-expect-error vue-tsc doesn't like arbitrary properties here
 provide(displayedRowKey, { displayedRow, setDisplayedRow });
@@ -37,60 +47,40 @@ const selectedLanguage: Ref<Language> = ref(
     ) as Language,
 );
 provide(selectedLanguageKey, selectedLanguage);
-
-const panel = computed(() => {
-    if (!displayedRow.value) {
-        return ControlledListSplash;
-    }
-    if (dataIsList(displayedRow.value)) {
-        return ListCharacteristics;
-    }
-    return ItemEditor;
-});
 </script>
 
 <template>
-    <div class="list-editor-container">
-        <ListHeader />
-        <Splitter
-            :pt="{
-                root: { style: { height: '100%' } },
-                gutter: { style: { background: LIGHT_GRAY } },
-                gutterHandler: { style: { background: LIGHT_GRAY } },
-            }"
-        >
-            <SplitterPanel
-                :size="34"
-                :min-size="25"
-                :pt="{
-                    root: {
-                        style: { display: 'flex', flexDirection: 'column' },
-                    },
-                }"
-            >
-                <Suspense>
-                    <ListTree />
-                    <template #fallback>
-                        <ProgressSpinner />
-                    </template>
-                </Suspense>
-            </SplitterPanel>
-            <SplitterPanel
-                :size="66"
-                :min-size="25"
-                :style="{
-                    margin: '1rem 0rem 4rem 1rem',
-                    overflowY: 'auto',
-                    paddingRight: '4rem',
-                }"
-            >
-                <component
-                    :is="panel"
-                    :key="displayedRow?.id ?? splash"
-                />
-            </SplitterPanel>
-        </Splitter>
+    <!-- Subtract size of arches toolbars -->
+    <div style="width: calc(100vw - 50px); height: calc(100vh - 50px)">
+        <div class="list-editor-container">
+            <ListHeader />
+            <MainSplitter />
+        </div>
     </div>
+    <Toast />
+    <ConfirmDialog
+        :draggable="false"
+        :pt="{
+            root: {
+                style: {
+                    fontSize: 'small',
+                },
+            },
+            header: {
+                style: {
+                    background: 'var(--p-navigation)',
+                    color: 'white',
+                    borderRadius: '1rem',
+                    marginBottom: '1rem',
+                },
+            },
+            title: {
+                style: {
+                    fontWeight: 800,
+                },
+            },
+        }"
+    />
 </template>
 
 <style scoped>
@@ -98,5 +88,17 @@ const panel = computed(() => {
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+:deep(h2) {
+    font-size: medium;
+}
+
+:deep(h3) {
+    font-size: medium;
+}
+
+:deep(h4) {
+    font-size: small;
 }
 </style>

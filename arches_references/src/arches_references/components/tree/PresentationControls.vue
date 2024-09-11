@@ -4,9 +4,14 @@ import { inject } from "vue";
 import { useGettext } from "vue3-gettext";
 
 import Button from "primevue/button";
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 
-import { selectedLanguageKey } from "@/arches_references/constants.ts";
+import {
+    CONTRAST,
+    SECONDARY,
+    selectedLanguageKey,
+} from "@/arches_references/constants.ts";
+import { shouldUseContrast } from "@/arches_references/utils.ts";
 
 import type { Ref } from "vue";
 import type { Language } from "@/arches/types";
@@ -24,6 +29,7 @@ const { expandAll, collapseAll } = defineProps<{
 <template>
     <div style="text-align: center; display: flex; width: 100%">
         <Button
+            :severity="shouldUseContrast() ? CONTRAST : SECONDARY"
             class="secondary-button"
             type="button"
             icon="fa fa-plus"
@@ -31,6 +37,7 @@ const { expandAll, collapseAll } = defineProps<{
             @click="expandAll"
         />
         <Button
+            :severity="shouldUseContrast() ? CONTRAST : SECONDARY"
             class="secondary-button"
             type="button"
             icon="fa fa-minus"
@@ -40,27 +47,26 @@ const { expandAll, collapseAll } = defineProps<{
         <div style="display: flex; flex-grow: 1; justify-content: flex-end">
             <span
                 id="languageSelectLabel"
-                style="align-self: center; margin-right: 0.25rem"
+                style="
+                    align-self: center;
+                    margin-right: 0.25rem;
+                    font-size: smaller;
+                "
             >
                 {{ $gettext("Show labels in:") }}
             </span>
-            <Dropdown
+            <Select
                 v-model="selectedLanguage"
                 aria-labelledby="languageSelectLabel"
                 :options="arches.languages"
-                :option-label="(lang) => `${lang.name} (${lang.code})`"
+                :option-label="
+                    (lang: Language) => `${lang.name} (${lang.code})`
+                "
                 :placeholder="$gettext('Language')"
                 :pt="{
-                    root: { class: 'p-button secondary-button' },
-                    input: {
-                        style: {
-                            fontFamily: 'inherit',
-                            fontSize: 'small',
-                            textAlign: 'center',
-                            alignContent: 'center',
-                        },
-                    },
-                    itemLabel: { style: { fontSize: 'small' } },
+                    root: { class: 'secondary-button' },
+                    label: { style: { alignSelf: 'center' } },
+                    optionLabel: { style: { fontSize: 'small' } },
                 }"
             />
         </div>
@@ -69,12 +75,7 @@ const { expandAll, collapseAll } = defineProps<{
 
 <style scoped>
 .secondary-button {
-    border: 0;
-    background: #f4f4f4;
     height: 3rem;
     margin: 0.5rem;
-    justify-content: center;
-    font-weight: 600;
-    text-wrap: nowrap;
 }
 </style>

@@ -3,11 +3,13 @@ import ActionBanner from "@/arches_references/components/tree/ActionBanner.vue";
 import AddDeleteControls from "@/arches_references/components/tree/AddDeleteControls.vue";
 import PresentationControls from "@/arches_references/components/tree/PresentationControls.vue";
 
-import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree/Tree";
+import type { TreeExpandedKeys, TreeSelectionKeys } from "primevue/tree";
 import type { TreeNode } from "primevue/treenode";
 import type { ControlledList } from "@/arches_references/types";
 
-const controlledListItemsTree = defineModel<TreeNode[]>({ required: true });
+const controlledListItemsTree = defineModel<TreeNode[]>("tree", {
+    required: true,
+});
 const rerenderTree = defineModel<number>("rerenderTree", { required: true });
 const expandedKeys = defineModel<TreeExpandedKeys>("expandedKeys", {
     required: true,
@@ -76,9 +78,8 @@ const expandNode = (node: TreeNode) => {
 <style scoped>
 .controls {
     display: flex;
-    background: #f3fbfd;
+    background: var(--p-primary-50);
     gap: 0.5rem;
-    font-size: small;
     padding: 0.5rem;
     justify-content: space-between;
 }

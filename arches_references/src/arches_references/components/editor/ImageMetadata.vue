@@ -5,9 +5,9 @@ import { useGettext } from "vue3-gettext";
 
 import Button from "primevue/button";
 import Column from "primevue/column";
-import Dropdown from "primevue/dropdown";
 import DataTable from "primevue/datatable";
 import InputText from "primevue/inputtext";
+import Select from "primevue/select";
 import { useToast } from "primevue/usetoast";
 
 import {
@@ -16,17 +16,23 @@ import {
     upsertMetadata,
 } from "@/arches_references/api.ts";
 import {
+    CONTRAST,
     DANGER,
     DEFAULT_ERROR_TOAST_LIFE,
     ERROR,
     METADATA_CHOICES,
     itemKey,
 } from "@/arches_references/constants.ts";
-import { dataIsNew, languageNameFromCode } from "@/arches_references/utils.ts";
+import {
+    dataIsNew,
+    languageNameFromCode,
+    shouldUseContrast,
+} from "@/arches_references/utils.ts";
 import AddMetadata from "@/arches_references/components/editor/AddMetadata.vue";
 
 import type { Ref } from "vue";
 import type { DataTableRowEditInitEvent } from "primevue/datatable";
+import type { Language } from "arches/arches/app/src/arches/types";
 import type {
     ControlledListItem,
     ControlledListItemImage,
@@ -236,7 +242,7 @@ const focusInput = () => {
     <div ref="editorRef">
         <DataTable
             v-if="image.metadata.length"
-            v-model:editingRows="editingRows"
+            v-model:editing-rows="editingRows"
             :value="image.metadata"
             data-key="id"
             edit-mode="row"
@@ -251,20 +257,14 @@ const focusInput = () => {
                 style="width: 20%"
             >
                 <template #editor="{ data, field }">
-                    <Dropdown
+                    <Select
                         v-model="data[field]"
                         :options="labeledChoices"
                         option-label="label"
                         option-value="type"
                         :pt="{
                             root: { style: { width: '90%' } },
-                            input: {
-                                style: {
-                                    fontFamily: 'inherit',
-                                    fontSize: 'small',
-                                },
-                            },
-                            panel: { style: { fontSize: 'small' } },
+                            optionLabel: { style: { fontSize: 'small' } },
                         }"
                     />
                 </template>
@@ -306,28 +306,17 @@ const focusInput = () => {
             <Column
                 field="language_id"
                 :header="languageHeader"
-                style="
-                    width: 10%;
-                    min-width: 8rem;
-                    height: 5rem;
-                    padding-left: 1rem;
-                "
+                style="width: 12%; height: 5rem"
             >
                 <template #editor="{ data, field }">
-                    <Dropdown
+                    <Select
                         v-model="data[field]"
                         :options="arches.languages"
-                        :option-label="(lang) => `${lang.name} (${lang.code})`"
+                        :option-label="
+                            (lang: Language) => `${lang.name} (${lang.code})`
+                        "
                         option-value="code"
-                        :pt="{
-                            input: {
-                                style: {
-                                    fontFamily: 'inherit',
-                                    fontSize: 'small',
-                                },
-                            },
-                            panel: { style: { fontSize: 'small' } },
-                        }"
+                        :pt="{ optionLabel: { style: { fontSize: 'small' } } }"
                     />
                 </template>
                 <template #body="slotProps">
@@ -341,25 +330,32 @@ const focusInput = () => {
                 style="width: 5%; min-width: 6rem; text-align: center"
                 :pt="{
                     headerCell: { ariaLabel: $gettext('Row edit controls') },
-                    rowEditorInitButton: {
-                        class: 'fa fa-pencil',
-                        style: { display: 'inline-flex' },
-                    },
-                    rowEditorInitIcon: { style: { display: 'none' } },
-                    rowEditorSaveButton: {
-                        class: 'fa fa-check',
-                        style: { display: 'inline-flex' },
-                    },
-                    rowEditorSaveIcon: { style: { display: 'none' } },
-                    rowEditorCancelButton: {
-                        class: 'fa fa-undo',
-                        style: { display: 'inline-flex' },
-                    },
-                    rowEditorCancelIcon: { style: { display: 'none' } },
                 }"
-            />
+            >
+                <template #roweditoriniticon>
+                    <i
+                        class="fa fa-pencil"
+                        aria-hidden="true"
+                        style="font-size: small"
+                    ></i>
+                </template>
+                <template #roweditorsaveicon>
+                    <i
+                        class="fa fa-check"
+                        aria-hidden="true"
+                        style="font-size: small"
+                    ></i>
+                </template>
+                <template #roweditorcancelicon>
+                    <i
+                        class="fa fa-undo"
+                        aria-hidden="true"
+                        style="font-size: small"
+                    ></i>
+                </template>
+            </Column>
             <Column
-                style="width: 5%; text-align: center"
+                style="width: 3%; text-align: center"
                 :pt="{ headerCell: { ariaLabel: $gettext('Delete controls') } }"
             >
                 <template #body="slotProps">
@@ -383,7 +379,7 @@ const focusInput = () => {
         />
         <Button
             raised
-            :severity="DANGER"
+            :severity="shouldUseContrast() ? CONTRAST : DANGER"
             icon="fa fa-trash"
             :label="$gettext('Delete image')"
             @click="issueDeleteImage"
@@ -398,27 +394,19 @@ const focusInput = () => {
     width: 100%;
 }
 
-:deep(th) {
-    font-weight: 600;
-}
-
-:deep(td:first-child) {
-    padding-left: 0.75rem;
-}
-
 :deep(td > input) {
-    width: 95%;
+    width: 100%;
+    height: 3rem;
+    font-size: inherit;
 }
 
 .p-button {
     height: 3rem;
     margin-top: 1rem;
+    font-size: smaller;
 }
 
-:deep(.p-button-icon),
-:deep(.p-button-label) {
-    color: white;
+:deep(.p-datatable-column-title) {
     font-size: small;
-    font-weight: 600;
 }
 </style>

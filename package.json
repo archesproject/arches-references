@@ -18,18 +18,17 @@
         "vitest": "vitest --run --coverage"
     },
     "dependencies": {
-        "arches": "archesproject/arches#dev/7.6.x"
+        "arches": "archesproject/arches#dev/8.0.x",
+        "vue-router": "^4.4.0"
     },
     "devDependencies": {
-        "arches-dev-dependencies": "archesproject/arches-dev-dependencies#dev/7.6.x"
+        "arches-dev-dependencies": "archesproject/arches-dev-dependencies#dev/8.0.x"
     },
-    "nodeModulesPaths": {
-    },
+    "nodeModulesPaths": {},
     "overrides": {
         "moment-timezone": "^0.5.45",
         "nomnom": "npm:@gerhobbelt/nomnom",
-        "rimraf": "^5.0.7", 
-        "underscore": "^1.13.6",
-        "primevue": "3.53.0"
+        "rimraf": "^5.0.7",
+        "underscore": "^1.13.6"
     }
 }

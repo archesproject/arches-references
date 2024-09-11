@@ -5,7 +5,6 @@ import { useGettext } from "vue3-gettext";
 import InputText from "primevue/inputtext";
 import { useToast } from "primevue/usetoast";
 
-import { ARCHES_CHROME_BLUE } from "@/arches_references/theme.ts";
 import { patchItem } from "@/arches_references/api.ts";
 import {
     DEFAULT_ERROR_TOAST_LIFE,
@@ -124,10 +123,9 @@ const cancel = () => {
     flex-direction: column;
     width: 100%;
 }
+
 h4 {
-    color: v-bind(ARCHES_CHROME_BLUE);
     margin-top: 0;
-    font-size: 1.33rem;
 }
 
 p {
