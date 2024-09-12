@@ -106,7 +106,7 @@ class RDMToControlledListsETLTests(TestCase):
             list_item__in=imported_items_2
         )
 
-        # Check that new uuids were generated for polyhiearchical concepts
+        # Check that new uuids were generated for polyhierarchical concepts
         self.assertNotEqual(
             imported_item_values.filter(value="Test Concept 1"),
             imported_item_values_2.filter(value="Test Concept 1"),
@@ -118,7 +118,7 @@ class RDMToControlledListsETLTests(TestCase):
             imported_item_values.get(value="French Test Concept 1").list_item_id,
         )
 
-        # But that items with prefLabls in different languages have different listitemvalue ids
+        # But that items with prefLabels in different languages have different listitemvalue ids
         self.assertNotEqual(
             imported_item_values.get(value="Test Concept 1").pk,
             imported_item_values.get(value="French Test Concept 1").pk,
