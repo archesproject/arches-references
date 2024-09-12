@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.test import TestCase
 from django.test.client import Client
 from django.test.utils import captured_stdout
+from django.core.management.base import CommandError
 
 from arches_references.models import List, ListItem, ListItemValue
 from arches.app.utils.skos import SKOSReader
@@ -137,3 +138,20 @@ class RDMToControlledListsETLTests(TestCase):
             stderr=output,
         )
         self.assertIn(expected_output, output.getvalue().strip())
+
+    def test_no_matching_language_error(self):
+        expected_output = (
+            "The preferred sort language, nonexistent, does not exist in the database."
+        )
+        output = io.StringIO()
+        with self.assertRaises(CommandError) as e:
+            management.call_command(
+                "controlled_lists",
+                operation="migrate_collections_to_controlled_lists",
+                collections_to_migrate=["Polyhierarchical Collection Test"],
+                host="http://localhost:8000/plugins/controlled-list-manager/item/",
+                preferred_sort_language="nonexistent",
+                overwrite=False,
+                stderr=output,
+            )
+        self.assertEqual(expected_output, str(e.exception))
