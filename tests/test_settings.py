@@ -23,7 +23,7 @@ from arches_references.settings import *
 PACKAGE_NAME = "arches_references"
 
 PROJECT_TEST_ROOT = os.path.dirname(__file__)
-MEDIA_ROOT = os.path.join(PROJECT_TEST_ROOT, "fixtures", "data")
+FIXTURE_DIRS = [os.path.join(PROJECT_TEST_ROOT, "fixtures", "data")]
 
 BUSINESS_DATA_FILES = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
