@@ -61,7 +61,13 @@ provide(systemLanguageKey, systemLanguage);
             <MainSplitter />
         </div>
     </div>
-    <Toast />
+    <Toast
+        :pt="{
+            messageIcon: {
+                style: { marginTop: 'var(--p-toast-message-icon-margin-top)' },
+            },
+        }"
+    />
     <ConfirmDialog
         :draggable="false"
         :pt="{
