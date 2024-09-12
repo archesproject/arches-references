@@ -1,6 +1,6 @@
-from arches.app.models.models import CardXNodeXWidget, Node, GraphModel, Value
+from arches.app.models.models import CardXNodeXWidget, GraphModel, Language, Node, Value
 from arches_references.models import List
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from django.db import models
 from django.db.models.expressions import CombinedExpression
 from django.db.models.fields.json import KT
@@ -73,11 +73,28 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if options["operation"] == "migrate_collections_to_controlled_lists":
+            psl = options["preferred_sort_language"]
+            try:
+                Language.objects.get(code=psl)
+            except Language.DoesNotExist:
+                raise CommandError(
+                    "The preferred sort language, {0}, does not exist in the database.".format(
+                        psl
+                    )
+                )
+
+            if not options["overwrite"]:
+                for collection_name in options["collections_to_migrate"]:
+                    if List.objects.filter(name=collection_name).exists():
+                        raise CommandError(
+                            f"The collection '{collection_name}' already exists."
+                        )
+
             self.migrate_collections_to_controlled_lists(
                 collections_to_migrate=options["collections_to_migrate"],
                 host=options["host"],
                 overwrite=options["overwrite"],
-                preferred_sort_language=options["preferred_sort_language"],
+                preferred_sort_language=psl,
             )
         elif options["operation"] == "migrate_graph_to_reference_datatype":
             self.migrate_graph_to_reference_datatype(options["graph"])
@@ -99,6 +116,9 @@ class Command(BaseCommand):
                 -ho 'http://localhost:8000/plugins/controlled-list-manager/item/'
                 -psl 'fr'
                 -ow
+
+            for collections that contain an apostrophe, wrap the concept in double quotes, e.g. "John''s list"
+
         """
 
         collections_in_db = list(
