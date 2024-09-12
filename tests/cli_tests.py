@@ -7,7 +7,7 @@ from django.test import TestCase
 from django.test.client import Client
 from django.test.utils import captured_stdout
 
-from arches_references.models import List
+from arches_references.models import List, ListItem, ListItemValue
 from arches.app.utils.skos import SKOSReader
 
 from .test_settings import PROJECT_TEST_ROOT
@@ -71,7 +71,10 @@ class RDMToControlledListsETLTests(TestCase):
         management.call_command(
             "controlled_lists",
             operation="migrate_collections_to_controlled_lists",
-            collections_to_migrate=["Polyhierarchical Collection Test"],
+            collections_to_migrate=[
+                "Polyhierarchical Collection Test",
+                "Polyhierarchy Collection 2",
+            ],
             host="http://localhost:8000/plugins/controlled-list-manager/item/",
             preferred_sort_language="en",
             overwrite=False,
@@ -81,6 +84,45 @@ class RDMToControlledListsETLTests(TestCase):
         imported_list = List.objects.get(name="Polyhierarchical Collection Test")
         imported_items = imported_list.list_items.all()
         self.assertEqual(len(imported_items), 3)
+
+        imported_item_values = ListItemValue.objects.filter(
+            list_item__in=imported_items
+        )
+        self.assertQuerySetEqual(
+            imported_item_values.values_list("value", flat=True).order_by("value"),
+            [
+                "French Test Concept 1",
+                "French Test Concept 2",
+                "French Test Concept 3",
+                "Test Concept 1",
+                "Test Concept 2",
+                "Test Concept 3",
+            ],
+        )
+
+        imported_list_2 = List.objects.get(name="Polyhierarchy Collection 2")
+        imported_items_2 = imported_list_2.list_items.all()
+        imported_item_values_2 = ListItemValue.objects.filter(
+            list_item__in=imported_items_2
+        )
+
+        # Check that new uuids were generated for polyhiearchical concepts
+        self.assertNotEqual(
+            imported_item_values.filter(value="Test Concept 1"),
+            imported_item_values_2.filter(value="Test Concept 1"),
+        )
+
+        # Check that items with multiple prefLabels in different languages have same listitemid
+        self.assertEqual(
+            imported_item_values.get(value="Test Concept 1").list_item_id,
+            imported_item_values.get(value="French Test Concept 1").list_item_id,
+        )
+
+        # But that items with prefLabls in different languages have different listitemvalue ids
+        self.assertNotEqual(
+            imported_item_values.get(value="Test Concept 1").pk,
+            imported_item_values.get(value="French Test Concept 1").pk,
+        )
 
     def test_no_matching_collection_error(self):
         expected_output = "Failed to find the following collections in the database: Collection That Doesn't Exist"
