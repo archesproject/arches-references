@@ -45,7 +45,9 @@ class ListExportPackageTests(TestCase):
 class ListImportPackageTests(TestCase):
 
     def test_import_controlled_list(self):
-        input_file = os.path.join(PROJECT_TEST_ROOT, "data", "controlled_lists.xlsx")
+        input_file = os.path.join(
+            PROJECT_TEST_ROOT, "fixtures", "data", "controlled_lists.xlsx"
+        )
         output = io.StringIO()
         # packages command does not yet fully avoid print()
         with captured_stdout():
@@ -62,15 +64,7 @@ class ListImportPackageTests(TestCase):
 
 
 class RDMToControlledListsETLTests(TestCase):
-
-    @classmethod
-    def setUpTestData(cls):
-
-        management.call_command(
-            "loaddata",
-            "tests/data/polyhierarchical_collections.json",
-            format="json",
-        )
+    fixtures = ["polyhierarchical_collections"]
 
     def test_migrate_collections_to_controlled_lists(self):
         output = io.StringIO()
