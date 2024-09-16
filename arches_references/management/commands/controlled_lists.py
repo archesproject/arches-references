@@ -1,4 +1,12 @@
-from arches.app.models.models import CardXNodeXWidget, GraphModel, Language, Node, Value
+from arches.app.models.models import (
+    CardXNodeXWidget,
+    GraphModel,
+    Language,
+    Node,
+    Value,
+    Widget,
+)
+from arches.app.models.graph import Graph
 from arches_references.models import List
 from django.core.management.base import BaseCommand, CommandError
 from django.db import models
@@ -156,8 +164,8 @@ class Command(BaseCommand):
             result = cursor.fetchone()
             self.stdout.write(result[0])
 
-    def migrate_graph_to_reference_datatype(self, graph):
-        future_graph = GraphModel.objects.get(source_identifier=graph)
+    def migrate_graph_to_reference_datatype(self, graph_id):
+        future_graph = GraphModel.objects.get(source_identifier=graph_id)
         nodes = (
             Node.objects.filter(
                 graph_id=future_graph.graphid,
@@ -173,11 +181,12 @@ class Command(BaseCommand):
             .prefetch_related("cardxnodexwidget_set")
         )
 
-        existing_list_ids = List.objects.all().values_list("id", flat=True)
+        REFERENCE_SELECT_WIDGET = Widget.objects.get(name="reference-select-widget")
+        controlled_list_ids = List.objects.all().values_list("id", flat=True)
 
         errors = []
         for node in nodes:
-            if node.collection_id in existing_list_ids:
+            if node.collection_id in controlled_list_ids:
                 if node.datatype == "concept":
                     node.config = {
                         "multiValue": False,
@@ -219,8 +228,9 @@ class Command(BaseCommand):
                 )
                 for cross_record in cross_records:
                     cross_record.config = cross_record.without_default_and_options
+                    cross_record.widget = REFERENCE_SELECT_WIDGET
                     cross_record.save()
-            elif node.collection_id not in existing_list_ids:
+            elif node.collection_id not in controlled_list_ids:
                 errors.append(
                     {"node_alias": node.alias, "collection_id": node.collection_id}
                 )
@@ -232,7 +242,8 @@ class Command(BaseCommand):
                 )
             )
         else:
-            future_graph.has_unpublished_changes = True
+            graph = Graph.objects.get(pk=graph_id)
+            graph.update_from_editable_future_graph()
             self.stdout.write(
                 "All concept nodes for the {0} graph have been successfully migrated to reference datatype".format(
                     future_graph.name
