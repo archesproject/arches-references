@@ -1,3 +1,4 @@
+from arches.app.models.fields.i18n import I18n_JSONField
 from arches.app.models.models import (
     CardXNodeXWidget,
     GraphModel,
@@ -9,7 +10,7 @@ from arches.app.models.models import (
 from arches.app.models.graph import Graph
 from arches_references.models import List
 from django.core.management.base import BaseCommand, CommandError
-from django.db import models
+from django.db import models, transaction
 from django.db.models.expressions import CombinedExpression
 from django.db.models.fields.json import KT
 from django.db.models.functions import Cast
@@ -185,55 +186,64 @@ class Command(BaseCommand):
         controlled_list_ids = List.objects.all().values_list("id", flat=True)
 
         errors = []
-        for node in nodes:
-            if node.collection_id in controlled_list_ids:
-                if node.datatype == "concept":
-                    node.config = {
-                        "multiValue": False,
-                        "controlledList": node.collection_id.__str__(),
-                    }
-                elif node.datatype == "concept-list":
-                    node.config = {
-                        "multiValue": True,
-                        "controlledList": node.collection_id.__str__(),
-                    }
-                node.datatype = "reference"
-                node.save()
+        with transaction.atomic():
+            for node in nodes:
+                if node.collection_id in controlled_list_ids:
+                    if node.datatype == "concept":
+                        node.config = {
+                            "multiValue": False,
+                            "controlledList": node.collection_id.__str__(),
+                        }
+                    elif node.datatype == "concept-list":
+                        node.config = {
+                            "multiValue": True,
+                            "controlledList": node.collection_id.__str__(),
+                        }
+                    node.datatype = "reference"
+                    node.full_clean()
+                    node.save()
 
-                cross_records = (
-                    node.cardxnodexwidget_set.annotate(
-                        config_without_i18n=Cast(
-                            models.F("config"),
-                            output_field=models.JSONField(),
+                    cross_records = (
+                        node.cardxnodexwidget_set.annotate(
+                            config_without_i18n=Cast(
+                                models.F("config"),
+                                output_field=models.JSONField(),
+                            )
+                        )
+                        .annotate(
+                            without_default=CombinedExpression(
+                                models.F("config_without_i18n"),
+                                "-",
+                                models.Value(
+                                    "defaultValue", output_field=models.CharField()
+                                ),
+                                output_field=models.JSONField(),
+                            )
+                        )
+                        .annotate(
+                            without_default_and_options=CombinedExpression(
+                                models.F("without_default"),
+                                "-",
+                                models.Value(
+                                    "options", output_field=models.CharField()
+                                ),
+                                output_field=I18n_JSONField(),
+                            )
                         )
                     )
-                    .annotate(
-                        without_default=CombinedExpression(
-                            models.F("config_without_i18n"),
-                            "-",
-                            models.Value(
-                                "defaultValue", output_field=models.CharField()
-                            ),
-                            output_field=models.JSONField(),
-                        )
+                    for cross_record in cross_records:
+                        cross_record.config = {}
+                        cross_record.save()
+
+                        cross_record.config = cross_record.without_default_and_options
+                        cross_record.widget = REFERENCE_SELECT_WIDGET
+                        cross_record.full_clean()
+                        cross_record.save()
+
+                elif node.collection_id not in controlled_list_ids:
+                    errors.append(
+                        {"node_alias": node.alias, "collection_id": node.collection_id}
                     )
-                    .annotate(
-                        without_default_and_options=CombinedExpression(
-                            models.F("without_default"),
-                            "-",
-                            models.Value("options", output_field=models.CharField()),
-                            output_field=models.JSONField(),
-                        )
-                    )
-                )
-                for cross_record in cross_records:
-                    cross_record.config = cross_record.without_default_and_options
-                    cross_record.widget = REFERENCE_SELECT_WIDGET
-                    cross_record.save()
-            elif node.collection_id not in controlled_list_ids:
-                errors.append(
-                    {"node_alias": node.alias, "collection_id": node.collection_id}
-                )
 
         if errors:
             self.stderr.write(
@@ -243,9 +253,11 @@ class Command(BaseCommand):
             )
         else:
             graph = Graph.objects.get(pk=graph_id)
-            graph.update_from_editable_future_graph()
+            updated_graph = graph.update_from_editable_future_graph()
+            updated_graph.publish()
+
             self.stdout.write(
-                "All concept nodes for the {0} graph have been successfully migrated to reference datatype".format(
+                "All concept/concept-list nodes for the {0} graph have been successfully migrated to reference datatype".format(
                     future_graph.name
                 )
             )
