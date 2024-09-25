@@ -193,3 +193,45 @@ class MigrateConceptNodesToReferenceDatatypeTests(TestCase):
                 self.assertEqual(
                     expected_widget_config_keys, list(widget.config.keys())
                 )
+
+    def test_no_matching_graph_error(self):
+        output = io.StringIO()
+        expected_output = (
+            "The graph with the id 00000000-0000-0000-0000-000000000000 does not exist"
+        )
+
+        with self.assertRaises(CommandError) as e:
+            management.call_command(
+                "controlled_lists",
+                operation="migrate_concept_nodes_to_reference_datatype",
+                graph="00000000-0000-0000-0000-000000000000",
+                stderr=output,
+            )
+        self.assertEqual(str(e.exception), expected_output)
+
+    def test_no_concept_nodes_error(self):
+        output = io.StringIO()
+        expected_output = (
+            "No concept/concept-list nodes found for the No concept nodes graph"
+        )
+
+        with self.assertRaises(CommandError) as e:
+            management.call_command(
+                "controlled_lists",
+                operation="migrate_concept_nodes_to_reference_datatype",
+                graph="fc46b399-c824-45e5-86e2-5b992b8fa619",
+                stderr=output,
+            )
+        self.assertEqual(str(e.exception), expected_output)
+
+    def test_collections_not_migrated_error(self):
+        output = io.StringIO()
+        expected_output = "The following collections for the associated nodes have not been migrated to controlled lists:\nNode alias: concept_not_migrated, Collection ID: 00000000-0000-0000-0000-000000000005"
+
+        management.call_command(
+            "controlled_lists",
+            operation="migrate_concept_nodes_to_reference_datatype",
+            graph="b974103f-73bb-4f2a-bffb-8303227ba0da",
+            stderr=output,
+        )
+        self.assertEqual(output.getvalue().strip(), expected_output)
