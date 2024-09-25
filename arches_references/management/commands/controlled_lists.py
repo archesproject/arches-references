@@ -276,7 +276,9 @@ class Command(BaseCommand):
                 node.refresh_from_db()
 
             source_graph.create_editable_future_graph()
-            source_graph.publish()
+            source_graph.publish(
+                notes="Migrated concept/concept-list nodes to reference datatype"
+            )
 
             self.stdout.write(
                 "All concept/concept-list nodes for the {0} graph have been successfully migrated to reference datatype".format(
