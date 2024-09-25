@@ -31,7 +31,7 @@ class Command(BaseCommand):
             required=True,
             choices=[
                 "migrate_collections_to_controlled_lists",
-                "migrate_graph_to_reference_datatype",
+                "migrate_concept_nodes_to_reference_datatype",
             ],
             help="The operation to perform",
         )
@@ -105,8 +105,8 @@ class Command(BaseCommand):
                 overwrite=options["overwrite"],
                 preferred_sort_language=psl,
             )
-        elif options["operation"] == "migrate_graph_to_reference_datatype":
-            self.migrate_graph_to_reference_datatype(options["graph"])
+        elif options["operation"] == "migrate_concept_nodes_to_reference_datatype":
+            self.migrate_concept_nodes_to_reference_datatype(options["graph"])
 
     def migrate_collections_to_controlled_lists(
         self,
@@ -165,6 +165,7 @@ class Command(BaseCommand):
             result = cursor.fetchone()
             self.stdout.write(result[0])
 
+    def migrate_concept_nodes_to_reference_datatype(self, graph_id):
         try:
             source_graph = GraphModel.objects.get(pk=graph_id)
         except GraphModel.DoesNotExist:
