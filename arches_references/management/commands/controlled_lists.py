@@ -165,8 +165,12 @@ class Command(BaseCommand):
             result = cursor.fetchone()
             self.stdout.write(result[0])
 
-    def migrate_graph_to_reference_datatype(self, graph_id):
-        source_graph = GraphModel.objects.get(pk=graph_id)
+        try:
+            source_graph = GraphModel.objects.get(pk=graph_id)
+        except GraphModel.DoesNotExist:
+            raise CommandError(
+                "The graph with the id {0} does not exist".format(graph_id)
+            )
 
         nodes = (
             Node.objects.filter(
@@ -182,6 +186,13 @@ class Command(BaseCommand):
             )
             .prefetch_related("cardxnodexwidget_set")
         )
+
+        if len(nodes) == 0:
+            raise CommandError(
+                "No concept/concept-list nodes found for the {0} graph".format(
+                    source_graph.name
+                )
+            )
 
         REFERENCE_SELECT_WIDGET = Widget.objects.get(name="reference-select-widget")
         controlled_list_ids = List.objects.all().values_list("id", flat=True)
@@ -248,10 +259,14 @@ class Command(BaseCommand):
 
         if errors:
             self.stderr.write(
-                "The following collections for the associated nodes have not been migrated to controlled lists: {0}".format(
-                    errors
-                )
+                "The following collections for the associated nodes have not been migrated to controlled lists:"
             )
+            for error in errors:
+                self.stderr.write(
+                    "Node alias: {0}, Collection ID: {1}".format(
+                        error["node_alias"], error["collection_id"]
+                    )
+                )
         else:
             source_graph = Graph.objects.get(pk=graph_id)
 
