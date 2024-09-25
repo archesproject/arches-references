@@ -8,8 +8,9 @@ from django.test.client import Client
 from django.test.utils import captured_stdout
 from django.core.management.base import CommandError
 
-from arches_references.models import List, ListItem, ListItemValue
+from arches.app.models.models import Node
 from arches.app.utils.skos import SKOSReader
+from arches_references.models import List, ListItem, ListItemValue
 
 from .test_settings import PROJECT_TEST_ROOT
 
@@ -155,3 +156,40 @@ class RDMToControlledListsETLTests(TestCase):
                 stderr=output,
             )
         self.assertEqual(expected_output, str(e.exception))
+
+
+class MigrateConceptNodesToReferenceDatatypeTests(TestCase):
+    # Test data has three models:
+    # - `Concept Node Migration Test`, with four concept nodes
+    # - `Collection Not Migrated`, with one concept node but the collection hasn't been migrated
+    # - `No concept nodes`, only has a string and a number node
+    # Contains a Collection "Top Concept", which has been migrated to a controlled list
+    fixtures = ["concept_node_migration_test_data"]
+
+    def test_migrate_concept_nodes_to_reference_datatype(self):
+        output = io.StringIO()
+        TEST_GRAPH_ID = "8f7cfa3c-d0e0-4a66-8608-43dd726a1b81"
+
+        management.call_command(
+            "controlled_lists",
+            operation="migrate_concept_nodes_to_reference_datatype",
+            graph=TEST_GRAPH_ID,
+            stdout=output,
+        )
+
+        nodes = Node.objects.filter(graph_id=TEST_GRAPH_ID).prefetch_related(
+            "cardxnodexwidget_set"
+        )
+        reference_nodes = nodes.filter(datatype="reference")
+
+        self.assertEqual(len(nodes.filter(datatype__in=["concept", "concept-list"])), 0)
+        self.assertEqual(len(reference_nodes), 4)
+
+        expected_node_config_keys = ["multiValue", "controlledList"]
+        expected_widget_config_keys = ["label", "placeholder", "i18n_properties"]
+        for node in reference_nodes:
+            self.assertEqual(expected_node_config_keys, list(node.config.keys()))
+            for widget in node.cardxnodexwidget_set.all():
+                self.assertEqual(
+                    expected_widget_config_keys, list(widget.config.keys())
+                )
