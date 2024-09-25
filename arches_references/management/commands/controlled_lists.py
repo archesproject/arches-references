@@ -166,10 +166,11 @@ class Command(BaseCommand):
             self.stdout.write(result[0])
 
     def migrate_graph_to_reference_datatype(self, graph_id):
-        future_graph = GraphModel.objects.get(source_identifier=graph_id)
+        source_graph = GraphModel.objects.get(pk=graph_id)
+
         nodes = (
             Node.objects.filter(
-                graph_id=future_graph.graphid,
+                graph_id=source_graph.graphid,
                 datatype__in=["concept", "concept-list"],
                 is_immutable=False,
             )
@@ -252,12 +253,17 @@ class Command(BaseCommand):
                 )
             )
         else:
-            graph = Graph.objects.get(pk=graph_id)
-            updated_graph = graph.update_from_editable_future_graph()
-            updated_graph.publish()
+            source_graph = Graph.objects.get(pk=graph_id)
+
+            # Refresh the nodes to ensure the changes are reflected in the serialized graph
+            for node in source_graph.nodes.values():
+                node.refresh_from_db()
+
+            source_graph.create_editable_future_graph()
+            source_graph.publish()
 
             self.stdout.write(
                 "All concept/concept-list nodes for the {0} graph have been successfully migrated to reference datatype".format(
-                    future_graph.name
+                    source_graph.name
                 )
             )
