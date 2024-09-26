@@ -216,42 +216,31 @@ class Command(BaseCommand):
                     node.full_clean()
                     node.save()
 
-                    cross_records = (
-                        node.cardxnodexwidget_set.annotate(
-                            config_without_i18n=Cast(
-                                models.F("config"),
-                                output_field=models.JSONField(),
-                            )
+                    node.cardxnodexwidget_set.annotate(
+                        config_without_i18n=Cast(
+                            models.F("config"),
+                            output_field=models.JSONField(),
                         )
-                        .annotate(
-                            without_default=CombinedExpression(
-                                models.F("config_without_i18n"),
-                                "-",
-                                models.Value(
-                                    "defaultValue", output_field=models.CharField()
-                                ),
-                                output_field=models.JSONField(),
-                            )
+                    ).annotate(
+                        without_default=CombinedExpression(
+                            models.F("config_without_i18n"),
+                            "-",
+                            models.Value(
+                                "defaultValue", output_field=models.CharField()
+                            ),
+                            output_field=models.JSONField(),
                         )
-                        .annotate(
-                            without_default_and_options=CombinedExpression(
-                                models.F("without_default"),
-                                "-",
-                                models.Value(
-                                    "options", output_field=models.CharField()
-                                ),
-                                output_field=I18n_JSONField(),
-                            )
+                    ).annotate(
+                        without_default_and_options=CombinedExpression(
+                            models.F("without_default"),
+                            "-",
+                            models.Value("options", output_field=models.CharField()),
+                            output_field=I18n_JSONField(),
                         )
+                    ).update(
+                        config=models.F("without_default_and_options"),
+                        widget=REFERENCE_SELECT_WIDGET,
                     )
-                    for cross_record in cross_records:
-                        cross_record.config = {}
-                        cross_record.save()
-
-                        cross_record.config = cross_record.without_default_and_options
-                        cross_record.widget = REFERENCE_SELECT_WIDGET
-                        cross_record.full_clean()
-                        cross_record.save()
 
                 elif node.collection_id not in controlled_list_ids:
                     errors.append(
