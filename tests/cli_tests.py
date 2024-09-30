@@ -196,9 +196,7 @@ class MigrateConceptNodesToReferenceDatatypeTests(TestCase):
 
     def test_no_matching_graph_error(self):
         output = io.StringIO()
-        expected_output = (
-            "The graph with the id 00000000-0000-0000-0000-000000000000 does not exist"
-        )
+        expected_output = "GraphModel matching query does not exist."
 
         with self.assertRaises(CommandError) as e:
             management.call_command(

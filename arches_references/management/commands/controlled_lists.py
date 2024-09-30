@@ -9,6 +9,7 @@ from arches.app.models.models import (
 )
 from arches.app.models.graph import Graph
 from arches_references.models import List
+from django.core.exceptions import ValidationError
 from django.core.management.base import BaseCommand, CommandError
 from django.db import models, transaction
 from django.db.models.expressions import CombinedExpression
@@ -92,6 +93,9 @@ class Command(BaseCommand):
                     )
                 )
 
+            if options["collections_to_migrate"] is None:
+                raise CommandError("No collections provided to migrate.")
+
             if not options["overwrite"]:
                 for collection_name in options["collections_to_migrate"]:
                     if List.objects.filter(name=collection_name).exists():
@@ -168,10 +172,8 @@ class Command(BaseCommand):
     def migrate_concept_nodes_to_reference_datatype(self, graph_id):
         try:
             source_graph = GraphModel.objects.get(pk=graph_id)
-        except GraphModel.DoesNotExist:
-            raise CommandError(
-                "The graph with the id {0} does not exist".format(graph_id)
-            )
+        except (GraphModel.DoesNotExist, ValidationError) as e:
+            raise CommandError(e)
 
         nodes = (
             Node.objects.filter(
@@ -205,12 +207,12 @@ class Command(BaseCommand):
                     if node.datatype == "concept":
                         node.config = {
                             "multiValue": False,
-                            "controlledList": node.collection_id.__str__(),
+                            "controlledList": str(node.collection_id),
                         }
                     elif node.datatype == "concept-list":
                         node.config = {
                             "multiValue": True,
-                            "controlledList": node.collection_id.__str__(),
+                            "controlledList": str(node.collection_id),
                         }
                     node.datatype = "reference"
                     node.full_clean()
@@ -245,6 +247,7 @@ class Command(BaseCommand):
                         )
                     )
                     for cross_record in cross_records:
+                        # work around for i18n as_sql method issue detailed here: https://github.com/archesproject/arches/issues/11473
                         cross_record.config = {}
                         cross_record.save()
 
