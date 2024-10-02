@@ -59,8 +59,10 @@ class ListImportPackageTests(TestCase):
                 source=input_file,
                 stdout=output,
             )
-        list_pk = "e962bdaf-8243-4fbb-bd43-39bc1f54c168"
-        self.assertTrue(List.objects.filter(pk=list_pk).exists())
+
+        self.assertEqual(List.objects.all().count(), 2)
+        self.assertEqual(ListItem.objects.all().count(), 10)
+        self.assertEqual(ListItemValue.objects.all().count(), 21)
 
     ### TODO Add test for creating new language if language code not in db but found in import file
 
