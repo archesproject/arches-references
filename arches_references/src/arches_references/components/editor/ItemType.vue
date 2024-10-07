@@ -58,14 +58,14 @@ const issuePatchItem = async () => {
     margin: 1rem 1rem 3rem 1rem;
     display: flex;
     flex-direction: column;
-    gap: var(--p-content-gap);
+    gap: 1rem;
     width: 100%;
     font-size: small;
 }
 
 .guide-switch {
     display: inline-flex;
-    gap: var(--p-content-gap);
+    gap: 1rem;
     align-items: center;
 }
 
