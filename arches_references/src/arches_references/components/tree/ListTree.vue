@@ -186,13 +186,13 @@ const expandPathsToFilterResults = (newFilterValue: string) => {
     nextFilterChangeNeedsExpandAll.value = false;
 };
 
-const getInputElement = () => {
+function getInputElement() {
     if (treeComponent.value !== null) {
         return treeComponent.value.$el.ownerDocument.querySelector(
-            'input[data-pc-name="pcfilter"]',
+            'input[data-pc-name="pcfilterinput"]',
         ) as HTMLInputElement;
     }
-};
+}
 
 const restoreFocusToInput = () => {
     // The current implementation of collapsing all nodes when
