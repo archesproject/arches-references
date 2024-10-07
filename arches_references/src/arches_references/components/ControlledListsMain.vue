@@ -59,6 +59,8 @@ provide(selectedLanguageKey, selectedLanguage);
     </div>
     <Toast
         :pt="{
+            summary: { fontSize: 'medium' },
+            detail: { fontSize: 'small' },
             messageIcon: {
                 style: { marginTop: 'var(--p-toast-message-icon-margin-top)' },
             },
@@ -69,7 +71,7 @@ provide(selectedLanguageKey, selectedLanguage);
         :pt="{
             header: {
                 style: {
-                    background: 'var(--p-navigation-color)',
+                    background: 'var(--p-navigation-header-color)',
                     color: 'white',
                     borderRadius: '1rem',
                     marginBottom: '1rem',
