@@ -53,7 +53,7 @@ const iconLabel = (item: ControlledListItem) => {
 .item-header {
     display: inline-flex;
     align-items: center;
-    gap: var(--p-content-gap);
+    gap: 1rem;
     margin: 1rem 1rem 0rem 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid;

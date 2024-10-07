@@ -367,7 +367,7 @@ const focusInput = () => {
             </Column>
         </DataTable>
     </div>
-    <div style="display: flex; gap: var(--p-content-gap)">
+    <div style="display: flex; gap: 1rem">
         <AddMetadata
             :image
             :labeled-choices
