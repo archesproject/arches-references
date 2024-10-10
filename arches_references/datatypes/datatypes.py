@@ -5,7 +5,7 @@ from django.utils.translation import get_language, gettext as _
 from arches.app.datatypes.base import BaseDataType
 from arches.app.models.graph import GraphValidationError
 
-from arches_references.models import ListItem, ListItemValue, NodeProxy
+from arches_references.models import ListItem
 
 
 class ReferenceDataType(BaseDataType):
