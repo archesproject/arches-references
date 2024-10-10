@@ -1,5 +1,6 @@
 from arches.app.datatypes.datatypes import DataTypeFactory
 from arches.app.models.tile import Tile
+from arches_references.models import List, ListItem, ListItemValue
 from django.test import TestCase
 
 # these tests can be run from the command line via
@@ -7,6 +8,13 @@ from django.test import TestCase
 
 
 class ReferenceDataTypeTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        from tests.test_views import ListTests
+
+        return ListTests.setUpTestData()
+
     def test_validate(self):
         reference = DataTypeFactory().get_instance("reference")
 
@@ -86,3 +94,32 @@ class ReferenceDataTypeTests(TestCase):
         tile1.data[nodeid] = []
         reference.clean(tile1, nodeid)
         self.assertIsNone(tile1.data[nodeid])
+
+    def test_transform_value_for_tile(self):
+        reference = DataTypeFactory().get_instance("reference")
+        list1_pk = str(List.objects.get(name="list1").pk)
+        config = {"controlledList": list1_pk}
+
+        tile_value1 = reference.transform_value_for_tile("label1-pref", **config)
+        self.assertTrue(isinstance(tile_value1, list))
+        self.assertTrue("uri" in tile_value1[0])
+        self.assertTrue("labels" in tile_value1[0])
+        self.assertTrue("listid" in tile_value1[0])
+
+        self.assertIsNone(reference.transform_value_for_tile(None, **config))
+
+        # Test deterministic sorting:
+        #   Force two items to have the same prefLabel in a list,
+        #   expect the list item with lower sortorder to be returned
+        expected_list_item_pk = str(
+            ListItem.objects.get(
+                list_item_values__value="label2-pref", list_id=list1_pk
+            ).pk
+        )
+        ListItemValue.objects.filter(
+            value="label3-pref", list_item_id__list_id=list1_pk
+        ).update(value="label2-pref")
+        tile_value2 = reference.transform_value_for_tile("label2-pref", **config)
+        self.assertEqual(
+            tile_value2[0]["labels"][0]["list_item_id"], expected_list_item_pk
+        )
