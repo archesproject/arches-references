@@ -213,8 +213,8 @@ class ListItem(models.Model):
 
     def build_tile_value(self):
         tile_value = {
-            "uri": self.uri,
-            "labels": [value.serialize() for value in self.list_item_values.labels()],
+            "uri": self.uri or self.generate_uri(),
+            "labels": [label.serialize() for label in self.list_item_values.labels()],
             "listid": str(self.id),
         }
         return tile_value
@@ -321,7 +321,7 @@ class ListItemImage(models.Model):
     def serialize(self):
         return {
             "id": str(self.id),
-            "list_item_id": self.list_item_id,
+            "list_item_id": str(self.list_item_id),
             "url": self.value.url,
             "metadata": [
                 metadata.serialize() for metadata in self.list_item_image_metadata.all()

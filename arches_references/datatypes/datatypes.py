@@ -4,9 +4,8 @@ from django.utils.translation import get_language, gettext as _
 
 from arches.app.datatypes.base import BaseDataType
 from arches.app.models.graph import GraphValidationError
-from arches.app.models.models import Node
 
-from arches_references.models import ListItem, ListItemValue
+from arches_references.models import ListItem, ListItemValue, NodeProxy
 
 
 class ReferenceDataType(BaseDataType):
@@ -79,27 +78,19 @@ class ReferenceDataType(BaseDataType):
         return errors
 
     def transform_value_for_tile(self, value, **kwargs):
-        controlled_list = kwargs.get("controlledList")
-        nodeid = kwargs.get("nodeid")
-        config = {"controlledList": controlled_list, "nodeid": nodeid}
-        if type(value) == str and config:
-            value = [self.lookup_listitem_from_label(value, config).build_tile_value()]
+        list_id = kwargs.get("controlledList")
+        if isinstance(value, str):
+            found_item = self.lookup_listitem_from_label(value, list_id)
+            if found_item:
+                value = [found_item.build_tile_value()]
         return value
 
-    def lookup_listitem_from_label(self, value, config):
-        if "controlledList" in config:
-            list_id = config["controlledList"]
-        elif "nodeid" in config:
-            nodeid = config["nodeid"]
-            if nodeid not in self.listitems_by_list_lookup:
-                controlled_list = Node.objects.get(nodeid=nodeid).config[
-                    "controlledList"
-                ]
-        list_items_choices = ListItem.objects.filter(list_id=list_id)
-        list_item_value_choice = ListItemValue.objects.get(
-            list_item_id__in=list_items_choices, value=value
+    def lookup_listitem_from_label(self, value, list_id):
+        return (
+            ListItem.objects.filter(list_id=list_id, list_item_values__value=value)
+            .order_by("sortorder")
+            .first()
         )
-        return list_item_value_choice.list_item
 
     def clean(self, tile, nodeid):
         super().clean(tile, nodeid)
