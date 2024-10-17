@@ -2,6 +2,7 @@ from arches.app.datatypes.datatypes import DataTypeFactory
 from arches.app.models.tile import Tile
 from arches_references.models import List, ListItem, ListItemValue
 from django.test import TestCase
+from types import SimpleNamespace
 
 # these tests can be run from the command line via
 # python manage.py test tests.reference_datatype_tests --settings="tests.test_settings"
@@ -123,3 +124,57 @@ class ReferenceDataTypeTests(TestCase):
         self.assertEqual(
             tile_value2[0]["labels"][0]["list_item_id"], expected_list_item_pk
         )
+
+    def test_get_display_value(self):
+        reference = DataTypeFactory().get_instance("reference")
+        mock_node = SimpleNamespace(nodeid="72048cb3-adbc-11e6-9ccf-14109fd34195")
+        mock_tile1 = Tile(
+            {
+                "resourceinstance_id": "40000000-0000-0000-0000-000000000000",
+                "parenttile_id": "",
+                "nodegroup_id": "72048cb3-adbc-11e6-9ccf-14109fd34195",
+                "tileid": "",
+                "data": {
+                    "72048cb3-adbc-11e6-9ccf-14109fd34195": [
+                        {
+                            "uri": "https://rdm.dev.fargeo.com/plugins/controlled-list-manager/item/9baf3cd5-33d4-4fbc-b1d1-a2d218732f1e",
+                            "labels": [
+                                {
+                                    "id": "ea5c8af7-9933-4356-b537-0330c9da4690",
+                                    "value": "identifier",
+                                    "language_id": "en",
+                                    "list_item_id": "d8ba08f9-b265-4288-9412-857c77fe2581",
+                                    "valuetype_id": "prefLabel",
+                                },
+                                {
+                                    "id": "ea5c8af7-9933-4356-b537-0330c9da4690",
+                                    "value": "identificateur",
+                                    "language_id": "fr",
+                                    "list_item_id": "d8ba08f9-b265-4288-9412-857c77fe2692",
+                                    "valuetype_id": "prefLabel",
+                                },
+                            ],
+                            "listid": "a8da34eb-575b-498c-ada7-161ee745fd16",
+                        }
+                    ]
+                },
+            }
+        )
+        self.assertEqual(
+            reference.get_display_value(mock_tile1, mock_node), "identifier"
+        )
+        self.assertEqual(
+            reference.get_display_value(mock_tile1, mock_node, language="fr"),
+            "identificateur",
+        )
+
+        mock_tile2 = Tile(
+            {
+                "resourceinstance_id": "50000000-0000-0000-0000-000000000000",
+                "parenttile_id": "",
+                "nodegroup_id": "72048cb3-adbc-11e6-9ccf-14109fd34195",
+                "tileid": "",
+                "data": {"72048cb3-adbc-11e6-9ccf-14109fd34195": None},
+            }
+        )
+        self.assertEqual(reference.get_display_value(mock_tile2, mock_node), "")
