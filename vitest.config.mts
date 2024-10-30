@@ -17,6 +17,7 @@ function generateConfig(): Promise<UserConfigExport> {
             '**/themes/**',
             '**/.{idea,git,cache,output,temp}/**',
             '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
+            'arches_references/constants.ts',
         ];
 
         const rawData = fs.readFileSync(path.join(__dirname, '.frontend-configuration-settings.json'), 'utf-8');
