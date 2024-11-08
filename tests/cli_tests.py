@@ -166,6 +166,9 @@ class MigrateConceptNodesToReferenceDatatypeTests(TestCase):
     # - `Collection Not Migrated`, with one concept node but the collection hasn't been migrated
     # - `No concept nodes`, only has a string and a number node
     # Contains a Collection "Top Concept", which has been migrated to a controlled list
+
+    # To create test fixtures run:
+    # python manage.py dumpdata models.CardModel models.CardComponent models.CardXNodeXWidget models.Concept models.Edge models.GraphModel models.GraphXPublishedGraph models.PublishedGraphEdit models.Language models.NodeGroup models.Node models.Relation models.ResourceXResource models.ResourceInstance models.TileModel models.Value models.Widget arches_references.List arches_references.ListItem arches_references.ListItemValue --format json --output concept_node_migration_test_data.json
     fixtures = ["concept_node_migration_test_data"]
 
     def test_migrate_concept_nodes_to_reference_datatype(self):

@@ -568,6 +568,258 @@
     },
     {
         "model": "models.cardmodel",
+        "pk": "deb22224-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Saved Searches",
+            "description": "System configuration for saving searches",
+            "instructions": "Arches allows you save a search and present it as convenience for your users.",
+            "cssclass": "",
+            "helpenabled": false,
+            "helptitle": "",
+            "helptext": "",
+            "nodegroup": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "active": true,
+            "visible": true,
+            "sortorder": null,
+            "component": "f05e4d3a-53c1-11e8-b0ea-784f435179ea",
+            "config": null,
+            "source_identifier": "feb95d14-fa14-11e6-a66b-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardmodel",
+        "pk": "deb22364-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Project Extent",
+            "description": "Represents a single node in a graph",
+            "instructions": "Draw a polygon representing your project's extent. These bounds will serve as the default for the cache seed bounds, search result grid bounds, and map bounds in search, cards, and reports",
+            "cssclass": "",
+            "helpenabled": false,
+            "helptitle": "",
+            "helptext": "",
+            "nodegroup": "deb222c4-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "active": true,
+            "visible": true,
+            "sortorder": 1,
+            "component": "f05e4d3a-53c1-11e8-b0ea-784f435179ea",
+            "config": null,
+            "source_identifier": "0e8fe2e3-4148-11e7-aa2d-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardmodel",
+        "pk": "deb224e0-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Mapbox API",
+            "description": "Represents a single node in a graph",
+            "instructions": "Arches uses the Mapbox mapping library for map display and data creation.  Arches also supports Mapbox basemaps and other services",
+            "cssclass": "",
+            "helpenabled": false,
+            "helptitle": "",
+            "helptext": "",
+            "nodegroup": "deb2245e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "active": true,
+            "visible": true,
+            "sortorder": 0,
+            "component": "f05e4d3a-53c1-11e8-b0ea-784f435179ea",
+            "config": null,
+            "source_identifier": "0e8fe699-4148-11e7-85ab-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardmodel",
+        "pk": "deb2265c-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Map Zoom",
+            "description": "Represents a single node in a graph",
+            "instructions": "You can define the zoom behavior of your maps by specifying max/min and default values.  Zoom level 0 shows the whole world (and is the minimum zoom level).  Most map services support a maximum of 20 or so zoom levels",
+            "cssclass": "",
+            "helpenabled": false,
+            "helptitle": "",
+            "helptext": "",
+            "nodegroup": "deb225d0-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "active": true,
+            "visible": true,
+            "sortorder": 2,
+            "component": "f05e4d3a-53c1-11e8-b0ea-784f435179ea",
+            "config": null,
+            "source_identifier": "0e8feb0c-4148-11e7-9538-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardmodel",
+        "pk": "deb227ce-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Default Map Settings",
+            "description": "Initial settings for Arches maps displayed in reports, cards, and search",
+            "instructions": "",
+            "cssclass": "",
+            "helpenabled": false,
+            "helptitle": "",
+            "helptext": "",
+            "nodegroup": "deb22738-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "active": true,
+            "visible": true,
+            "sortorder": null,
+            "component": "f05e4d3a-53c1-11e8-b0ea-784f435179ea",
+            "config": null,
+            "source_identifier": "0e8ff54a-4148-11e7-a534-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardmodel",
+        "pk": "deb22940-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Search Results Grid",
+            "description": "Represents a single node in a graph",
+            "instructions": "Arches aggregates search results and displays them as hexagons.  You will need to set default parameters for the hexagon size  and its precision.",
+            "cssclass": "",
+            "helpenabled": false,
+            "helptitle": "",
+            "helptext": "",
+            "nodegroup": "deb228a0-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "active": true,
+            "visible": true,
+            "sortorder": 3,
+            "component": "f05e4d3a-53c1-11e8-b0ea-784f435179ea",
+            "config": null,
+            "source_identifier": "0e8ff861-4148-11e7-aabf-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardmodel",
+        "pk": "deb22ab2-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Settings Time Search",
+            "description": "Configuration Settings for temporal search",
+            "instructions": "Arches supports temporal binning.  Define the configuration and colors to use in your time wheel",
+            "cssclass": "",
+            "helpenabled": true,
+            "helptitle": "<p>You can see the color ramps at:</p><p><a href=\"https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md\"><font color=\"#f7f7f7\">https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md</font></a><br></p>",
+            "helptext": "<p>You can see the color ramps at:</p><p><a href=\"https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md\"><font color=\"#f7f7f7\">https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md</font></a><br></p>",
+            "nodegroup": "deb22a08-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "active": true,
+            "visible": false,
+            "sortorder": null,
+            "component": "f05e4d3a-53c1-11e8-b0ea-784f435179ea",
+            "config": null,
+            "source_identifier": "32f2daa6-fae4-11e6-a8c8-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardmodel",
+        "pk": "deb22c10-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Web Analytics",
+            "description": "Represents a single node in a graph",
+            "instructions": "Google service used to track application usage and other metrics",
+            "cssclass": "",
+            "helpenabled": false,
+            "helptitle": "",
+            "helptext": "",
+            "nodegroup": "deb22b5c-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "active": true,
+            "visible": true,
+            "sortorder": 1,
+            "component": "f05e4d3a-53c1-11e8-b0ea-784f435179ea",
+            "config": null,
+            "source_identifier": "c5a2a7a1-fadd-11e6-b942-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardmodel",
+        "pk": "deb22d78-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "System Data Settings",
+            "description": "",
+            "instructions": "",
+            "cssclass": "",
+            "helpenabled": false,
+            "helptitle": "",
+            "helptext": "",
+            "nodegroup": "deb22cba-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "active": true,
+            "visible": true,
+            "sortorder": null,
+            "component": "f05e4d3a-53c1-11e8-b0ea-784f435179ea",
+            "config": null,
+            "source_identifier": "c5a2abe3-fadd-11e6-8e51-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardmodel",
+        "pk": "deb22ed6-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Default Application Names",
+            "description": "Represents a single node in a graph",
+            "instructions": "Names used to identify your application and the system data import personna",
+            "cssclass": "",
+            "helpenabled": false,
+            "helptitle": "",
+            "helptext": "",
+            "nodegroup": "deb22e0e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "active": true,
+            "visible": true,
+            "sortorder": 0,
+            "component": "f05e4d3a-53c1-11e8-b0ea-784f435179ea",
+            "config": null,
+            "source_identifier": "c5a2b3c7-fadd-11e6-aa79-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardmodel",
+        "pk": "deb23048-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Thesaurus Service Providers",
+            "description": "Represents a single node in a graph",
+            "instructions": "Arches can access Thesaurus services, such as the Getty AAT, to acquire thesaurus entries using the Reference Data Manager (RDM)",
+            "cssclass": "",
+            "helpenabled": false,
+            "helptitle": "",
+            "helptext": "",
+            "nodegroup": "deb22f6c-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "active": true,
+            "visible": true,
+            "sortorder": 2,
+            "component": "f05e4d3a-53c1-11e8-b0ea-784f435179ea",
+            "config": null,
+            "source_identifier": "c5a2b81c-fadd-11e6-8c23-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardmodel",
+        "pk": "deb231b0-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Settings Basic Search",
+            "description": "Configuration settings for search returns",
+            "instructions": "Set the default search results behavior",
+            "cssclass": "",
+            "helpenabled": false,
+            "helptitle": "",
+            "helptext": "",
+            "nodegroup": "deb230ca-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "active": true,
+            "visible": true,
+            "sortorder": null,
+            "component": "f05e4d3a-53c1-11e8-b0ea-784f435179ea",
+            "config": null,
+            "source_identifier": "d0987b78-fad8-11e6-9a59-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardmodel",
         "pk": "fc44a9fe-7b6d-11ef-a937-0aa766c61b64",
         "fields": {
             "name": "Concept not migrated",
@@ -1360,6 +1612,328 @@
             "visible": true,
             "sortorder": 1,
             "source_identifier": null
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb238f4-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb2337c-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22364-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000007",
+            "config": "{\"zoom\": 0.34043575237615786, \"label\": \"Project map extent\", \"pitch\": 0, \"basemap\": \"streets\", \"bearing\": 0, \"centerX\": 6.2649371162926855, \"centerY\": 6.180313849275791, \"maxZoom\": 20, \"minZoom\": 0, \"rerender\": true, \"defaultValue\": \"\", \"featureColor\": \"#FF0000\", \"geometryTypes\": [{\"id\": \"Polygon\", \"text\": \"Polygon\"}], \"overlayConfigs\": [], \"overlayOpacity\": 0, \"geocodeProvider\": \"10000000-0000-0000-0000-010000000000\", \"geocoderVisible\": false, \"defaultValueType\": \"\", \"featureLineWidth\": 1, \"featurePointSize\": 3, \"geocodePlaceholder\": \"Search\"}",
+            "label": "Project map extent",
+            "visible": true,
+            "sortorder": 0,
+            "source_identifier": "0e90054c-4148-11e7-bb73-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23930-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb222c4-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22364-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000007",
+            "config": "{\"zoom\": 0, \"label\": \"Map\", \"pitch\": 0, \"basemap\": \"streets\", \"bearing\": 0, \"centerX\": 0, \"centerY\": 0, \"maxZoom\": 20, \"minZoom\": 0, \"rerender\": true, \"defaultValue\": \"\", \"featureColor\": \"#FF0000\", \"geometryTypes\": [{\"id\": \"Point\", \"text\": \"Point\"}, {\"id\": \"Line\", \"text\": \"Line\"}, {\"id\": \"Polygon\", \"text\": \"Polygon\"}], \"overlayConfigs\": [], \"overlayOpacity\": 0, \"geocodeProvider\": \"10000000-0000-0000-0000-010000000000\", \"geocoderVisible\": true, \"defaultValueType\": \"\", \"featureLineWidth\": 1, \"featurePointSize\": 3, \"geocodePlaceholder\": \"Search\"}",
+            "label": "Map",
+            "visible": true,
+            "sortorder": 0,
+            "source_identifier": "0e900787-4148-11e7-88c5-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23958-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb23462-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb224e0-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000001",
+            "config": "{\"label\": \"MapBox API Key (Optional)\", \"width\": \"100%\", \"maxLength\": null, \"uneditable\": false, \"placeholder\": \"Enter text\", \"defaultValue\": {\"en\": {\"value\": \"\", \"direction\": \"ltr\"}}, \"i18n_properties\": [\"placeholder\"]}",
+            "label": "MapBox API Key (Optional)",
+            "visible": true,
+            "sortorder": 0,
+            "source_identifier": "0e9007d9-4148-11e7-9354-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23980-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb234ee-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb224e0-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000001",
+            "config": "{\"label\": \"Mapbox Sprites\", \"width\": \"100%\", \"maxLength\": \"Sprites\", \"uneditable\": false, \"placeholder\": \"Enter text\", \"defaultValue\": {\"en\": {\"value\": \"\", \"direction\": \"ltr\"}}, \"i18n_properties\": [\"placeholder\"]}",
+            "label": "Mapbox Sprites",
+            "visible": true,
+            "sortorder": 1,
+            "source_identifier": "0e900826-4148-11e7-b767-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb239a8-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb2353e-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb224e0-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000001",
+            "config": "{\"label\": \"Mapbox Glyphs\", \"width\": \"100%\", \"maxLength\": null, \"uneditable\": false, \"placeholder\": \"Enter text\", \"defaultValue\": {\"en\": {\"value\": \"\", \"direction\": \"ltr\"}}, \"i18n_properties\": [\"placeholder\"]}",
+            "label": "Mapbox Glyphs",
+            "visible": true,
+            "sortorder": 2,
+            "source_identifier": "0e90086e-4148-11e7-bc0b-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb239c6-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb232e6-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb2265c-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000008",
+            "config": "{\"max\": \"\", \"min\": \"\", \"step\": \"\", \"label\": \"Default Zoom\", \"width\": \"100%\", \"format\": \"\", \"prefix\": \"\", \"suffix\": \"\", \"precision\": \"\", \"uneditable\": false, \"placeholder\": \"Enter number\", \"defaultValue\": \"\", \"i18n_properties\": [\"placeholder\", \"prefix\", \"suffix\"]}",
+            "label": "Default Zoom",
+            "visible": true,
+            "sortorder": 0,
+            "source_identifier": "0e900602-4148-11e7-a580-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb239ee-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb23412-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb2265c-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000008",
+            "config": "{\"max\": \"\", \"min\": \"\", \"step\": \"\", \"label\": \"Max Zoom\", \"width\": \"100%\", \"format\": \"\", \"prefix\": \"\", \"suffix\": \"\", \"precision\": \"\", \"uneditable\": false, \"placeholder\": \"Enter number\", \"defaultValue\": \"\", \"i18n_properties\": [\"placeholder\", \"prefix\", \"suffix\"]}",
+            "label": "Max Zoom",
+            "visible": true,
+            "sortorder": 2,
+            "source_identifier": "0e900651-4148-11e7-8b6a-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23a16-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb234a8-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb2265c-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000008",
+            "config": "{\"max\": \"\", \"min\": \"\", \"step\": \"\", \"label\": \"Min Zoom\", \"width\": \"100%\", \"format\": \"\", \"prefix\": \"\", \"suffix\": \"\", \"precision\": \"\", \"uneditable\": false, \"placeholder\": \"Enter number\", \"defaultValue\": \"\", \"i18n_properties\": [\"placeholder\", \"prefix\", \"suffix\"]}",
+            "label": "Min Zoom",
+            "visible": true,
+            "sortorder": 1,
+            "source_identifier": "0e90090f-4148-11e7-8f32-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23a34-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb23336-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22940-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000008",
+            "config": "{\"max\": \"\", \"min\": \"\", \"step\": \"\", \"label\": \"Hexagon Grid Precision (Integer, larger numbers ensure more precise counts at a performance cost)\", \"width\": \"100%\", \"format\": \"\", \"prefix\": \"\", \"suffix\": \"\", \"precision\": \"\", \"uneditable\": false, \"placeholder\": \"e.g.: 4\", \"defaultValue\": \"\", \"i18n_properties\": [\"placeholder\", \"prefix\", \"suffix\"]}",
+            "label": "Hexagon Grid Precision (Integer, larger numbers ensure more precise counts at a performance cost)",
+            "visible": true,
+            "sortorder": 1,
+            "source_identifier": "0e9006f0-4148-11e7-897a-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23a5c-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb233cc-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22940-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000008",
+            "config": "{\"max\": \"\", \"min\": \"\", \"step\": \"\", \"label\": \"Hexagon Size (in km)\", \"width\": \"100%\", \"format\": \"\", \"prefix\": \"\", \"suffix\": \"\", \"precision\": \"\", \"uneditable\": false, \"placeholder\": \"e.g.: 2\", \"defaultValue\": \"\", \"i18n_properties\": [\"placeholder\", \"prefix\", \"suffix\"]}",
+            "label": "Hexagon Size (in km)",
+            "visible": true,
+            "sortorder": 0,
+            "source_identifier": "0e9009a3-4148-11e7-9d2d-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23a84-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb235d4-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22ab2-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000015",
+            "config": "{\"label\": \"Color Ramp\", \"placeholder\": \"Select an option\", \"defaultValue\": \"\", \"i18n_properties\": [\"placeholder\"]}",
+            "label": "Color Ramp",
+            "visible": true,
+            "sortorder": 0,
+            "source_identifier": "dae3d02e-4267-11e7-ad74-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23aa2-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb2358e-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22ab2-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000005",
+            "config": "{\"label\": \"Time wheel configuration\", \"width\": \"100%\", \"maxLength\": null, \"uneditable\": false, \"placeholder\": \"Enter text\", \"defaultValue\": {\"en\": {\"value\": null, \"direction\": \"ltr\"}}, \"i18n_properties\": [\"placeholder\"]}",
+            "label": "Time wheel configuration",
+            "visible": true,
+            "sortorder": 1,
+            "source_identifier": "dae41263-4267-11e7-8e52-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23aca-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb236f6-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22c10-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000001",
+            "config": "{\"label\": \"Google Analytics Key\", \"width\": \"100%\", \"maxLength\": null, \"uneditable\": false, \"placeholder\": \"Enter key\", \"defaultValue\": {\"en\": {\"value\": \"\", \"direction\": \"ltr\"}}, \"i18n_properties\": [\"placeholder\"]}",
+            "label": "Google Analytics Key",
+            "visible": true,
+            "sortorder": 0,
+            "source_identifier": "fa435807-4263-11e7-bca8-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23af2-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb236b0-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22ed6-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000001",
+            "config": "{\"label\": \"Default Data Import/Export Name\", \"width\": \"100%\", \"maxLength\": null, \"uneditable\": false, \"placeholder\": \"Enter text\", \"defaultValue\": {\"en\": {\"value\": \"\", \"direction\": \"ltr\"}}, \"i18n_properties\": [\"placeholder\"]}",
+            "label": "Default Data Import/Export Name",
+            "visible": true,
+            "sortorder": 1,
+            "source_identifier": "fa41c43d-4263-11e7-9ff9-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23b1a-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb23624-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22ed6-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000001",
+            "config": "{\"label\": \"Application Name\", \"width\": \"100%\", \"maxLength\": null, \"uneditable\": false, \"placeholder\": \"e.g. Arches\", \"defaultValue\": {\"en\": {\"value\": \"\", \"direction\": \"ltr\"}}, \"i18n_properties\": [\"placeholder\"]}",
+            "label": "Application Name",
+            "visible": true,
+            "sortorder": 0,
+            "source_identifier": "fa4205a3-4263-11e7-929e-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23b38-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb2366a-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb23048-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000001",
+            "config": "{\"label\": \"Thesaurus SPARQL Endpoint\", \"width\": \"100%\", \"maxLength\": null, \"uneditable\": false, \"placeholder\": \"Enter text\", \"defaultValue\": {\"en\": {\"value\": \"\", \"direction\": \"ltr\"}}, \"i18n_properties\": [\"placeholder\"]}",
+            "label": "Thesaurus SPARQL Endpoint",
+            "visible": true,
+            "sortorder": 0,
+            "source_identifier": "fa428978-4263-11e7-8618-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23b60-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb23746-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb231b0-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000008",
+            "config": "{\"max\": \"\", \"min\": \"\", \"step\": \"\", \"label\": \"Number of search hints per dropdown\", \"width\": \"100%\", \"format\": \"\", \"prefix\": \"\", \"suffix\": \"\", \"precision\": \"\", \"uneditable\": false, \"placeholder\": \"Enter number\", \"defaultValue\": \"\", \"i18n_properties\": [\"placeholder\", \"prefix\", \"suffix\"]}",
+            "label": "Number of search hints per dropdown",
+            "visible": true,
+            "sortorder": 1,
+            "source_identifier": "ec6b3f7a-2e9f-11e7-a9ad-14109fd34195"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23b88-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb23228-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb231b0-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000008",
+            "config": "{\"max\": \"\", \"min\": \"\", \"step\": \"\", \"label\": \"Number of search results per page\", \"width\": \"100%\", \"format\": \"\", \"prefix\": \"\", \"suffix\": \"\", \"precision\": \"\", \"uneditable\": false, \"placeholder\": \"Enter number\", \"defaultValue\": \"\", \"i18n_properties\": [\"placeholder\", \"prefix\", \"suffix\"]}",
+            "label": "Number of search results per page",
+            "visible": true,
+            "sortorder": 0,
+            "source_identifier": "ec6b8173-2e9f-11e7-99ea-14109fd34195"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23ba6-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb23296-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb231b0-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000008",
+            "config": "{\"max\": \"\", \"min\": \"\", \"step\": \"\", \"label\": \"Max number of search results to export (see help for limitations on this value)\", \"width\": \"100%\", \"format\": \"\", \"prefix\": \"\", \"suffix\": \"\", \"precision\": \"\", \"uneditable\": false, \"placeholder\": \"Enter number\", \"defaultValue\": \"\", \"i18n_properties\": [\"placeholder\", \"prefix\", \"suffix\"]}",
+            "label": "Max number of search results to export (see help for limitations on this value)",
+            "visible": true,
+            "sortorder": 2,
+            "source_identifier": "ec6bc4ae-2e9f-11e7-86ec-14109fd34195"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23bce-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb23818-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22224-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000001",
+            "config": "{\"label\": \"Search Name\", \"width\": \"100%\", \"maxLength\": null, \"uneditable\": false, \"placeholder\": \"Enter text\", \"defaultValue\": {\"en\": {\"value\": \"\", \"direction\": \"ltr\"}}, \"i18n_properties\": [\"placeholder\"]}",
+            "label": "Search Name",
+            "visible": true,
+            "sortorder": 0,
+            "source_identifier": "feb962e6-fa14-11e6-85ee-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23bec-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb2385e-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22224-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000005",
+            "config": "{\"label\": \"Search Description\", \"width\": \"100%\", \"maxLength\": null, \"uneditable\": false, \"placeholder\": \"Enter text\", \"defaultValue\": {\"en\": {\"value\": null, \"direction\": \"ltr\"}}, \"i18n_properties\": [\"placeholder\"]}",
+            "label": "Search Description",
+            "visible": true,
+            "sortorder": 2,
+            "source_identifier": "feb96368-fa14-11e6-9d74-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23c14-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb2378c-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22224-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000001",
+            "config": "{\"label\": \"Search URL\", \"width\": \"100%\", \"maxLength\": null, \"uneditable\": false, \"placeholder\": \"(copy and paste from your browser address bar)\", \"defaultValue\": {\"en\": {\"value\": \"\", \"direction\": \"ltr\"}}, \"i18n_properties\": [\"placeholder\"]}",
+            "label": "Search URL",
+            "visible": true,
+            "sortorder": 1,
+            "source_identifier": "feb963d7-fa14-11e6-964d-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.cardxnodexwidget",
+        "pk": "deb23c3c-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "node": "deb237d2-96e1-11ef-a752-0aa766c61b64",
+            "card": "deb22224-96e1-11ef-a752-0aa766c61b64",
+            "widget": "10000000-0000-0000-0000-000000000019",
+            "config": "{\"label\": \"Image\", \"rerender\": true, \"maxFilesize\": \"200\", \"defaultValue\": [], \"acceptedFiles\": \"\"}",
+            "label": "Image",
+            "visible": true,
+            "sortorder": 3,
+            "source_identifier": "feb96445-fa14-11e6-a1ea-6c4008b05c4c"
         }
     },
     {
@@ -2608,6 +3182,448 @@
     },
     {
         "model": "models.edge",
+        "pk": "deb265e0-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22738-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb225d0-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e904914-4148-11e7-8ee1-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26662-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb2245e-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb234ee-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e904a5e-4148-11e7-acd2-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb266bc-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22738-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb2245e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e904ade-4148-11e7-a681-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26716-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb228a0-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb233cc-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e904b57-4148-11e7-a43b-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26770-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22738-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb228a0-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e904bcf-4148-11e7-9bda-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb267ca-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb2245e-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb23462-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e904c3d-4148-11e7-85b2-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb2681a-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb225d0-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb23412-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e904cb5-4148-11e7-8b13-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26874-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb225d0-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb232e6-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e904d2e-4148-11e7-9626-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb268c4-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb228a0-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb23336-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e904e14-4148-11e7-a3e8-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb2691e-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb225d0-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb234a8-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e904e8a-4148-11e7-a303-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb2696e-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22738-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb222c4-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e904f05-4148-11e7-803b-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb269c8-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb2245e-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb2353e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e905063-4148-11e7-9e91-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26a18-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb222c4-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb2337c-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e90515c-4148-11e7-ba17-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26a72-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb238a4-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb22738-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "0e9053f8-4148-11e7-9386-c4b301baab9f"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26ac2-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22a08-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb2358e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "32f2e294-fae4-11e6-895a-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26b12-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22a08-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb235d4-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "32f2e347-fae4-11e6-bd95-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26b6c-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb238a4-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb22a08-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "32f2e491-fae4-11e6-8f97-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26bbc-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22cba-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb22e0e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "c5a2d7b8-fadd-11e6-b1d6-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26c16-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22f6c-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb2366a-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "c5a2d880-fadd-11e6-821e-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26c66-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22e0e-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb23624-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "c5a2d90a-fadd-11e6-8f2b-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26cb6-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22b5c-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb236f6-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "c5a2d985-fadd-11e6-a852-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26d10-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22cba-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb22b5c-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "c5a2da05-fadd-11e6-b199-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26d60-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22e0e-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb236b0-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "c5a2db8c-fadd-11e6-ab63-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26dba-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb22cba-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb22f6c-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "c5a2dc7a-fadd-11e6-bce7-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26e0a-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb238a4-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb22cba-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "c5a2ddf8-fadd-11e6-a308-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26e5a-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb230ca-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb23296-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "d09882ba-fad8-11e6-8f6a-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26eb4-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb230ca-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb23228-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "d0988370-fad8-11e6-81c2-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26f04-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb230ca-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb23746-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "d09883f0-fad8-11e6-9cb6-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26f5e-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb238a4-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb230ca-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "d098850a-fad8-11e6-bafd-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26fae-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb237d2-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "feb96a5c-fa14-11e6-bed3-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb26ffe-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb2378c-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "feb96b30-fa14-11e6-a9e4-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb27058-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb23818-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "feb96bd1-fa14-11e6-b92a-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb270a8-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb2385e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "feb96c70-fa14-11e6-8328-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
+        "pk": "deb27102-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": null,
+            "description": null,
+            "ontologyproperty": null,
+            "domainnode": "deb238a4-96e1-11ef-a752-0aa766c61b64",
+            "rangenode": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "source_identifier": "feb96dd9-fa14-11e6-9065-6c4008b05c4c"
+        }
+    },
+    {
+        "model": "models.edge",
         "pk": "e437002f-ef85-4a11-a7a9-c4b8d39a2fa9",
         "fields": {
             "name": null,
@@ -2873,6 +3889,33 @@
     },
     {
         "model": "models.graphmodel",
+        "pk": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Arches System Settings",
+            "description": "",
+            "deploymentfile": null,
+            "author": " ",
+            "deploymentdate": null,
+            "version": "",
+            "isresource": true,
+            "is_active": true,
+            "is_copy_immutable": false,
+            "iconclass": "fa fa-sliders",
+            "color": null,
+            "subtitle": "System configuration",
+            "ontology": null,
+            "jsonldcontext": null,
+            "template": "50000000-0000-0000-0000-000000000001",
+            "config": {},
+            "slug": null,
+            "publication": null,
+            "source_identifier": "ff623370-fa12-11e6-b98b-6c4008b05c4c",
+            "has_unpublished_changes": false,
+            "resource_instance_lifecycle": null
+        }
+    },
+    {
+        "model": "models.graphmodel",
         "pk": "fc44a56c-7b6d-11ef-a937-0aa766c61b64",
         "fields": {
             "name": "Collection Not Migrated",
@@ -3027,6 +4070,46 @@
             "user": 1,
             "published_time": "2024-09-25T13:42:58.658",
             "most_recent_edit": null
+        }
+    },
+    {
+        "model": "models.publishedgraphedit",
+        "pk": "f83322e0-9df6-11ef-ac32-0aa766c61b65",
+        "fields": {
+            "edit_time": "2024-11-08T11:29:12.339",
+            "publication": "6b07140a-2f4f-11ef-ae31-acde48001122",
+            "notes": null,
+            "user": null
+        }
+    },
+    {
+        "model": "models.publishedgraphedit",
+        "pk": "f83788c6-9df6-11ef-ac32-0aa766c61b65",
+        "fields": {
+            "edit_time": "2024-11-08T11:29:12.367",
+            "publication": "ab3f6684-7b6d-11ef-a937-0aa766c61b64",
+            "notes": null,
+            "user": null
+        }
+    },
+    {
+        "model": "models.publishedgraphedit",
+        "pk": "f838e2ca-9df6-11ef-ac32-0aa766c61b65",
+        "fields": {
+            "edit_time": "2024-11-08T11:29:12.376",
+            "publication": "fc50d346-7b6d-11ef-a937-0aa766c61b64",
+            "notes": null,
+            "user": null
+        }
+    },
+    {
+        "model": "models.publishedgraphedit",
+        "pk": "f839fe58-9df6-11ef-ac32-0aa766c61b65",
+        "fields": {
+            "edit_time": "2024-11-08T11:29:12.384",
+            "publication": "dbefcc6a-7b6d-11ef-a937-0aa766c61b64",
+            "notes": null,
+            "user": null
         }
     },
     {
@@ -3295,6 +4378,114 @@
     {
         "model": "models.nodegroup",
         "pk": "dbdf0db2-7b6d-11ef-a937-0aa766c61b64",
+        "fields": {
+            "legacygroupid": null,
+            "cardinality": "1",
+            "parentnodegroup": null
+        }
+    },
+    {
+        "model": "models.nodegroup",
+        "pk": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "legacygroupid": null,
+            "cardinality": "n",
+            "parentnodegroup": null
+        }
+    },
+    {
+        "model": "models.nodegroup",
+        "pk": "deb222c4-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "legacygroupid": null,
+            "cardinality": "1",
+            "parentnodegroup": "deb22738-96e1-11ef-a752-0aa766c61b64"
+        }
+    },
+    {
+        "model": "models.nodegroup",
+        "pk": "deb2245e-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "legacygroupid": null,
+            "cardinality": "1",
+            "parentnodegroup": "deb22738-96e1-11ef-a752-0aa766c61b64"
+        }
+    },
+    {
+        "model": "models.nodegroup",
+        "pk": "deb225d0-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "legacygroupid": null,
+            "cardinality": "1",
+            "parentnodegroup": "deb22738-96e1-11ef-a752-0aa766c61b64"
+        }
+    },
+    {
+        "model": "models.nodegroup",
+        "pk": "deb22738-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "legacygroupid": null,
+            "cardinality": "1",
+            "parentnodegroup": null
+        }
+    },
+    {
+        "model": "models.nodegroup",
+        "pk": "deb228a0-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "legacygroupid": null,
+            "cardinality": "1",
+            "parentnodegroup": "deb22738-96e1-11ef-a752-0aa766c61b64"
+        }
+    },
+    {
+        "model": "models.nodegroup",
+        "pk": "deb22a08-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "legacygroupid": null,
+            "cardinality": "1",
+            "parentnodegroup": null
+        }
+    },
+    {
+        "model": "models.nodegroup",
+        "pk": "deb22b5c-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "legacygroupid": null,
+            "cardinality": "1",
+            "parentnodegroup": "deb22cba-96e1-11ef-a752-0aa766c61b64"
+        }
+    },
+    {
+        "model": "models.nodegroup",
+        "pk": "deb22cba-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "legacygroupid": null,
+            "cardinality": "1",
+            "parentnodegroup": null
+        }
+    },
+    {
+        "model": "models.nodegroup",
+        "pk": "deb22e0e-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "legacygroupid": null,
+            "cardinality": "1",
+            "parentnodegroup": "deb22cba-96e1-11ef-a752-0aa766c61b64"
+        }
+    },
+    {
+        "model": "models.nodegroup",
+        "pk": "deb22f6c-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "legacygroupid": null,
+            "cardinality": "n",
+            "parentnodegroup": "deb22cba-96e1-11ef-a752-0aa766c61b64"
+        }
+    },
+    {
+        "model": "models.nodegroup",
+        "pk": "deb230ca-96e1-11ef-a752-0aa766c61b64",
         "fields": {
             "legacygroupid": null,
             "cardinality": "1",
@@ -3723,7 +4914,7 @@
             "datatype": "domain-value",
             "nodegroup": "32f2d663-fae4-11e6-83ad-6c4008b05c4c",
             "graph": "ff623370-fa12-11e6-b98b-6c4008b05c4c",
-            "config": "{\"options\": [{\"id\": \"d010673f-506c-4e11-b705-d994535fa937\", \"text\": \"d3.scale.category20b()\", \"selected\": false}, {\"id\": \"94790607-b2bf-4328-bc1d-6c8e8d1aff42\", \"text\": \"d3.scale.category20()\", \"selected\": false}, {\"id\": \"92fc786c-3713-46a5-80d0-39cbc5c554ca\", \"text\": \"d3.scale.category10()\", \"selected\": false}, {\"id\": \"80e585ab-1eb6-44c0-a7de-222f27b1d8bb\", \"text\": \"d3.scale.category20c()\", \"selected\": false}], \"i18n_config\": {\"fn\": \"arches.app.datatypes.datatypes.DomainDataType\"}}",
+            "config": "{\"options\": [{\"id\": \"80e585ab-1eb6-44c0-a7de-222f27b1d8bb\", \"text\": \"d3.scale.category20c()\", \"selected\": false}, {\"id\": \"92fc786c-3713-46a5-80d0-39cbc5c554ca\", \"text\": \"d3.scale.category10()\", \"selected\": false}, {\"id\": \"94790607-b2bf-4328-bc1d-6c8e8d1aff42\", \"text\": \"d3.scale.category20()\", \"selected\": false}, {\"id\": \"d010673f-506c-4e11-b705-d994535fa937\", \"text\": \"d3.scale.category20b()\", \"selected\": false}], \"i18n_config\": {\"fn\": \"arches.app.datatypes.datatypes.DomainDataType\"}}",
             "issearchable": false,
             "isrequired": false,
             "is_immutable": false,
@@ -3754,7 +4945,7 @@
             "sortorder": 0,
             "fieldname": null,
             "exportable": false,
-            "alias": null,
+            "alias": "concept_node_migration_test",
             "hascustomalias": false,
             "source_identifier": null,
             "sourcebranchpublication": null
@@ -4786,7 +5977,7 @@
             "sortorder": 0,
             "fieldname": null,
             "exportable": false,
-            "alias": null,
+            "alias": "concept_node_migration_test",
             "hascustomalias": false,
             "source_identifier": "64f6553c-7b65-11ef-a937-0aa766c61b64",
             "sourcebranchpublication": null
@@ -4858,7 +6049,7 @@
             "sortorder": 0,
             "fieldname": null,
             "exportable": false,
-            "alias": null,
+            "alias": "no_concept_nodes",
             "hascustomalias": false,
             "source_identifier": null,
             "sourcebranchpublication": null
@@ -5338,9 +6529,849 @@
             "sortorder": 0,
             "fieldname": null,
             "exportable": false,
-            "alias": null,
+            "alias": "no_concept_nodes",
             "hascustomalias": false,
             "source_identifier": "c362fd2a-7b6d-11ef-a937-0aa766c61b64",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "SAVED_SEARCHES",
+            "description": "",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "saved_searches",
+            "hascustomalias": false,
+            "source_identifier": "feb95991-fa14-11e6-974f-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb222c4-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Project Extent",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": "deb222c4-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "project_extent",
+            "hascustomalias": false,
+            "source_identifier": "0e8fdef0-4148-11e7-8330-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb2245e-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Mapbox",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": "deb2245e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "mapbox",
+            "hascustomalias": false,
+            "source_identifier": "0e8fe457-4148-11e7-9c10-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb225d0-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Map Zoom",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": "deb225d0-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "map_zoom",
+            "hascustomalias": false,
+            "source_identifier": "0e8fe87a-4148-11e7-aa8b-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb22738-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Map Settings",
+            "description": "",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": "deb22738-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "map_settings",
+            "hascustomalias": false,
+            "source_identifier": "0e8ff31c-4148-11e7-998a-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb228a0-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "Search Results Grid",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": "deb228a0-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "search_results_grid",
+            "hascustomalias": false,
+            "source_identifier": "0e8ff675-4148-11e7-9c88-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb22a08-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "TEMPORAL_SEARCH",
+            "description": "",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": "deb22a08-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "temporal_search",
+            "hascustomalias": false,
+            "source_identifier": "32f2d663-fae4-11e6-83ad-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb22b5c-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "ANALYTICS",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": "deb22b5c-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "analytics",
+            "hascustomalias": false,
+            "source_identifier": "c5a2a2e8-fadd-11e6-9849-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb22cba-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "SYSTEM_SETTINGS",
+            "description": "",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": "deb22cba-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "system_settings",
+            "hascustomalias": false,
+            "source_identifier": "c5a2a914-fadd-11e6-8f8f-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb22e0e-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "APP_NAMES",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": "deb22e0e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "app_names",
+            "hascustomalias": false,
+            "source_identifier": "c5a2b1dc-fadd-11e6-a726-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb22f6c-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "SPARQL_ENDPOINT_PROVIDERS",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": "deb22f6c-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "sparql_endpoint_providers",
+            "hascustomalias": false,
+            "source_identifier": "c5a2b530-fadd-11e6-b5f6-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb230ca-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "BASIC_SEARCH_SETTINGS",
+            "description": "",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": "deb230ca-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "basic_search_settings",
+            "hascustomalias": false,
+            "source_identifier": "d0987880-fad8-11e6-8cce-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb23228-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "SEARCH_ITEMS_PER_PAGE",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "number",
+            "nodegroup": "deb230ca-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "search_items_per_page",
+            "hascustomalias": false,
+            "source_identifier": "d0987de3-fad8-11e6-a434-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb23296-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "SEARCH_EXPORT_LIMIT",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "number",
+            "nodegroup": "deb230ca-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "search_export_limit",
+            "hascustomalias": false,
+            "source_identifier": "d0987ec0-fad8-11e6-aad3-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb232e6-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "DEFAULT_MAP_ZOOM",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "number",
+            "nodegroup": "deb225d0-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "default_map_zoom",
+            "hascustomalias": false,
+            "source_identifier": "0e8ff9d1-4148-11e7-90ed-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb23336-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "HEX_BIN_PRECISION",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "number",
+            "nodegroup": "deb228a0-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "hex_bin_precision",
+            "hascustomalias": false,
+            "source_identifier": "0e8ffaf5-4148-11e7-b24d-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb2337c-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "DEFAULT_BOUNDS",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "geojson-feature-collection",
+            "nodegroup": "deb222c4-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{\"radius\": 2, \"weight\": 2, \"addToMap\": false, \"fillColor\": \"rgba(130, 130, 130, 0.5)\", \"layerIcon\": \"\", \"layerName\": \"\", \"lineColor\": \"rgba(130, 130, 130, 0.7)\", \"haloRadius\": 4, \"haloWeight\": 4, \"pointColor\": \"rgba(130, 130, 130, 0.7)\", \"layerLegend\": \"\", \"outlineColor\": \"rgba(200, 200, 200, 0.7)\", \"advancedStyle\": \"\", \"lineHaloColor\": \"rgba(200, 200, 200, 0.5)\", \"outlineWeight\": 2, \"clusterMaxZoom\": 5, \"layerActivated\": true, \"pointHaloColor\": \"rgba(200, 200, 200, 0.5)\", \"simplification\": 0.3, \"advancedStyling\": false, \"clusterDistance\": 20, \"clusterMinPoints\": 3}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "default_bounds",
+            "hascustomalias": false,
+            "source_identifier": "0e8ffbcf-4148-11e7-a95a-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb233cc-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "HEX_BIN_SIZE",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "number",
+            "nodegroup": "deb228a0-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "hex_bin_size",
+            "hascustomalias": false,
+            "source_identifier": "0e8ffcab-4148-11e7-a571-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb23412-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "MAP_MAX_ZOOM",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "number",
+            "nodegroup": "deb225d0-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "map_max_zoom",
+            "hascustomalias": false,
+            "source_identifier": "0e8fff21-4148-11e7-ba78-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb23462-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "MAPBOX_API_KEY",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "string",
+            "nodegroup": "deb2245e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "mapbox_api_key",
+            "hascustomalias": false,
+            "source_identifier": "0e9000b0-4148-11e7-bd19-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb234a8-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "MAP_MIN_ZOOM",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "number",
+            "nodegroup": "deb225d0-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "map_min_zoom",
+            "hascustomalias": false,
+            "source_identifier": "0e90017a-4148-11e7-82ce-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb234ee-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "MAPBOX_SPRITES",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "string",
+            "nodegroup": "deb2245e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "mapbox_sprites",
+            "hascustomalias": false,
+            "source_identifier": "0e900254-4148-11e7-9902-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb2353e-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "MAPBOX_GLYPHS",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "string",
+            "nodegroup": "deb2245e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "mapbox_glyphs",
+            "hascustomalias": false,
+            "source_identifier": "0e90031e-4148-11e7-a176-c4b301baab9f",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb2358e-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "TIME_WHEEL_CONFIGURATION",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "string",
+            "nodegroup": "deb22a08-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "time_wheel_configuration",
+            "hascustomalias": false,
+            "source_identifier": "32f2dc66-fae4-11e6-9556-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb235d4-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "COLOR_RAMP",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "domain-value",
+            "nodegroup": "deb22a08-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{\"options\": [{\"id\": \"80e585ab-1eb6-44c0-a7de-222f27b1d8bb\", \"text\": \"d3.scale.category20c()\", \"selected\": false}, {\"id\": \"92fc786c-3713-46a5-80d0-39cbc5c554ca\", \"text\": \"d3.scale.category10()\", \"selected\": false}, {\"id\": \"94790607-b2bf-4328-bc1d-6c8e8d1aff42\", \"text\": \"d3.scale.category20()\", \"selected\": false}, {\"id\": \"d010673f-506c-4e11-b705-d994535fa937\", \"text\": \"d3.scale.category20b()\", \"selected\": false}], \"i18n_config\": {\"fn\": \"arches.app.datatypes.datatypes.DomainDataType\"}}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "color_ramp",
+            "hascustomalias": false,
+            "source_identifier": "32f2de17-fae4-11e6-bb3b-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb23624-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "APP_NAME",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "string",
+            "nodegroup": "deb22e0e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "app_name",
+            "hascustomalias": false,
+            "source_identifier": "c5a2b94a-fadd-11e6-a029-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb2366a-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "SPARQL_ENDPOINT_PROVIDER",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "string",
+            "nodegroup": "deb22f6c-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "sparql_endpoint_provider",
+            "hascustomalias": false,
+            "source_identifier": "c5a2ba63-fadd-11e6-9306-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb236b0-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "ETL_USERNAME",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "string",
+            "nodegroup": "deb22e0e-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "etl_username",
+            "hascustomalias": false,
+            "source_identifier": "c5a2bdb3-fadd-11e6-8c96-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb236f6-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "GOOGLE_ANALYTICS_TRACKING_ID",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "string",
+            "nodegroup": "deb22b5c-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "google_analytics_tracking_id",
+            "hascustomalias": false,
+            "source_identifier": "c5a2be85-fadd-11e6-b72f-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb23746-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "SEARCH_DROPDOWN_LENGTH",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "number",
+            "nodegroup": "deb230ca-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "search_dropdown_length",
+            "hascustomalias": false,
+            "source_identifier": "d0987cc2-fad8-11e6-8581-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb2378c-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "SEARCH_URL",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "string",
+            "nodegroup": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "search_url",
+            "hascustomalias": false,
+            "source_identifier": "feb95eae-fa14-11e6-9683-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb237d2-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "IMAGE",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "file-list",
+            "nodegroup": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{\"maxFiles\": 1, \"imagesOnly\": false, \"activateMax\": false, \"maxFileSize\": null}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "image",
+            "hascustomalias": false,
+            "source_identifier": "feb96005-fa14-11e6-aa8d-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb23818-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "SEARCH_NAME",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "string",
+            "nodegroup": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "search_name",
+            "hascustomalias": false,
+            "source_identifier": "feb96126-fa14-11e6-9f19-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb2385e-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "SEARCH_DESCRIPTION",
+            "description": "Represents a single node in a graph",
+            "istopnode": false,
+            "ontologyclass": null,
+            "datatype": "string",
+            "nodegroup": "deb2208a-96e1-11ef-a752-0aa766c61b64",
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": false,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "search_description",
+            "hascustomalias": false,
+            "source_identifier": "feb9623d-fa14-11e6-a9c3-6c4008b05c4c",
+            "sourcebranchpublication": null
+        }
+    },
+    {
+        "model": "models.node",
+        "pk": "deb238a4-96e1-11ef-a752-0aa766c61b64",
+        "fields": {
+            "name": "ARCHES_SYSTEM_SETTINGS",
+            "description": "",
+            "istopnode": true,
+            "ontologyclass": null,
+            "datatype": "semantic",
+            "nodegroup": null,
+            "graph": "deb21f68-96e1-11ef-a752-0aa766c61b64",
+            "config": "{}",
+            "issearchable": true,
+            "isrequired": false,
+            "is_immutable": false,
+            "sortorder": 0,
+            "fieldname": "",
+            "exportable": false,
+            "alias": "arches_system_settings",
+            "hascustomalias": false,
+            "source_identifier": "ff62303a-fa12-11e6-a889-6c4008b05c4c",
             "sourcebranchpublication": null
         }
     },
@@ -5362,7 +7393,7 @@
             "sortorder": 0,
             "fieldname": null,
             "exportable": false,
-            "alias": null,
+            "alias": "collection_not_migrated",
             "hascustomalias": false,
             "source_identifier": null,
             "sourcebranchpublication": null
@@ -5434,7 +7465,7 @@
             "sortorder": 0,
             "fieldname": null,
             "exportable": false,
-            "alias": null,
+            "alias": "collection_not_migrated",
             "hascustomalias": false,
             "source_identifier": "e42f3e9c-7b6d-11ef-a937-0aa766c61b64",
             "sourcebranchpublication": null
@@ -5622,33 +7653,6 @@
     },
     {
         "model": "models.relation",
-        "pk": "67b23ff6-7b6b-11ef-a83a-db4328ef67dc",
-        "fields": {
-            "conceptfrom": "00000000-0000-0000-0000-000000000001",
-            "conceptto": "00000000-0000-0000-0000-000000000004",
-            "relationtype": "hasTopConcept"
-        }
-    },
-    {
-        "model": "models.relation",
-        "pk": "67b24e56-7b6b-11ef-a83a-af077e38e1b3",
-        "fields": {
-            "conceptfrom": "00000000-0000-0000-0000-000000000005",
-            "conceptto": "00000000-0000-0000-0000-000000000007",
-            "relationtype": "member"
-        }
-    },
-    {
-        "model": "models.relation",
-        "pk": "67e389e4-7b6b-11ef-a83a-e70f5a464ed7",
-        "fields": {
-            "conceptfrom": "00000000-0000-0000-0000-000000000004",
-            "conceptto": "00000000-0000-0000-0000-000000000007",
-            "relationtype": "narrower"
-        }
-    },
-    {
-        "model": "models.relation",
         "pk": "7674c581-de56-453e-ae53-3be73eb518e4",
         "fields": {
             "conceptfrom": "2a259f4b-807c-4574-b681-47fef3086d88",
@@ -5671,6 +7675,33 @@
         "fields": {
             "conceptfrom": "7ea5b0e1-d3b2-42bc-9f8f-5021012abcd2",
             "conceptto": "8f9a53b7-35cd-48be-9093-bd202fbe8e0b",
+            "relationtype": "narrower"
+        }
+    },
+    {
+        "model": "models.relation",
+        "pk": "d9918fb4-96e1-11ef-9dd1-7b5ac4a2a1e3",
+        "fields": {
+            "conceptfrom": "00000000-0000-0000-0000-000000000001",
+            "conceptto": "00000000-0000-0000-0000-000000000004",
+            "relationtype": "hasTopConcept"
+        }
+    },
+    {
+        "model": "models.relation",
+        "pk": "d991aa8a-96e1-11ef-9dd1-c30af9e29f7a",
+        "fields": {
+            "conceptfrom": "00000000-0000-0000-0000-000000000005",
+            "conceptto": "00000000-0000-0000-0000-000000000007",
+            "relationtype": "member"
+        }
+    },
+    {
+        "model": "models.relation",
+        "pk": "d9b81a6c-96e1-11ef-9dd1-1713c8e4a74e",
+        "fields": {
+            "conceptfrom": "00000000-0000-0000-0000-000000000004",
+            "conceptto": "00000000-0000-0000-0000-000000000007",
             "relationtype": "narrower"
         }
     },
