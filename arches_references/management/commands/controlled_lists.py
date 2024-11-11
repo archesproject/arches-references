@@ -15,6 +15,7 @@ from django.db import models, transaction
 from django.db.models.expressions import CombinedExpression
 from django.db.models.fields.json import KT
 from django.db.models.functions import Cast
+from uuid import UUID
 
 
 class Command(BaseCommand):
@@ -78,7 +79,7 @@ class Command(BaseCommand):
             "--graph",
             action="store",
             dest="graph",
-            help="The graphid which associated concept nodes will be migrated to use the reference datatype",
+            help="The graphid or slug which associated concept nodes will be migrated to use the reference datatype",
         )
 
     def handle(self, *args, **options):
@@ -169,15 +170,21 @@ class Command(BaseCommand):
             result = cursor.fetchone()
             self.stdout.write(result[0])
 
-    def migrate_concept_nodes_to_reference_datatype(self, graph_id):
+    def migrate_concept_nodes_to_reference_datatype(self, graph):
         try:
-            source_graph = GraphModel.objects.get(pk=graph_id)
+            try:
+                UUID(str(graph))
+                query = models.Q(graphid=graph)
+            except (ValueError, TypeError):
+                query = models.Q(slug=graph, source_identifier__isnull=True)
+            source_graph = GraphModel.objects.get(query)
+            graph_id = source_graph.graphid
         except (GraphModel.DoesNotExist, ValidationError) as e:
             raise CommandError(e)
 
         nodes = (
             Node.objects.filter(
-                graph_id=source_graph.graphid,
+                graph_id=graph_id,
                 datatype__in=["concept", "concept-list"],
                 is_immutable=False,
             )
