@@ -191,7 +191,12 @@ class MigrateConceptNodesToReferenceDatatypeTests(TestCase):
         self.assertEqual(len(reference_nodes), 4)
 
         expected_node_config_keys = ["multiValue", "controlledList"]
-        expected_widget_config_keys = ["label", "placeholder", "i18n_properties"]
+        expected_widget_config_keys = [
+            "label",
+            "placeholder",
+            "defaultValue",
+            "i18n_properties",
+        ]
         for node in reference_nodes:
             self.assertEqual(expected_node_config_keys, list(node.config.keys()))
             for widget in node.cardxnodexwidget_set.all():

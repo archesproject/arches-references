@@ -3799,7 +3799,7 @@
             "jsonldcontext": null,
             "template": "50000000-0000-0000-0000-000000000001",
             "config": {},
-            "slug": null,
+            "slug": "concept-node-migration-test",
             "publication": "ab3f6684-7b6d-11ef-a937-0aa766c61b64",
             "source_identifier": null,
             "has_unpublished_changes": false,
