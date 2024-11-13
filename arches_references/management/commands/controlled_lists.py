@@ -280,6 +280,10 @@ class Command(BaseCommand):
                                 )
                                 if isinstance(new_value, list):
                                     new_default_value.append(new_value[0])
+                                else:
+                                    raise CommandError(
+                                        f"Failed to convert original default value: {value_rec.value} in list: {node.collection_id} for node: {node.name} into a reference datatype instance"
+                                    )
                             cross_record.config_without_options["defaultValue"] = (
                                 new_default_value
                             )
