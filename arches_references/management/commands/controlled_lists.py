@@ -1,15 +1,3 @@
-from arches.app.datatypes.datatypes import DataTypeFactory
-from arches.app.models.fields.i18n import I18n_JSONField
-from arches.app.models.graph import Graph
-from arches.app.models.models import (
-    CardXNodeXWidget,
-    GraphModel,
-    Language,
-    Node,
-    Value,
-    Widget,
-)
-from arches_references.models import List
 from django.core.exceptions import ValidationError
 from django.core.management.base import BaseCommand, CommandError
 from django.db import models, transaction
@@ -17,6 +5,18 @@ from django.db.models.expressions import CombinedExpression
 from django.db.models.fields.json import KT
 from django.db.models.functions import Cast
 from uuid import UUID
+
+from arches.app.datatypes.datatypes import DataTypeFactory
+from arches.app.models.fields.i18n import I18n_JSONField
+from arches.app.models.graph import Graph
+from arches.app.models.models import (
+    GraphModel,
+    Language,
+    Node,
+    Value,
+    Widget,
+)
+from arches_references.models import List
 
 
 class Command(BaseCommand):
@@ -112,7 +112,10 @@ class Command(BaseCommand):
                 preferred_sort_language=psl,
             )
         elif options["operation"] == "migrate_concept_nodes_to_reference_datatype":
-            self.migrate_concept_nodes_to_reference_datatype(options["graph"])
+            graph = options["graph"]
+            if not graph or graph is None:
+                raise CommandError("Please provide a graph id or slug")
+            self.migrate_concept_nodes_to_reference_datatype(graph)
 
     def migrate_collections_to_controlled_lists(
         self,
@@ -173,15 +176,17 @@ class Command(BaseCommand):
 
     def migrate_concept_nodes_to_reference_datatype(self, graph):
         try:
-            try:
-                UUID(str(graph))
-                query = models.Q(graphid=graph)
-            except (ValueError, TypeError):
-                query = models.Q(slug=graph, source_identifier__isnull=True)
+            UUID(graph)
+            query = models.Q(graphid=graph)
+        except ValueError:
+            query = models.Q(slug=graph, source_identifier__isnull=True)
+
+        try:
             source_graph = GraphModel.objects.get(query)
-            graph_id = source_graph.graphid
-        except (GraphModel.DoesNotExist, ValidationError) as e:
+        except GraphModel.DoesNotExist as e:
             raise CommandError(e)
+
+        graph_id = source_graph.graphid
 
         nodes = (
             Node.objects.filter(
@@ -196,12 +201,6 @@ class Command(BaseCommand):
                 )
             )
             .prefetch_related("cardxnodexwidget_set")
-            .annotate(
-                widget_config=Cast(
-                    models.F("cardxnodexwidget__config"),
-                    output_field=models.JSONField(),
-                )
-            )
         )
 
         if len(nodes) == 0:
@@ -250,13 +249,8 @@ class Command(BaseCommand):
                     node.save()
 
                     cross_records = node.cardxnodexwidget_set.annotate(
-                        config_without_i18n=Cast(
-                            models.F("config"),
-                            output_field=models.JSONField(),
-                        )
-                    ).annotate(
                         config_without_options=CombinedExpression(
-                            models.F("config_without_i18n"),
+                            models.F("config"),
                             "-",
                             models.Value("options", output_field=models.CharField()),
                             output_field=I18n_JSONField(),
@@ -284,7 +278,8 @@ class Command(BaseCommand):
                                     value=value_rec.value,
                                     **config,
                                 )
-                                new_default_value.append(new_value[0])
+                                if isinstance(new_value, list):
+                                    new_default_value.append(new_value[0])
                             cross_record.config_without_options["defaultValue"] = (
                                 new_default_value
                             )
