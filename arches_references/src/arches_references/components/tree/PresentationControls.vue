@@ -44,7 +44,10 @@ const { expandAll, collapseAll } = defineProps<{
             :label="$gettext('Collapse all')"
             @click="collapseAll"
         />
-        <div style="display: flex; flex-grow: 1; justify-content: flex-end">
+        <div
+            v-if="arches.languages"
+            class="language-select"
+        >
             <span
                 id="languageSelectLabel"
                 style="
@@ -77,5 +80,11 @@ const { expandAll, collapseAll } = defineProps<{
 .secondary-button {
     height: 3rem;
     margin: 0.5rem;
+}
+
+.language-select {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
 }
 </style>
