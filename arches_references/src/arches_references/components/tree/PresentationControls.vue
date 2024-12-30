@@ -16,14 +16,18 @@ import { shouldUseContrast } from "@/arches_references/utils.ts";
 import type { Ref } from "vue";
 import type { Language } from "@/arches_vue_utils/types";
 
-const { $gettext } = useGettext();
-
-const selectedLanguage = inject(selectedLanguageKey) as Ref<Language>;
-
 const { expandAll, collapseAll } = defineProps<{
     expandAll: () => void;
     collapseAll: () => void;
 }>();
+
+let selectedLanguage: Ref<Language> | undefined;
+if (arches.languages) {
+    // arches-lingo reuses this component without this provided.
+    selectedLanguage = inject(selectedLanguageKey);
+}
+
+const { $gettext } = useGettext();
 </script>
 
 <template>
