@@ -32,7 +32,7 @@ const panel = computed(() => {
 </script>
 
 <template>
-    <Splitter style="height: 100%">
+    <Splitter style="height: 100%; overflow: hidden">
         <SplitterPanel
             :size="34"
             :min-size="25"
