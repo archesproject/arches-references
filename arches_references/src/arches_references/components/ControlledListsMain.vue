@@ -54,8 +54,7 @@ provide(systemLanguageKey, systemLanguage);
 </script>
 
 <template>
-    <!-- Subtract size of arches toolbars -->
-    <div style="width: calc(100vw - 50px); height: calc(100vh - 50px)">
+    <div style="width: 100vw; height: 100vh; padding-bottom: 1.75rem">
         <div class="list-editor-container">
             <ListHeader />
             <MainSplitter />
