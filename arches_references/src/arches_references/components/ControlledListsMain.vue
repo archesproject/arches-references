@@ -54,7 +54,7 @@ provide(systemLanguageKey, systemLanguage);
 </script>
 
 <template>
-    <div style="width: 100%; height: 100vh; padding-bottom: 1.75rem">
+    <div style="height: 100vh; padding-bottom: 2.5rem">
         <div class="list-editor-container">
             <ListHeader />
             <MainSplitter />
