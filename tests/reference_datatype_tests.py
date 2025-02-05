@@ -1,8 +1,12 @@
+import uuid
+from types import SimpleNamespace
+
+from django.test import TestCase
 from arches.app.datatypes.datatypes import DataTypeFactory
 from arches.app.models.tile import Tile
 from arches_references.models import List, ListItem, ListItemValue
-from django.test import TestCase
-from types import SimpleNamespace
+
+from tests.test_views import ListTests
 
 # these tests can be run from the command line via
 # python manage.py test tests.reference_datatype_tests --settings="tests.test_settings"
@@ -12,22 +16,40 @@ class ReferenceDataTypeTests(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        from tests.test_views import ListTests
-
         return ListTests.setUpTestData()
 
     def test_validate(self):
         reference = DataTypeFactory().get_instance("reference")
 
-        for value in [
-            "",
-            [],
-            [{}],  # reference has no 'uri'
-            [{"uri": ""}],  # reference uri is empty
+        for value, message in [
+            ("", "Reference datatype value cannot be empty"),
+            ([], "Reference datatype value cannot be empty"),
+            ([{}], "Missing required value(s): 'uri', 'labels', and 'list_id'"),
+            (
+                [
+                    {
+                        "uri": "",
+                        "labels": [],  # notice [] rather than None
+                        "list_id": str(uuid.uuid4()),
+                    }
+                ],
+                "Missing required value(s): 'labels'",
+            ),
+            (
+                [
+                    {
+                        "uri": "https://www.domain.com/123",
+                        "labels": [],
+                        "garbage_key": "garbage_value",
+                    }
+                ],
+                "Unexpected value: 'garbage_key'",
+            ),
         ]:
             with self.subTest(reference_value=value):
                 errors = reference.validate(value)
-                self.assertTrue(len(errors) > 0)
+                self.assertEqual(len(errors), 1, errors)
+                self.assertEqual(errors[0]["message"], message)
 
         data = {
             "uri": "https://www.domain.com/label",
@@ -36,6 +58,7 @@ class ReferenceDataTypeTests(TestCase):
                     "id": "23b4efbd-2e46-4b3f-8d75-2f3b2bb96af2",
                     "value": "label",
                     "language_id": "en",
+                    "list_item_id": str(uuid.uuid4()),
                     "valuetype_id": "prefLabel",
                 },
                 {
@@ -44,22 +67,24 @@ class ReferenceDataTypeTests(TestCase):
                     "valuetype_id": "prefLabel",
                 },
             ],
+            "list_id": uuid.uuid4(),
         }
 
         errors = reference.validate(value=[data])  # label missing value property
-        self.assertIsNotNone(errors)
+        self.assertEqual(len(errors), 1, errors)
 
         data["labels"][1]["value"] = "a label"
         data["labels"][1]["language_id"] = "en"
 
         errors = reference.validate(value=[data])  # too many prefLabels per language
-        self.assertIsNotNone(errors)
+        self.assertEqual(len(errors), 1, errors)
 
         data["labels"][1]["value"] = "ein label"
         data["labels"][1]["language_id"] = "de"
+        data["labels"][1]["list_item_id"] = str(uuid.uuid4())
 
         errors = reference.validate(value=[data])  # data should be valid
-        self.assertTrue(len(errors) == 0)
+        self.assertEqual(errors, [])
 
     def test_tile_clean(self):
         reference = DataTypeFactory().get_instance("reference")
@@ -76,7 +101,7 @@ class ReferenceDataTypeTests(TestCase):
                         "valuetype_id": "prefLabel",
                     },
                 ],
-                "listid": "fd9508dc-2aab-4c46-85ae-dccce1200035",
+                "list_id": "fd9508dc-2aab-4c46-85ae-dccce1200035",
             }
         ]
 
@@ -105,7 +130,7 @@ class ReferenceDataTypeTests(TestCase):
         self.assertTrue(isinstance(tile_value1, list))
         self.assertTrue("uri" in tile_value1[0])
         self.assertTrue("labels" in tile_value1[0])
-        self.assertTrue("listid" in tile_value1[0])
+        self.assertTrue("list_id" in tile_value1[0])
 
         self.assertIsNone(reference.transform_value_for_tile(None, **config))
 
@@ -154,7 +179,7 @@ class ReferenceDataTypeTests(TestCase):
                                     "valuetype_id": "prefLabel",
                                 },
                             ],
-                            "listid": "a8da34eb-575b-498c-ada7-161ee745fd16",
+                            "list_id": "a8da34eb-575b-498c-ada7-161ee745fd16",
                         }
                     ]
                 },
