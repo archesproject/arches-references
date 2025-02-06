@@ -64,6 +64,7 @@ class ReferenceDataTypeTests(TestCase):
                 {
                     "id": "e8676242-f0c7-4e3d-b031-fded4960cd86",
                     "language_id": "de",
+                    "list_item_id": str(uuid.uuid4()),
                     "valuetype_id": "prefLabel",
                 },
             ],
@@ -99,6 +100,7 @@ class ReferenceDataTypeTests(TestCase):
                         "value": "label",
                         "language_id": "en",
                         "valuetype_id": "prefLabel",
+                        "list_item_id": str(uuid.uuid4()),
                     },
                 ],
                 "list_id": "fd9508dc-2aab-4c46-85ae-dccce1200035",
@@ -120,6 +122,15 @@ class ReferenceDataTypeTests(TestCase):
         tile1.data[nodeid] = []
         reference.clean(tile1, nodeid)
         self.assertIsNone(tile1.data[nodeid])
+
+    def test_dataclass_roundtrip(self):
+        reference = DataTypeFactory().get_instance("reference")
+        list1_pk = str(List.objects.get(name="list1").pk)
+        config = {"controlledList": list1_pk}
+        tile_val = reference.transform_value_for_tile("label1-pref", **config)
+        materialized = reference.to_python(tile_val)
+        tile_val_reparsed = reference.transform_value_for_tile(materialized, **config)
+        self.assertEqual(tile_val_reparsed, tile_val)
 
     def test_transform_value_for_tile(self):
         reference = DataTypeFactory().get_instance("reference")

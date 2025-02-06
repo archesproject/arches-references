@@ -1,5 +1,5 @@
 import uuid
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 
 from django.db.models.fields.json import JSONField
 from django.utils.translation import get_language, gettext as _
@@ -29,15 +29,14 @@ class Reference:
 class ReferenceDataType(BaseDataType):
     rest_framework_model_field = JSONField(null=True)
 
-    @staticmethod
-    def to_python(tile_val):
-        if tile_val is None:
+    def to_python(self, value):
+        if value is None:
             return None
-        if not tile_val:
+        if not value:
             raise ValueError(_("Reference datatype value cannot be empty"))
 
         references = []
-        for reference in tile_val:
+        for reference in value:
             incoming_args = {**reference}
             if labels := incoming_args.get("labels"):
                 incoming_args["labels"] = [
@@ -48,6 +47,14 @@ class ReferenceDataType(BaseDataType):
             references.append(Reference(**incoming_args))
 
         return references
+
+    def serialize(self, value):
+        if isinstance(value, list):
+            return [
+                asdict(reference) if isinstance(reference, Reference) else {**reference}
+                for reference in value
+            ]
+        return value
 
     def validate(
         self,
@@ -100,6 +107,7 @@ class ReferenceDataType(BaseDataType):
 
     def transform_value_for_tile(self, value, **kwargs):
         list_id = kwargs.get("controlledList")
+        value = self.serialize(value)
         if (
             isinstance(value, list)
             and isinstance(value[0], dict)
