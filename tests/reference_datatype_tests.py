@@ -95,6 +95,10 @@ class ReferenceDataTypeTests(TestCase):
         errors = reference.validate(value=[data, data], node=mock_node)
         self.assertEqual(len(errors), 1, errors)
 
+        # User error (missing arguments)
+        errors = reference.validate(value=[data])
+        self.assertEqual(len(errors), 1, errors)
+
     def test_tile_clean(self):
         reference = DataTypeFactory().get_instance("reference")
         nodeid = "72048cb3-adbc-11e6-9ccf-14109fd34195"
