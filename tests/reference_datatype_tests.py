@@ -20,6 +20,7 @@ class ReferenceDataTypeTests(TestCase):
 
     def test_validate(self):
         reference = DataTypeFactory().get_instance("reference")
+        mock_node = SimpleNamespace(config={"multiValue": False})
 
         for value, message in [
             ("", "Reference datatype value cannot be empty"),
@@ -47,7 +48,7 @@ class ReferenceDataTypeTests(TestCase):
             ),
         ]:
             with self.subTest(reference_value=value):
-                errors = reference.validate(value)
+                errors = reference.validate(value, node=mock_node)
                 self.assertEqual(len(errors), 1, errors)
                 self.assertEqual(errors[0]["message"], message)
 
@@ -71,21 +72,28 @@ class ReferenceDataTypeTests(TestCase):
             "list_id": uuid.uuid4(),
         }
 
-        errors = reference.validate(value=[data])  # label missing value property
+        # Label missing value property
+        errors = reference.validate(value=[data], node=mock_node)
         self.assertEqual(len(errors), 1, errors)
 
         data["labels"][1]["value"] = "a label"
         data["labels"][1]["language_id"] = "en"
 
-        errors = reference.validate(value=[data])  # too many prefLabels per language
+        # Too many prefLabels per language
+        errors = reference.validate(value=[data], node=mock_node)
         self.assertEqual(len(errors), 1, errors)
 
         data["labels"][1]["value"] = "ein label"
         data["labels"][1]["language_id"] = "de"
         data["labels"][1]["list_item_id"] = str(uuid.uuid4())
 
-        errors = reference.validate(value=[data])  # data should be valid
+        # Valid
+        errors = reference.validate(value=[data], node=mock_node)
         self.assertEqual(errors, [])
+
+        # Too many references
+        errors = reference.validate(value=[data, data], node=mock_node)
+        self.assertEqual(len(errors), 1, errors)
 
     def test_tile_clean(self):
         reference = DataTypeFactory().get_instance("reference")

@@ -5,6 +5,7 @@ from django.db.models.fields.json import JSONField
 from django.utils.translation import get_language, gettext as _
 
 from arches.app.datatypes.base import BaseDataType
+from arches.app.models.models import Node
 from arches.app.models.graph import GraphValidationError
 
 from arches_references.models import ListItem
@@ -69,6 +70,7 @@ class ReferenceDataType(BaseDataType):
         try:
             parsed = self.to_python(value)
             self.validate_pref_labels(parsed)
+            self.validate_multivalue(parsed, node, nodeid)
         except Exception as e:
             return [self.transform_exception(e)]
         return []
@@ -84,6 +86,17 @@ class ReferenceDataType(BaseDataType):
                 msg = _("A reference can have only one prefLabel per language")
                 raise ValueError(msg)
 
+    def validate_multivalue(self, parsed, node, nodeid):
+        if not node:
+            if not nodeid:
+                raise ValueError
+            try:
+                node = Node.objects.get(nodeid=nodeid)
+            except Node.DoesNotExist:
+                return
+        if not node.config.get("multiValue") and len(parsed) > 1:
+            raise ValueError(_("This node does not allow multiple references."))
+
     @staticmethod
     def transform_exception(e):
         message = _("Unknown error")
@@ -97,7 +110,7 @@ class ReferenceDataType(BaseDataType):
                 message = _(
                     "Unexpected value: {}".format(e.args[0].split("argument ")[-1])
                 )
-        elif isinstance(e, ValueError):
+        elif isinstance(e, ValueError) and e.args:
             message = e.args[0]
         return {
             "type": "ERROR",
