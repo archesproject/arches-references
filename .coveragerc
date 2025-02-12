@@ -1,6 +1,6 @@
 [run]
 source =
-    arches_references/
+    arches_controlled_lists/
 
 omit =
     */python?.?/*

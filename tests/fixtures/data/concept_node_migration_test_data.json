@@ -8552,7 +8552,7 @@
         }
     },
     {
-        "model": "arches_references.list",
+        "model": "arches_controlled_lists.list",
         "pk": "2a259f4b-807c-4574-b681-47fef3086d88",
         "fields": {
             "name": "Top concept",
@@ -8561,7 +8561,7 @@
         }
     },
     {
-        "model": "arches_references.listitem",
+        "model": "arches_controlled_lists.listitem",
         "pk": "8f9a53b7-35cd-48be-9093-bd202fbe8e0b",
         "fields": {
             "uri": "http://localhost:8000/plugins/controlled-list-manager/item/8f9a53b7-35cd-48be-9093-bd202fbe8e0b",
@@ -8572,7 +8572,7 @@
         }
     },
     {
-        "model": "arches_references.listitem",
+        "model": "arches_controlled_lists.listitem",
         "pk": "a1f4cab6-f577-40af-b8fe-589c61236dd2",
         "fields": {
             "uri": "http://localhost:8000/plugins/controlled-list-manager/item/a1f4cab6-f577-40af-b8fe-589c61236dd2",
@@ -8583,7 +8583,7 @@
         }
     },
     {
-        "model": "arches_references.listitem",
+        "model": "arches_controlled_lists.listitem",
         "pk": "fde79d7b-9182-4743-bc81-baa2e72367b2",
         "fields": {
             "uri": "http://localhost:8000/plugins/controlled-list-manager/item/fde79d7b-9182-4743-bc81-baa2e72367b2",
@@ -8594,7 +8594,7 @@
         }
     },
     {
-        "model": "arches_references.listitemvalue",
+        "model": "arches_controlled_lists.listitemvalue",
         "pk": "54718390-038b-4d33-907a-e03da3347d96",
         "fields": {
             "list_item": "fde79d7b-9182-4743-bc81-baa2e72367b2",
@@ -8604,7 +8604,7 @@
         }
     },
     {
-        "model": "arches_references.listitemvalue",
+        "model": "arches_controlled_lists.listitemvalue",
         "pk": "7e4c0e04-2a58-456d-8728-5fa8019307a5",
         "fields": {
             "list_item": "8f9a53b7-35cd-48be-9093-bd202fbe8e0b",
@@ -8614,7 +8614,7 @@
         }
     },
     {
-        "model": "arches_references.listitemvalue",
+        "model": "arches_controlled_lists.listitemvalue",
         "pk": "8e88c7ea-a157-4846-826d-4422eb967b9e",
         "fields": {
             "list_item": "a1f4cab6-f577-40af-b8fe-589c61236dd2",

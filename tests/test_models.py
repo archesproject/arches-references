@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from arches_references.models import ListItem
+from arches_controlled_lists.models import ListItem
 
 # these tests can be run from the command line via
 # python manage.py test tests.test_models --settings="tests.test_settings"
