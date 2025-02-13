@@ -1,5 +1,5 @@
 import { beforeAll, vi } from 'vitest';
-import '@/arches_references/declarations.d.ts';
+import '@/arches_controlled_lists/declarations.d.ts';
 
 
 beforeAll(() => {

@@ -4,7 +4,7 @@ from types import SimpleNamespace
 from django.test import TestCase
 from arches.app.datatypes.datatypes import DataTypeFactory
 from arches.app.models.tile import Tile
-from arches_references.models import List, ListItem, ListItemValue
+from arches_controlled_lists.models import List, ListItem, ListItemValue
 
 from tests.test_views import ListTests
 

@@ -10,7 +10,7 @@ from django.core.management.base import CommandError
 
 from arches.app.models.models import Node
 from arches.app.utils.skos import SKOSReader
-from arches_references.models import List, ListItem, ListItemValue
+from arches_controlled_lists.models import List, ListItem, ListItemValue
 
 from .test_settings import PROJECT_TEST_ROOT
 
@@ -168,7 +168,7 @@ class MigrateConceptNodesToReferenceDatatypeTests(TestCase):
     # Contains a Collection "Top Concept", which has been migrated to a controlled list
 
     # To create test fixtures run:
-    # python manage.py dumpdata models.CardModel models.CardComponent models.CardXNodeXWidget models.Concept models.Edge models.GraphModel models.GraphXPublishedGraph models.PublishedGraphEdit models.Language models.NodeGroup models.Node models.Relation models.ResourceXResource models.ResourceInstance models.TileModel models.Value models.Widget arches_references.List arches_references.ListItem arches_references.ListItemValue --format json --output concept_node_migration_test_data.json
+    # python manage.py dumpdata models.CardModel models.CardComponent models.CardXNodeXWidget models.Concept models.Edge models.GraphModel models.GraphXPublishedGraph models.PublishedGraphEdit models.Language models.NodeGroup models.Node models.Relation models.ResourceXResource models.ResourceInstance models.TileModel models.Value models.Widget arches_controlled_lists.List arches_controlled_lists.ListItem arches_controlled_lists.ListItemValue --format json --output concept_node_migration_test_data.json
     fixtures = ["concept_node_migration_test_data"]
 
     def test_migrate_concept_nodes_to_reference_datatype(self):

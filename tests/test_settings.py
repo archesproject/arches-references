@@ -18,9 +18,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import os
 
-from arches_references.settings import *
+from arches_controlled_lists.settings import *
 
-PACKAGE_NAME = "arches_references"
+PACKAGE_NAME = "arches_controlled_lists"
 
 PROJECT_TEST_ROOT = os.path.dirname(__file__)
 MEDIA_ROOT = os.path.join(PROJECT_TEST_ROOT, "fixtures", "data")

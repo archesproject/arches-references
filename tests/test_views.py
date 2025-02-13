@@ -16,7 +16,7 @@ from arches.app.models.models import (
     Node,
     NodeGroup,
 )
-from arches_references.models import (
+from arches_controlled_lists.models import (
     List,
     ListItem,
     ListItemImage,
