@@ -91,6 +91,10 @@ class ReferenceDataTypeTests(TestCase):
         errors = reference.validate(value=[data], node=mock_node)
         self.assertEqual(errors, [])
 
+        # None is always valid.
+        errors = reference.validate(value=None, node=mock_node)
+        self.assertEqual(errors, [])
+
         # Too many references
         errors = reference.validate(value=[data, data], node=mock_node)
         self.assertEqual(len(errors), 1, errors)
